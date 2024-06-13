@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Parts extends BaseEntity{
+@Table (name = "parts")
+public class Part extends BaseEntity{
 
     @Column (nullable = false)
     private String name;

@@ -19,7 +19,7 @@ public class Supplier extends BaseEntity{
     @Column
     private String information;
     @OneToMany(mappedBy = "supplier")
-    private Set<Parts> parts;
+    private Set<Part> parts;
 
 
 }

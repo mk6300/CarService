@@ -12,12 +12,12 @@ public abstract class BaseEntity {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private long id;
 
     protected BaseEntity() {
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 }

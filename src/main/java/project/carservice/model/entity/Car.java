@@ -30,7 +30,7 @@ public class Car extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "part_id", referencedColumnName = "id")
-    private Parts part;
+    private Part part;
 
     @OneToMany(mappedBy = "car")
     private List<Order> orders;
@@ -60,7 +60,7 @@ public class Car extends BaseEntity {
         this.owner = owner;
     }
 
-    public void setPart(Parts part) {
+    public void setPart(Part part) {
         this.part = part;
     }
 
