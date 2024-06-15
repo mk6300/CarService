@@ -381,7 +381,7 @@ ul.btn li:last-child {
 /** banner section **/
 
 .banner_main {
-     background: url(../images/bg.jpg);
+     background: url(../../static/images/bg.jpg);
      background-repeat: no-repeat;
      min-height: 700px;
      background-size: 100% 100%;
@@ -600,7 +600,7 @@ ul.btn li:last-child {
 }
 
 .about .about_img {
-     background: url(../images/about.png);
+     background: url(../../static/images/about.png);
      background-size: 100% 100%;
      text-align: center;
      min-height: 700px;
