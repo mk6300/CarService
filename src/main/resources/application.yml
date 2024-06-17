@@ -1,4 +1,10 @@
 spring:
+  application:
+    name: CarService
+  thymeleaf:
+     check-template-location: true
+     cache: false
+     prefix: file:./src/main/resources/templates/
   jpa:
     properties:
       hibernate:
