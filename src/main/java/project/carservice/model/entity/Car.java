@@ -17,6 +17,9 @@ public class Car extends BaseEntity {
     @Column(nullable = false)
     private String model;
 
+    @Column
+    private int year;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EngineTypeEnum engine;
@@ -86,5 +89,25 @@ public class Car extends BaseEntity {
 
     public String getVinNumber() {
         return vinNumber;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public Part getPart() {
+        return part;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 }
