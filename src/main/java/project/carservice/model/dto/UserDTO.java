@@ -3,8 +3,10 @@ package project.carservice.model.dto;
 import jakarta.persistence.*;
 import project.carservice.model.entity.Car;
 import project.carservice.model.entity.Order;
+import project.carservice.model.entity.UserRole;
 import project.carservice.model.entity.enums.UserRoleEnum;
 
+import java.util.List;
 import java.util.Set;
 
 public class UserDTO {
@@ -30,13 +32,13 @@ public class UserDTO {
 
     private String phone;
 
-    private UserRoleEnum role;
+    private List<UserRole> roles;
 
     private Set<Car> cars;
 
     private Set<Order> orders;
 
-   private Set<Order> ordersInProgress;
+    private Set<Order> ordersInProgress;
 
     public String getFirstName() {
         return firstName;
@@ -86,14 +88,12 @@ public class UserDTO {
         this.phone = phone;
     }
 
-    public UserRoleEnum getRole() {
-        return role;
+    public List<UserRole> getRoles() {
+        return roles;
     }
-
-    public void setRole(UserRoleEnum role) {
-        this.role = role;
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
-
     public Set<Car> getCars() {
         return cars;
     }

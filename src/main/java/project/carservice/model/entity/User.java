@@ -1,8 +1,11 @@
 package project.carservice.model.entity;
 
 import jakarta.persistence.*;
-import project.carservice.model.entity.enums.UserRoleEnum;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,9 +25,15 @@ public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String phone;
 
-    @Column(nullable = false)
-    @Enumerated (EnumType.STRING)
-    private UserRoleEnum role;
+    @ManyToMany(
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<UserRole> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Car> cars;
@@ -34,6 +43,14 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "responsibleMechanic")
     private Set<Order> ordersInProgress;
+
+    public User(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    }
+
+    public User() {
+
+
+    }
 
     public String getFirstName() {
         return firstName;
@@ -83,12 +100,12 @@ public class User extends BaseEntity {
         this.phone = phone;
     }
 
-    public UserRoleEnum getRole() {
-        return role;
+    public List<UserRole> getRoles() {
+        return roles;
     }
 
-    public void setRole(UserRoleEnum role) {
-        this.role = role;
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
 
     public Set<Car> getCars() {

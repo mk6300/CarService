@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
         userDTO.setLastName(user.getLastName());
         userDTO.setPhone(user.getPhone());
         userDTO.setCars(user.getCars());
-        userDTO.setRole(user.getRole());
+        userDTO.setRoles(user.getRoles());
         userDTO.setOrders(user.getOrders());
         userDTO.setOrdersInProgress(user.getOrdersInProgress());
 
