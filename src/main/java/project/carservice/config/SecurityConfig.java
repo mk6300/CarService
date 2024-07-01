@@ -16,6 +16,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .csrf().disable()
                 .authorizeHttpRequests(
                         // Setup which URL-s are available to who
                         authorizeRequests ->
@@ -23,7 +24,8 @@ public class SecurityConfig {
                                         // all static resources to "common locations" (css, images, js) are available to anyone
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                         // some more resources for all users
-                                        .requestMatchers("/**", "/users/login", "/users/register","/index","/service","/team", "/404", "/about" ).permitAll()
+                                        .requestMatchers("/", "/users/register", "/404", "/about" ).permitAll()
+                                        .requestMatchers("/users/login").permitAll()
                                         // all other URL-s should be authenticated.
                                         .anyRequest()
                                         .authenticated()
@@ -31,7 +33,7 @@ public class SecurityConfig {
                 .formLogin(formLogin ->
                         formLogin
                                 // Where is our custom login form?
-                                .loginPage("/users/login")
+                                .loginPage("/users/login") .permitAll()
                                 // what is the name of the username parameter in the Login POST request?
                                 .usernameParameter("username")
                                 // what is the name of the password parameter in the Login POST request?

@@ -15,6 +15,6 @@ public interface HomeController {
     String home(Model model);
 
     @GetMapping("/about")
-    String about(Model model);
+    String about();
 
 }

@@ -1,6 +1,7 @@
 package project.carservice.controller;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 public class HomeControllerImpl implements HomeController{
     @Override
@@ -14,7 +15,7 @@ public class HomeControllerImpl implements HomeController{
     }
 
     @Override
-    public String about(Model model) {
-        return "/about";
+    public String about() {
+        return "about";
     }
 }
