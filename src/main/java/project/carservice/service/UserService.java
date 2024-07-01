@@ -12,9 +12,6 @@ public interface UserService {
 
     boolean checkCredentials(String username, String password);
 
-    void login(String username);
-
     void register(RegisterUserDTO registerDTO);
 
-    void logout();
-}
+ }

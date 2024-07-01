@@ -7,20 +7,17 @@ import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.entity.User;
 import project.carservice.repository.UserRepository;
-import project.carservice.util.LoggedUser;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final LoggedUser loggedUser;
     private final PasswordEncoder encoder;
     private final HttpSession session;
 
 
-    public UserServiceImpl(UserRepository userRepository, LoggedUser loggedUser, PasswordEncoder encoder, HttpSession session) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder encoder, HttpSession session) {
         this.userRepository = userRepository;
-        this.loggedUser = loggedUser;
         this.encoder = encoder;
         this.session = session;
     }
@@ -57,24 +54,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void login(String username) {
-        User user = this.getUserByUsername(username);
-        this.loggedUser.setId(user.getId());
-        this.loggedUser.setUsername(user.getUsername());
-    }
-
-    @Override
     public void register(RegisterUserDTO registerDTO) {
         this.userRepository.save(this.mapUser(registerDTO));
-        this.login(registerDTO.getUsername());
-    }
-
-    @Override
-    public void logout() {
-        this.session.invalidate();
-        this.loggedUser.setId(null);
-        this.loggedUser.setUsername(null);
-    }
+        }
 
     private User getUserByUsername(String username) {
         return this.userRepository.findByUsername(username).orElse(null);
