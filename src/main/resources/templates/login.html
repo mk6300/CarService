@@ -2,10 +2,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <body>
+<!-- Topbar Start -->
 <div th:replace="fragments/commons::topbar"> </div>
 <!-- Topbar End -->
 <!-- Navbar Start -->
 <header th:replace="fragments/commons::nav"></header>
+<!-- Navbar End -->
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Login</span></h1>
     <hr class="hr-3 w-25 bg-white"/>
@@ -36,6 +38,6 @@
 
     </form>
 </main>
-<footer th:replace="~{fragments/commons::footer}"></footer>
+<footer th:replace="fragments/commons::footer"></footer>
 </body>
 </html>

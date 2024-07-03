@@ -11,7 +11,7 @@ import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.model.user.CarUserDetails;
 import project.carservice.repository.UserRepository;
 
-public class CarUserDetailService implements UserDetailsService {
+public class CarUserDetailService {
 
     private final UserRepository userRepository;
 
@@ -19,7 +19,6 @@ public class CarUserDetailService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository
                 .findByUsername(username)

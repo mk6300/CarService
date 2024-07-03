@@ -1,6 +1,7 @@
 package project.carservice.service;
 
 import jakarta.servlet.http.HttpSession;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.carservice.model.dto.RegisterUserDTO;
@@ -11,12 +12,15 @@ import project.carservice.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final ModelMapper modelMapper;
+
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
     private final HttpSession session;
 
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder encoder, HttpSession session) {
+    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, HttpSession session) {
+        this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.session = session;
@@ -56,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(RegisterUserDTO registerDTO) {
         this.userRepository.save(this.mapUser(registerDTO));
-        }
+    }
 
     private User getUserByUsername(String username) {
         return this.userRepository.findByUsername(username).orElse(null);
@@ -72,15 +76,7 @@ public class UserServiceImpl implements UserService {
 
     private UserDTO mapUserDTO(User user) {
         UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setPhone(user.getPhone());
-        userDTO.setCars(user.getCars());
-        userDTO.setRoles(user.getRoles());
-        userDTO.setOrders(user.getOrders());
-        userDTO.setOrdersInProgress(user.getOrdersInProgress());
+        modelMapper.map(userDTO, user);
 
         return userDTO;
     }
