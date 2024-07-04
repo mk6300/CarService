@@ -1,4 +1,5 @@
 package project.carservice.model.dto;
 
-public class LoginDTO {
+public record LoginDTO(String userName, String password) {
+
 }

@@ -19,4 +19,27 @@ public class CarUserDetails extends User {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFullName() {
+        StringBuilder fullName = new StringBuilder();
+        if (firstName != null) {
+            fullName.append(firstName);
+        }
+        if (lastName != null) {
+            if (!fullName.isEmpty()) {
+                fullName.append(" ");
+            }
+            fullName.append(lastName);
+        }
+
+        return fullName.toString();
+    }
 }

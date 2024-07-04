@@ -75,8 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDTO mapUserDTO(User user) {
-        UserDTO userDTO = new UserDTO();
-        modelMapper.map(userDTO, user);
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
 
         return userDTO;
     }
