@@ -5,12 +5,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import project.carservice.model.entity.User;
 import project.carservice.model.entity.UserRole;
 import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.model.user.CarUserDetails;
 import project.carservice.repository.UserRepository;
 
+@Service
 public class CarUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -30,13 +32,12 @@ public class CarUserDetailService implements UserDetailsService {
 
     private static UserDetails map(User user) {
 
-        return (UserDetails) new CarUserDetails(
-                user.getUsername(),
-                user.getPassword(),
-                user.getRoles().stream().map(UserRole::getRole).map(CarUserDetailService::map).toList(),
-                user.getFirstName(),
-                user.getLastName()
-        );
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword())
+                .authorities(user.getRoles().stream().map(UserRole::getRole).map(CarUserDetailService::map).toList())
+                .build();
+
     }
 
     private static GrantedAuthority map(UserRoleEnum role) {
