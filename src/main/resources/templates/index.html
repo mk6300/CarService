@@ -43,10 +43,10 @@
 
 
     <!-- Topbar Start -->
-    <div th:replace="fragments/commons::topbar"> </div>
+    <div th:replace="~{fragments/commons::topbar}"> </div>
     <!-- Topbar End -->
     <!-- Navbar Start -->
-    <header th:replace="fragments/commons::nav"></header>
+    <header th:replace="~{fragments/commons::nav (activeLink=${'home'})}"></header>
     <!-- Navbar End -->
 
     <!-- Carousel Start -->

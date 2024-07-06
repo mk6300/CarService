@@ -1,27 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>CarServ - Car Service</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <!--    <link href="img/favicon.ico" rel="icon">-->
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css" >
+</head>
 <body>
 <!-- Topbar Start -->
 <div th:replace="fragments/commons::topbar"> </div>
 <!-- Topbar End -->
 <!-- Navbar Start -->
-<header th:replace="fragments/commons::nav"></header>
+<header th:replace="~{fragments/commons::nav(activeLink=${'login'})}"></header>
 <!-- Navbar End -->
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Login</span></h1>
     <hr class="hr-3 w-25 bg-white"/>
-    <form class="mx-auto w-25 bg-blur" action="/users/login" method="post" th:object="${loginDTO}">
+    <form class="mx-auto w-25 bg-blur" th:method="post"
+          th:action="@{/users/login}">
 
-        <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>
-        <div th:if="${validCredentials == false}" class="text-danger">Incorrect username or password!</div>
+        <div class="text-danger">Error messages</div>
+        <div class="text-danger">Incorrect username or password!</div>
 
         <div class="form-group">
             <div class="label-holder text-white d-flex justify-content-center">
                 <label for="username" class="h3 mb-2">Username</label>
             </div>
-            <input th:field="*{username}"
-                   th:errorclass="bg-danger"
+            <input
                    type="text" class="form-control" id="username" name="username"/>
         </div>
 
@@ -29,7 +59,7 @@
             <div class="label-holder text-white d-flex justify-content-center">
                 <label for="password" class="h3 mb-2">Password</label>
             </div>
-            <input th:errorclass="bg-danger" type="password" class="form-control" id="password" name="password"/>
+            <input type="password" class="form-control" id="password" name="password"/>
         </div>
 
         <div class="button-holder d-flex justify-content-center">

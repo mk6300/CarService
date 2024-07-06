@@ -23,7 +23,7 @@ public class SecurityConfig {
                                     // all static resources to "common locations" (css, images, js) are available to anyone
                                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                     // some more resources for all users
-                                    .requestMatchers("/", "/users/login", "/users/register").permitAll()
+                                    .requestMatchers("/**", "/users/login", "/users/register").permitAll()
                                     // all other URL-s should be authenticated.
                                     .anyRequest()
                                     .authenticated();
@@ -34,7 +34,7 @@ public class SecurityConfig {
                                     // Where is our custom login form?
                                     .loginPage("/users/login")
                                     // what is the name of the username parameter in the Login POST request?
-                                    .usernameParameter("email")
+                                    .usernameParameter("username")
                                     // what is the name of the password parameter in the Login POST request?
                                     .passwordParameter("password")
                                     // What will happen if the login is successful
