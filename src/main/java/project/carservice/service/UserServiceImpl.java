@@ -58,18 +58,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(RegisterUserDTO registerDTO) {
-        this.userRepository.save(this.mapUser(registerDTO));
-    }
-
-    private User getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
         return this.userRepository.findByUsername(username).orElse(null);
     }
 
+    @Override
+    public void register(RegisterUserDTO registerUserDTO) {
+        this.userRepository.save(this.mapUser(registerUserDTO));
+
+    }
+
     private User mapUser(RegisterUserDTO registerDTO) {
-        User user = new User();
-        user.setUsername(registerDTO.getUsername());
-        user.setEmail(registerDTO.getEmail());
+        User user = modelMapper.map(registerDTO, User.class);
         user.setPassword(encoder.encode(registerDTO.getPassword()));
         return user;
     }
@@ -79,4 +79,6 @@ public class UserServiceImpl implements UserService {
 
         return userDTO;
     }
+
+
 }

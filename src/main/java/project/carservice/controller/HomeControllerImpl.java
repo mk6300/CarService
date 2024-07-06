@@ -15,7 +15,7 @@ public class HomeControllerImpl implements HomeController{
     }
 
     @Override
-    public String about() {
-        return "about";
+    public String contact(Model model) {
+        return "contact";
     }
 }

@@ -3,6 +3,7 @@ package project.carservice.service;
 import org.springframework.stereotype.Service;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
+import project.carservice.model.entity.User;
 
 
 public interface UserService {
@@ -11,6 +12,8 @@ public interface UserService {
     UserDTO findUserByEmail(String email) ;
 
     boolean checkCredentials(String username, String password);
+
+    User getUserByUsername(String username);
 
     void register(RegisterUserDTO registerDTO);
 
