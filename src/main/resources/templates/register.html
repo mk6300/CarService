@@ -44,6 +44,39 @@
               th:action="@{/users/register}"
               th:object="${registerUserDTO}"
               class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+            <div class="form-group">
+                <div class="label-holder textCol d-flex justify-content-center">
+                    <label for="username" class="h4 mb-2">Username</label>
+                </div>
+
+                <input th:field="*{username}" th:errorclass="'is-invalid bg-danger'"
+                       type="text" class="form-control" id="username" name="username"/>
+                <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger">Username error message</small>
+            </div>
+
+            <div class="form-group">
+                <div class="label-holder text-white textCol d-flex justify-content-center">
+                    <label for="password" class="h4 mb-2">Password</label>
+                </div>
+                <input th:field="*{password}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       type="password" class="form-control" id="password" name="password"
+                       placeholder="Password"/>
+                <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Password error message</small>
+            </div>
+
+            <div class="form-group">
+                <div class="label-holder text-white textCol d-flex justify-content-center">
+                    <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
+                </div>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                       th:errorclass="bg-danger"
+                       placeholder="Confirm Password"/>
+                <small th:if="${#fields.hasErrors('confirmPassword')}"
+                       th:errors="*{confirmPassword}"
+                       class="text-danger">Password error message</small>
+            </div>
+
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
                     <label th:for="firstName" class="text-white font-weight-bold">First Name</label>
@@ -80,12 +113,12 @@
                     <!--                </p>-->
                 </div>
                 <div class="form-group col-md-6 mb-3">
-                    <label th:for="password" class="text-white font-weight-bold">Password</label>
+                    <label th:for="phone" class="text-white font-weight-bold">Phone Number</label>
                     <input
-                            th:field="*{password}"
-                            type="password"
+                            th:field="*{phone}"
+                            type="phone"
                             class="form-control"
-                            placeholder="Password"/>
+                            placeholder="Phone"/>
                     <!--                <p class="errors alert alert-danger">-->
                     <!--                    Password is required.-->
                     <!--                </p>-->
@@ -94,7 +127,7 @@
 
             <div class="row">
                 <div class="col col-md-4">
-                    <div class="button-holder d-flex">
+                    <div class="button-holder d-flex content-center">
                         <input type="submit" class="btn btn-info btn-lg" value="Register New User"/>
                     </div>
                 </div>
