@@ -34,3 +34,7 @@ logging:
 server:
   port: 8080
 
+orders:
+  api:
+    baseurl: "http://localhost:8081"
+
