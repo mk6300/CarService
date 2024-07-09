@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>CarServ - Car Service</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <!--    <link href="img/favicon.ico" rel="icon">-->
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css" >
+</head>
+<body>
+<!-- Topbar Start -->
+<div th:replace="fragments/commons::topbar"> </div>
+<!-- Topbar End -->
+<!-- Navbar Start -->
+<header th:replace="~{fragments/commons::nav(activeLink=${'register'})}"></header>
+<main>
+    <div class="container">
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add New Appointment</span></h1>
+    <hr class="hr-3 w-25 bg-white"/>
+
+    <form class="mx-auto w-25 bg-blur rounded" method="post" action="/orders/add-order" th:object="${addOrderDTO}">
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="description" class="h4 mb-2">Description</label>
+            </div>
+            <textarea
+                    type="text"
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    th:field="*{description}" th:errorclass="'is-invalid bg-danger'"
+            ></textarea>
+            <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Description can't be blank</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="date" class="h4 mb-2">Date</label>
+            </div>
+            <input th:field="*{date}" th:errorclass="'is-invalid bg-danger'" type="date" class="form-control" id="date" name="date"></input>
+            <small th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="text-danger">Due Date error message</small>
+        </div>
+
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="car" class="h4 mb-2">Car</label>
+            </div>
+            <select th:field="*{car}" th:errorclass="'is-invalid bg-danger'" class="browser-default custom-select" id="car" name="car">
+                <option value="">Select from my cars</option>
+                <option value="MAIN_DISH">Main Dish</option>
+                <option value="DESSERT">Dessert</option>
+                <option value="COCKTAIL">Cocktail</option>
+            </select>
+
+            <small th:if="${#fields.hasErrors('car')}" th:errors="*{car}" class="text-danger">You need add your cars first</small>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-warning  mb-3" value="Register">Add Appointment</button>
+        </div>
+
+    </form>
+    </div>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

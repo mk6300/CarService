@@ -50,7 +50,7 @@
                 </div>
 
                 <input th:field="*{username}" th:errorclass="'is-invalid bg-danger'"
-                       type="text" class="form-control" id="username" name="username"/>
+                       type="text" class="form-control justify-content-center" id="username" name="username" placeholder="Choose Your Username"/>
                 <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger">Username error message</small>
             </div>
 
@@ -79,7 +79,7 @@
 
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
-                    <label th:for="firstName" class="text-white font-weight-bold">First Name</label>
+                    <label th:for="firstName" class="text-black font-weight-bold">First Name</label>
                     <input  th:field="*{firstName}"
                             type="text"
                             class="form-control"
@@ -89,7 +89,7 @@
                     <!--                </p>-->
                 </div>
                 <div class="form-group col-md-6 mb-3">
-                    <label th:for="lastName" class="text-white font-weight-bold">Last Name</label>
+                    <label th:for="lastName" class="text-black font-weight-bold">Last Name</label>
                     <input
                             th:field="*{lastName}"
                             type="text"
@@ -102,7 +102,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
-                    <label th:for="email" class="text-white font-weight-bold">Email</label>
+                    <label th:for="email" class="text-black font-weight-bold">Email</label>
                     <input
                             th:field="*{email}"
                             type="email"
@@ -112,8 +112,8 @@
                     <!--                    Email is required.-->
                     <!--                </p>-->
                 </div>
-                <div class="form-group col-md-6 mb-3">
-                    <label th:for="phone" class="text-white font-weight-bold">Phone Number</label>
+                <div class="form-group col-md-6 mb-3 justify-content-center">
+                    <label th:for="phone" class="text-black font-weight-bold">Phone Number</label>
                     <input
                             th:field="*{phone}"
                             type="phone"
@@ -125,9 +125,9 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col col-md-4">
-                    <div class="button-holder d-flex content-center">
+                    <div class="button-holder d-flex justify-content-center">
                         <input type="submit" class="btn btn-info btn-lg" value="Register New User"/>
                     </div>
                 </div>
