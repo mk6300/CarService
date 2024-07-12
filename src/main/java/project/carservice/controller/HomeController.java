@@ -15,6 +15,9 @@ public interface HomeController {
     String home(Model model);
 
     @GetMapping("/contact")
-    String contact (Model model);
+    String contact ();
+
+    @GetMapping("/about")
+    String about();
 
 }
