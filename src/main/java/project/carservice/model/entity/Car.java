@@ -12,7 +12,7 @@ public class Car extends BaseEntity {
     private String registration;
 
     @Column(nullable = false)
-    private String manufacturer;
+    private String make;
 
     @Column(nullable = false)
     private String model;
@@ -43,8 +43,8 @@ public class Car extends BaseEntity {
         this.registration = registration;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setMake(String make) {
+        this.make = make;
     }
 
     public void setModel(String model) {
@@ -75,8 +75,8 @@ public class Car extends BaseEntity {
         return registration;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public String getMake() {
+        return make;
     }
 
     public String getModel() {

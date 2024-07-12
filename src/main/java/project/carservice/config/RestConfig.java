@@ -10,6 +10,12 @@ import org.springframework.web.client.RestClient;
 public class RestConfig {
 
     @Bean
+
+    public RestClient restClient() {
+        return RestClient.create();
+    }
+
+    @Bean
     public RestClient ordersRestClient(OrderApiConfig orderApiConfig){
         return RestClient
                 .builder()
