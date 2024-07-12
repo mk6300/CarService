@@ -18,7 +18,7 @@ public class Car extends BaseEntity {
     private String model;
 
     @Column
-    private int year;
+    private String year;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -30,10 +30,6 @@ public class Car extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User owner;
-
-    @ManyToOne
-    @JoinColumn(name = "part_id", referencedColumnName = "id")
-    private Part part;
 
     @OneToMany(mappedBy = "car")
     private List<Order> orders;
@@ -63,10 +59,6 @@ public class Car extends BaseEntity {
         this.owner = owner;
     }
 
-    public void setPart(Part part) {
-        this.part = part;
-    }
-
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
@@ -91,20 +83,16 @@ public class Car extends BaseEntity {
         return vinNumber;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
     public User getOwner() {
         return owner;
-    }
-
-    public Part getPart() {
-        return part;
     }
 
     public List<Order> getOrders() {
