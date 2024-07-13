@@ -40,7 +40,7 @@
 <header th:replace="~{fragments/commons::nav(activeLink=${'login'})}"></header>
 <!-- Navbar End -->
 <main>
-    <div style="background-image: url('https://images.squarespace-cdn.com/content/v1/5858906e725e256636b49e9a/1487378379864-BPXNLGHLHCRD5URFDWTW/Service+Drive-Thru.JPG'); width: 100%; height: 100vh; background-repeat: no-repeat; background-size: cover;" >
+    <div th:href="@{/}" class="block-30" th:style="'background-image: url('+@{/images/service.jpg}+'); height: 60vh'">
         <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark text-black-60">Login</span></h1>
         <hr class="hr-3 w-25 bg-black"/>
         <form class="mx-auto w-25 bg-blur" th:method="post"
