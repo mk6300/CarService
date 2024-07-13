@@ -18,7 +18,7 @@ public class Car extends BaseEntity {
     private String model;
 
     @Column
-    private String year;
+    private int year;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -83,11 +83,11 @@ public class Car extends BaseEntity {
         return vinNumber;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 

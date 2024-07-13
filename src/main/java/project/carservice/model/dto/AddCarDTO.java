@@ -20,16 +20,16 @@ public class AddCarDTO {
 
     @NotNull
     @Size (min = 1941, max = 2022)
-    private String year;
+    private int year;
 
     @NotNull
     private EngineTypeEnum engine;
 
     @NotNull
-    @ValidVinNumber (message = "Need add valid phone number")
+    @ValidVinNumber (message = "Need add valid VIN number")
     private String vinNumber;
 
-    public AddCarDTO(String registration, String make, String model, String year, EngineTypeEnum engine, String vinNumber) {
+    public AddCarDTO(String registration, String make, String model, int year, EngineTypeEnum engine, String vinNumber) {
         this.registration = registration;
         this.make = make;
         this.model = model;
@@ -62,11 +62,11 @@ public class AddCarDTO {
         this.model = model;
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
@@ -86,6 +86,6 @@ public class AddCarDTO {
         this.vinNumber = vinNumber;
     }
     public static AddCarDTO empty() {
-        return new AddCarDTO(null, null, null, null, null, null);
+        return new AddCarDTO(null, null, null, 0, null, null);
     }
 }
