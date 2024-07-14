@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import project.carservice.repository.UserRepository;
-import project.carservice.service.CarUserDetailService;
+
 
 @Configuration
 public class SecurityConfig {
@@ -57,10 +57,10 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
-    public CarUserDetailService userDetailsService(UserRepository userRepository) {
-        return new CarUserDetailService(userRepository);
-    }
+//    @Bean
+//    public CarUserDetailService userDetailsService(UserRepository userRepository) {
+//        return new CarUserDetailService(userRepository);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

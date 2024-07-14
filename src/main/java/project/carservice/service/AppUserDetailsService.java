@@ -7,17 +7,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import project.carservice.model.entity.User;
-import project.carservice.model.entity.UserRole;
-import project.carservice.model.entity.enums.UserRoleEnum;
-import project.carservice.model.user.CarUserDetails;
 import project.carservice.repository.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
-public class CarUserDetailService implements UserDetailsService {
+public class AppUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public CarUserDetailService(UserRepository userRepository) {
+    public AppUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -25,25 +25,22 @@ public class CarUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository
                 .findByUsername(username)
-                .map(CarUserDetailService::map)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException("User with username " + username + " not found!"));
+                .map(this::mapToUserDetails)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " not found"));
     }
 
-    private static UserDetails map(User user) {
-
+    private UserDetails mapToUserDetails(User user) {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
-                .authorities(user.getRoles().stream().map(UserRole::getRole).map(CarUserDetailService::map).toList())
+                .authorities(mapToGrantedAuthorities(user))
                 .build();
-
     }
 
-    private static GrantedAuthority map(UserRoleEnum role) {
-        return new SimpleGrantedAuthority(
-                "ROLE_" + role
-        );
+    private List<GrantedAuthority> mapToGrantedAuthorities(User user) {
+        return user
+                .getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRole().name()))
+                .collect(Collectors.toUnmodifiableList());
     }
 }
-

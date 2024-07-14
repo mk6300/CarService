@@ -6,7 +6,7 @@ import project.carservice.model.entity.enums.UserRoleEnum;
 
 @Entity
 @Table (name="roles")
-public class UserRole {
+public class Role {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
@@ -27,7 +27,7 @@ public class UserRole {
         return role;
     }
 
-    public UserRole setRole(UserRoleEnum role) {
+    public Role setRole(UserRoleEnum role) {
         this.role = role;
         return this;
 

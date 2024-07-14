@@ -32,7 +32,7 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<UserRole> roles = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Car> cars;
@@ -97,11 +97,11 @@ public class User extends BaseEntity {
         this.phone = phone;
     }
 
-    public List<UserRole> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<UserRole> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
