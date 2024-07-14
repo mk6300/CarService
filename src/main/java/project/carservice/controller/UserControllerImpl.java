@@ -18,6 +18,11 @@ private final UserService userService;
         this.userService = userService;
     }
 
+    @ModelAttribute("registerUserDTO")
+    public RegisterUserDTO registerUserDTO() {
+        return new RegisterUserDTO();
+    }
+
     @Override
     public String login(Model model) {
         return "login";
@@ -25,6 +30,7 @@ private final UserService userService;
 
     @Override
     public String register(Model model) {
+
         return "register";
     }
 
@@ -41,17 +47,12 @@ private final UserService userService;
         if (result.hasErrors()) {
             redirectAttributes
                     .addFlashAttribute("registerUserDTO", registerUserDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.registerDTO", result);
+                    .addFlashAttribute("org.springframework.validation.BindingResult.registerUserDTO", result);
 
-            return "redirect:/users/register";
+            return "register";
         }
 
         this.userService.register(registerUserDTO);
-        return "redirect:/home";
-    }
-
-    @ModelAttribute("registerUserDTO")
-    public RegisterUserDTO registerUserDTO() {
-        return new RegisterUserDTO();
+        return "redirect:/";
     }
 }

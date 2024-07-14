@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>CarServ - Car Service</title>
@@ -42,7 +43,7 @@
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
     <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>CarService</h2>
+        <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>Car Service</h2>
     </a>
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
@@ -50,8 +51,6 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="/" class="nav-item nav-link active">Home</a>
-            <a href="/about" class="nav-item nav-link">About</a>
-            <a href="/service" class="nav-item nav-link">Services</a>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Register/Login</a>
                 <div class="dropdown-menu fade-up m-0">
@@ -59,6 +58,9 @@
                     <a href="/users/register" class="dropdown-item">Register</a>
                 </div>
             </div>
+            <a href="/service" class="nav-item nav-link">Services</a>
+            <a href="/about" class="nav-item nav-link">About Us</a>
+            <a href="/contact" class="nav-item nav-link">Contact</a>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Language</a>
                 <div class="dropdown-menu fade-up m-0" >
@@ -66,7 +68,18 @@
                     <option value="bg_BG" class="dropdown-item">Български</option>
                 </div>
             </div>
-            <a href="/contact" class="nav-item nav-link">Contact</a>
+
+            <div class="nav-item" sec:authorize="isAuthenticated()">
+                <div class="form-inline my-2 my-lg-0 border px-3">
+                    <div class="logged-user"
+                         text="Welcome"></div>
+                    <form th:method="post"
+                          th:action="@{/users/logout}">
+                        <input class="nav-item nav-link" type="submit" value="Logout"/>
+                    </form>
+                </div>
+            </div>
+
         </div>
 
         <!--<a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>-->

@@ -11,29 +11,21 @@ public class RegisterUserDTO {
     @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters!")
     @NotNull
     private String username;
-
-    @UniqueEmail
-    @Email(message = "Enter valid email!")
-    @NotBlank(message = "Email cannot be empty!")
-    private String email;
-
+    @Size(min = 3, max = 20, message = "Password length must be between 5 and 20 characters!")
+    @NotNull
+    private String password;
     @NotBlank
     @Size(min = 2, max = 15, message = "Name length must be between 2 and 15 characters!")
     private String firstName;
     @NotBlank
     @Size(min = 2, max = 15, message = "Name length must be between 2 and 15 characters!")
     private String lastName;
-
-    @NotBlank
-    @ValidPhoneNumber
-    @Size(min = 10, max = 15,message = "Need add valid phone number")
+    @UniqueEmail
+    @Email(message = "Enter valid email!")
+    @NotBlank(message = "Email cannot be empty!")
+    private String email;
+    @Pattern (regexp="^([+]?359)|0?(|-| )8[789]\\d{1}(|-| )\\d{3}(|-| )\\d{3}$", message = "Need add valid phone number")
     private String phone;
-
-    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters!")
-    @NotNull
-    private String password;
-
-    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters!")
     @NotNull
     private String confirmPassword;
 

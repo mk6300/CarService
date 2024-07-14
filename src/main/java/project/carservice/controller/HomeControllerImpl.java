@@ -6,6 +6,6 @@ import org.springframework.ui.Model;
 public class HomeControllerImpl implements HomeController{
     @Override
     public String home(Model model) {
-        return "redirect:/home";
+        return "home";
     }
 }

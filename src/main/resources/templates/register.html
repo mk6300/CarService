@@ -33,13 +33,13 @@
 </head>
 <body>
 <!-- Topbar Start -->
-<div th:replace="fragments/commons::topbar"> </div>
+<div th:replace="~{fragments/commons::topbar}"> </div>
 <!-- Topbar End -->
 <!-- Navbar Start -->
 <header th:replace="~{fragments/commons::nav(activeLink=${'register'})}"></header>
 <main>
     <div class="container">
-        <h2 class="text-center text-white">Register User</h2>
+        <h2 class="text-center text">Register New User</h2>
         <form th:method="post"
               th:action="@{/users/register}"
               th:object="${registerUserDTO}"
@@ -49,7 +49,7 @@
                     <label for="username" class="h4 mb-2">Username</label>
                 </div>
 
-                <input th:field="*{username}" th:errorclass="'is-invalid bg-danger'"
+                <input th:field="*{username}" th:errorclass="'is-invalid'"
                        type="text" class="form-control justify-content-center" id="username" name="username" placeholder="Choose Your Username"/>
                 <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger">Username error message</small>
             </div>
@@ -59,7 +59,7 @@
                     <label for="password" class="h4 mb-2">Password</label>
                 </div>
                 <input th:field="*{password}"
-                       th:errorclass="'is-invalid bg-danger'"
+                       th:errorclass="'is-invalid'"
                        type="password" class="form-control" id="password" name="password"
                        placeholder="Password"/>
                 <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Password error message</small>
@@ -84,9 +84,9 @@
                             type="text"
                             class="form-control"
                             placeholder="First name"/>
-                    <!--                <p class="errors alert alert-danger">-->
-                    <!--                    First name is required.-->
-                    <!--                </p>-->
+                    <small th:if="${#fields.hasErrors('firstName')}"
+                           th:errors="*{firstName}"
+                           class="text-danger">First name can't be blank</small>
                 </div>
                 <div class="form-group col-md-6 mb-3">
                     <label th:for="lastName" class="text-black font-weight-bold">Last Name</label>
@@ -95,9 +95,9 @@
                             type="text"
                             class="form-control"
                             placeholder="Last name"/>
-                    <!--                <p class="errors alert alert-danger">-->
-                    <!--                    Last name is required.-->
-                    <!--                </p>-->
+                    <small th:if="${#fields.hasErrors('lastName')}"
+                           th:errors="*{lastName}"
+                           class="text-danger">Last name can't be blank</small>
                 </div>
             </div>
             <div class="row">
@@ -105,23 +105,23 @@
                     <label th:for="email" class="text-black font-weight-bold">Email</label>
                     <input
                             th:field="*{email}"
-                            type="email"
+                            type="text"
                             class="form-control"
                             placeholder="Email"/>
-                    <!--                <p class="errors alert alert-danger">-->
-                    <!--                    Email is required.-->
-                    <!--                </p>-->
+                    <small th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}"
+                           class="text-danger">Need add valid e-mail address</small>
                 </div>
                 <div class="form-group col-md-6 mb-3 justify-content-center">
                     <label th:for="phone" class="text-black font-weight-bold">Phone Number</label>
                     <input
                             th:field="*{phone}"
-                            type="phone"
+                            type="text"
                             class="form-control"
                             placeholder="Phone"/>
-                    <!--                <p class="errors alert alert-danger">-->
-                    <!--                    Password is required.-->
-                    <!--                </p>-->
+                    <small th:if="${#fields.hasErrors('phone')}"
+                           th:errors="*{phone}"
+                           class="text-danger">Need add valid phone number</small>
                 </div>
             </div>
 
@@ -135,6 +135,6 @@
         </form>
     </div>
 </main>
-<footer th:replace="fragments/commons::footer"></footer>
+<footer th:replace="~{fragments/commons::footer}"></footer>
 </body>
 </html>

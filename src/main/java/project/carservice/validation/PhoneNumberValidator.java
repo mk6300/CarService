@@ -7,17 +7,18 @@ import java.util.regex.Pattern;
 
 public class PhoneNumberValidator implements ConstraintValidator<ValidPhoneNumber, String> {
 
-    private static final String PHONE_NUMBER_PATTERN = "^(\\+\\d{1,3}[- ]?)?\\d{10}$";
+    private static final String PHONE_NUMBER_PATTERN = "^([+]?359)|0?(|-| )8[789]\\d{1}(|-| )\\d{3}(|-| )\\d{3}$";
+    private static final Pattern pattern = Pattern.compile(PHONE_NUMBER_PATTERN);
 
     @Override
     public void initialize(ValidPhoneNumber constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
-        if (phoneNumber == null || phoneNumber.isEmpty()) {
+    public boolean isValid(String phone, ConstraintValidatorContext context) {
+        if (phone == null || phone.isEmpty()) {
             return false;
         }
-        return Pattern.matches(PHONE_NUMBER_PATTERN, phoneNumber);
+        return pattern.matcher(phone).matches();
     }
 }

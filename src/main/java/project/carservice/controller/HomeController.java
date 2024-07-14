@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping(name = "/home")
 public interface HomeController {
-    @GetMapping("/home")
+    @GetMapping()
     String home(Model model);
 }

@@ -1,5 +1,6 @@
 package project.carservice.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,5 @@ public interface UserController {
     @GetMapping("/register")
     String register(Model model);
     @PostMapping("/register")
-
-    String registerConfirm(RegisterUserDTO registerUserDTO, BindingResult result, RedirectAttributes redirectAttributes);
+    String registerConfirm(@Valid RegisterUserDTO registerUserDTO, BindingResult result, RedirectAttributes redirectAttributes);
 }

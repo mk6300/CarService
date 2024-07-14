@@ -68,9 +68,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    private User mapUser(RegisterUserDTO registerDTO) {
-        User user = modelMapper.map(registerDTO, User.class);
-        user.setPassword(encoder.encode(registerDTO.getPassword()));
+    private User mapUser(RegisterUserDTO registerUserDTO) {
+        User user = this.modelMapper.map(registerUserDTO, User.class);
+        user.setPassword(encoder.encode(registerUserDTO.getPassword()));
         return user;
     }
 
