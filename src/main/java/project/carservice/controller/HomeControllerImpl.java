@@ -17,13 +17,19 @@ public class HomeControllerImpl implements HomeController {
     public String home(Model model) {
         return "home";
     }
-    @Override
-    public String welcome(Model model) {
-        return "welcome";
-    }
+
     @Override
     public String garage(Model model) {
         return "garage";
+    }
+    @Override
+    public String orders(Model model) {
+        return "orders";
+    }
+
+    @Override
+    public String profile(Model model) {
+        return "my-profile";
     }
 
 
