@@ -12,9 +12,6 @@ public interface HomeController {
     @GetMapping("/home/garage")
     String garage(Model model);
 
-    @GetMapping("/home/my-orders")
-    String orders(Model model);
-
     @GetMapping("/home/my-profile")
     String profile(Model model);
 }

@@ -23,11 +23,6 @@ public class HomeControllerImpl implements HomeController {
         return "garage";
     }
     @Override
-    public String orders(Model model) {
-        return "orders";
-    }
-
-    @Override
     public String profile(Model model) {
         return "my-profile";
     }
