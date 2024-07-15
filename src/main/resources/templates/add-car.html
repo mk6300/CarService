@@ -13,7 +13,8 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap"
+          rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -22,49 +23,48 @@
     <!-- Libraries Stylesheet -->
     <link href="/lib/animate/animate.min.css" rel="stylesheet">
     <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Template Stylesheet -->
-    <link rel="stylesheet" href="/css/style.css" >
+    <link rel="stylesheet" href="/css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="http://www.carqueryapi.com/js/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.carqueryapi.com/js/carquery.0.3.4.js"></script>
-    <script>
-        $(document).ready(function() {
-            var startYear = 2022;
-            var yearDropdown = $('#year');
-            for (var year = startYear; year >= 1941; year--) {
-                yearDropdown.append($('<option></option>').attr('value', year).text(year));
-            }
+    <!--    <script>-->
+    <!--        $(document).ready(function () {-->
+    <!--            var startYear = 2022;-->
+    <!--            var yearDropdown = $('#year');-->
+    <!--            for (var year = startYear; year >= 1941; year&#45;&#45;) {-->
+    <!--                yearDropdown.append($('<option></option>').attr('value', year).text(year));-->
+    <!--            }-->
 
-            // Handle make and year change
-            $('#make, #year').change(function() {
-                var make = $('#make').val();
-                var year = $('#year').val();
-                if (make && year) {
-                    $.ajax({
-                        url: '/api/cars/models?make=' + make + '&year=' + year,
-                        method: 'GET',
-                        success: function(data) {
-                            var modelDropdown = $('#model');
-                            modelDropdown.empty();
-                            $.each(data, function(key, model) {
-                                modelDropdown.append($('<option></option>').attr('value', model).text(model));
-                            });
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+    <!--            // Handle make and year change-->
+    <!--            $('#make, #year').change(function () {-->
+    <!--                var make = $('#make').val();-->
+    <!--                var year = $('#year').val();-->
+    <!--                if (make && year) {-->
+    <!--                    $.ajax({-->
+    <!--                        url: '/api/cars/models?make=' + make + '&year=' + year,-->
+    <!--                        method: 'GET',-->
+    <!--                        success: function (data) {-->
+    <!--                            var modelDropdown = $('#model');-->
+    <!--                            modelDropdown.empty();-->
+    <!--                            $.each(data, function (key, model) {-->
+    <!--                                modelDropdown.append($('<option></option>').attr('value', model).text(model));-->
+    <!--                            });-->
+    <!--                        }-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            });-->
+    <!--        });-->
+    <!--    </script>-->
 
     <script type="text/javascript">
         $(document).ready(
-            function()
-            {
+            function () {
                 //Create a variable for the CarQuery object.  You can call it whatever you like.
                 var carquery = new CarQuery();
 
@@ -75,97 +75,160 @@
                 //carquery.init('2000', 'dodge', 'Viper', 11636);
 
                 //Optional: Pass sold_in_us:true to the setFilters method to show only US models.
-                carquery.setFilters( {sold_in_us:false} );
+                carquery.setFilters({sold_in_us: false});
 
                 //Optional: initialize the year, make, model, and trim drop downs by providing their element IDs
-                carquery.initYearMakeModelTrim('car-years', 'car-makes', 'car-models', 'car-model-trims');
+                carquery.initYearMakeModelTrim('year', 'make', 'model', 'car-model-trims');
 
                 //Optional: set the onclick event for a button to show car data.
-                $('#cq-show-data').click(function(){ carquery.populateCarData('car-model-data'); } );
+                $('#cq-show-data').click(function () {
+                    carquery.populateCarData('car-model-data');
+                });
 
                 //Optional: initialize the make, model, trim lists by providing their element IDs.
                 carquery.initMakeModelTrimList('make-list', 'model-list', 'trim-list', 'trim-data-list');
 
                 //Optional: set minimum and/or maximum year options.
-                carquery.year_select_min=1941;
-                carquery.year_select_max=2023;
+                carquery.year_select_min = 1941;
+                carquery.year_select_max = 2023;
 
                 //Optional: initialize search interface elements.
                 //The IDs provided below are the IDs of the text and select inputs that will be used to set the search criteria.
                 //All values are optional, and will be set to the default values provided below if not specified.
                 var searchArgs =
                     ({
-                        body_id:                       "cq-body"
-                        ,default_search_text:           "Keyword Search"
-                        ,doors_id:                      "cq-doors"
-                        ,drive_id:                      "cq-drive"
-                        ,engine_position_id:            "cq-engine-position"
-                        ,engine_type_id:                "cq-engine-type"
-                        ,fuel_type_id:                  "cq-fuel-type"
-                        ,min_cylinders_id:              "cq-min-cylinders"
-                        ,min_mpg_hwy_id:                "cq-min-mpg-hwy"
-                        ,min_power_id:                  "cq-min-power"
-                        ,min_top_speed_id:              "cq-min-top-speed"
-                        ,min_torque_id:                 "cq-min-torque"
-                        ,min_weight_id:                 "cq-min-weight"
-                        ,min_year_id:                   "cq-min-year"
-                        ,max_cylinders_id:              "cq-max-cylinders"
-                        ,max_mpg_hwy_id:                "cq-max-mpg-hwy"
-                        ,max_power_id:                  "cq-max-power"
-                        ,max_top_speed_id:              "cq-max-top-speed"
-                        ,max_weight_id:                 "cq-max-weight"
-                        ,max_year_id:                   "cq-max-year"
-                        ,search_controls_id:            "cq-search-controls"
-                        ,search_input_id:               "cq-search-input"
-                        ,search_results_id:             "cq-search-results"
-                        ,search_result_id:              "cq-search-result"
-                        ,seats_id:                      "cq-seats"
-                        ,sold_in_us_id:                 "cq-sold-in-us"
+                        body_id: "cq-body"
+                        , default_search_text: "Keyword Search"
+                        , doors_id: "cq-doors"
+                        , drive_id: "cq-drive"
+                        , engine_position_id: "cq-engine-position"
+                        , engine_type_id: "cq-engine-type"
+                        , fuel_type_id: "cq-fuel-type"
+                        , min_cylinders_id: "cq-min-cylinders"
+                        , min_mpg_hwy_id: "cq-min-mpg-hwy"
+                        , min_power_id: "cq-min-power"
+                        , min_top_speed_id: "cq-min-top-speed"
+                        , min_torque_id: "cq-min-torque"
+                        , min_weight_id: "cq-min-weight"
+                        , min_year_id: "cq-min-year"
+                        , max_cylinders_id: "cq-max-cylinders"
+                        , max_mpg_hwy_id: "cq-max-mpg-hwy"
+                        , max_power_id: "cq-max-power"
+                        , max_top_speed_id: "cq-max-top-speed"
+                        , max_weight_id: "cq-max-weight"
+                        , max_year_id: "cq-max-year"
+                        , search_controls_id: "cq-search-controls"
+                        , search_input_id: "cq-search-input"
+                        , search_results_id: "cq-search-results"
+                        , search_result_id: "cq-search-result"
+                        , seats_id: "cq-seats"
+                        , sold_in_us_id: "cq-sold-in-us"
                     });
                 carquery.initSearchInterface(searchArgs);
 
                 //If creating a search interface, set onclick event for the search button.  Make sure the ID used matches your search button ID.
-                $('#cq-search-btn').click( function(){ carquery.search(); } );
+                $('#cq-search-btn').click(function () {
+                    carquery.search();
+                });
             });
     </script>
+    <style>
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .large-font {
+            font-size: 1.2rem; /* Adjust the font size as needed */
+        }
+    </style>
 </head>
 <body>
+<!-- Spinner Start-->
+<div id="spinner"
+     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End-->
 <!-- Topbar Start -->
-<div th:replace="fragments/commons::topbar"> </div>
+<div th:replace="fragments/commons::topbar"></div>
 <!-- Topbar End -->
 <!-- Navbar Start -->
 <header th:replace="~{fragments/commons::nav(activeLink=${'add-car'})}"></header>
-<main>
-    <div class="container">
-    <h2 class="text-center text-black">Add Car to Your Garage</h2>
-    <form th:action="@{/addCar}" th:object="${addCarDTO}" method="post">
 
-<!--    <label for="year">Year:</label>-->
-<!--    <select id="year" th:field="*{year}">-->
-<!--        <option value="">Select Year</option>-->
-<!--    </select>-->
-<!--    <label for="make">Make:</label>-->
-<!--    <select id="make" th:field="*{make}">-->
-<!--        <option value="">Select Make</option>-->
-<!--        <option th:each="make : ${makes}" th:value="${make.name}" th:text="${make.name}"></option>-->
-<!--    </select>-->
-<!--    <label for="model">Model:</label>-->
-<!--    <select id="model" th:field="*{model}">-->
-<!--        <option value="">Select Model</option>-->
-<!--    </select>-->
+<div class="main-container">
+    <div th:replace="~{fragments/commons::sidebar}"></div>
+    <div class="content" id="content">
+        <h2 class="text-center text-black mt-5 text-danger">ADD CAR TO YOUR GARAGE</h2>
+        <div class="main-form mx-auto col-md-8 flex flex-column justify-content-center">
+            <form th:action="@{/cars/add}"
+                  th:object="${addCarDTO}" method="post">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center mt-5">
+                        <div class="d-inline-flex align-items-center">
+                            <select th:value="*{year}" th:errorclass="'is-invalid'"class="form-control mx-2 uppercase"
+                                    name="year" id="year">
+                                <option value="">Select Year</option>
+                            </select>
+                            <small th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="danger">Select
+                                Year</small>
+                            <select th:field="*{make}" th:errorclass="'is-invalid'" class="form-control mx-2 uppercase"
+                                    name="make" id="make">
+                                <option value="">Select Make</option>
+                            </select>
+                            <small th:if="${#fields.hasErrors('make')}" th:errors="*{make}" class="danger">Select
+                                Manufacturer</small>
+                            <select th:field="*{model}" th:errorclass="'is-invalid'" class="form-control mx-2 uppercase"
+                                    name="model" id="model">
+                                <option value="">Select Model</option>
+                            </select>
+                            <small th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="danger">Select
+                                Model</small>
+                            <select class="form-control mx-2 uppercase" name="car-model-trims" id="car-model-trims">
+                                <option value="">Select Trim</option>
+                            </select>
+                        </div>
+                        <div class="d-inline-flex align-items-center mt-5">
+                            <input th:field="*{registration}" th:errorclass="'is-invalid'" type="text"
+                                   class="form-control mx-2 uppercase" name="registration" id="registration"
+                                   placeholder="Registration Number">
+                            <small th:if="${#fields.hasErrors('registration')}" th:errors="*{registration}"
+                                   class="danger">Add Registration Number</small>
+                            <input th:field="*{vinNumber}" th:errorclass="'is-invalid'" type="text"
+                                   class="form-control mx-2 uppercase" name="vinNumber" id="vinNumber"
+                                   placeholder="VIN Number">
+                            <small th:if="${#fields.hasErrors('vinNumber')}" th:errors="*{vinNumber}" class="danger">Add
+                                Valid VIN Number</small>
+                            <select th:field="*{engine}" th:errorclass="'is-invalid'"
+                                    class="form-control mx-2 uppercase" name="engine" id="engine">
+                                <option value="">Select Engine Type</option>
+                                <option th:each="engine: ${allEngineTypes}"
+                                        th:value="${engine}"
+                                        th:text="${engine}"></option>
+                            </select>
+                            <small th:if="${#fields.hasErrors('engine')}" th:errors="*{engine}" class="danger">Add
+                                Engine Type</small>
+                        </div>
+                        <button class="btn-lg blue mt-5" type="submit">Add Car</button>
+                        <input class="mt-5" id="cq-show-data" type="button" value="Show Available Data"/>
+                        <div id="car-model-data" class="d-inline-flex align-items-center mt-5"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 
+<div class="container">
 
-    <div class="row"> <select class="mt-2 text-body" name="car-years" id="car-years"></select></div>
-    <div class="row"><select name="car-makes" id="car-makes"></select></div>
-
-    <select name="car-models" id="car-models"></select>
-    <select name="car-model-trims" id="car-model-trims"></select>
-    <button type="submit">Add Car</button>
-    </form>
-
-    <input id="cq-show-data" type="button" value="Show Data"/>
-    <div id="car-model-data"></div>
+</div>
 </main>
-    <footer th:replace="fragments/commons::footer"></footer>
+<footer th:replace="fragments/commons::footer"></footer>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
 </body>
 </html>

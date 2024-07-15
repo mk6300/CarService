@@ -55,4 +55,5 @@ private final UserService userService;
         this.userService.register(registerUserDTO);
         return "redirect:/";
     }
+
 }

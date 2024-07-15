@@ -8,4 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface HomeController {
     @GetMapping("/home")
     String home(Model model);
+
+    @GetMapping("/home/welcome")
+    String welcome(Model model);
+
+    @GetMapping("/home/garage")
+    String garage(Model model);
 }

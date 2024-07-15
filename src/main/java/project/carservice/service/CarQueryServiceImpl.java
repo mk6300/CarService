@@ -1,8 +1,10 @@
 package project.carservice.service;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import project.carservice.model.dto.CarQueryMakeDTO;
@@ -12,7 +14,7 @@ import project.carservice.repository.CarMakeRepository;
 
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class CarQueryServiceImpl implements CarQueryService {
     private static final String BASE_URL = "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=";
     private final RestClient restClient;
@@ -28,6 +30,8 @@ public class CarQueryServiceImpl implements CarQueryService {
     public boolean hasInitializedMakes() {
         return carMakeRepository.count() > 0;
     }
+
+    @PostConstruct
     public void initializeCarMakes() {
         List<CarQueryMakeDTO> carMakes = fetchCarMakesFromApi();
 
@@ -45,10 +49,11 @@ public class CarQueryServiceImpl implements CarQueryService {
     }
 
     private List<CarQueryMakeDTO> fetchCarMakesFromApi() {
-        String url = BASE_URL+"getMakes";
+        String url = "https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getMakes&year=2000";
 
         try {
-            ResponseEntity<MakesResponse> response = restClient.get()
+            ResponseEntity<MakesResponse> response = restClient
+                    .get()
                     .uri(url)
                     .retrieve()
                     .toEntity(MakesResponse.class);

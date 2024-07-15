@@ -3,6 +3,8 @@ package project.carservice.model.dto;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import project.carservice.model.entity.enums.EngineTypeEnum;
@@ -17,15 +19,14 @@ public class AddCarDTO {
 
     @NotNull
     private String model;
-
     @NotNull
-    @Size (min = 1941, max = 2022)
+    @Min(1941)
+    @Max(2022)
     private int year;
 
-    @NotNull
+    @NotNull (message = "Please choose engine type")
     private EngineTypeEnum engine;
 
-    @NotNull
     @ValidVinNumber (message = "Need add valid VIN number")
     private String vinNumber;
 

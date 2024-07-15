@@ -381,3 +381,29 @@
     padding-right: 0;
     border-right: none;
 }
+/*home side bar*/
+.main-container {
+    display: flex;
+}
+.sidebar {
+    width: 200px;
+    height: 50vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+.content {
+    flex: 1;
+    padding: 20px;
+}
+.sidebar a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    font-size: x-large;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+.sidebar a:hover {
+    background-color: #ddd;
+}
