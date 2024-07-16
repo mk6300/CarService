@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>Car Service</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/images/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap"
+          rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="http://www.carqueryapi.com/js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.carqueryapi.com/js/carquery.0.3.4.js"></script>
 </head>
 <body>
+<!-- Spinner Start-->
+<div id="spinner"
+     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End-->
+<!-- Topbar Start -->
+<div th:replace="fragments/commons::topbar"></div>
+<!-- Topbar End -->
+<!-- Navbar Start -->
+<header th:replace="~{fragments/commons::nav(activeLink=${'add-order'})}"></header>
 
+<div class="main-container">
+    <div th:replace="~{fragments/commons::sidebar}"></div>
+    <div class="content" id="content">
+        <h2 class="text-center text-black mt-5 text-danger">ADD NEW SERVICE ORDER</h2>
+        <div class="main-form mx-auto col-md-8 flex flex-column justify-content-center">
+            <form th:action="@{/orders/add-order}"
+                  th:object="${addOrderDTO}" method="post">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center mt-5">
+                        <div class="d-inline-flex align-items-center">
+                            <input type="date" class="date form-control mx-2 uppercase align-content-center"
+                                    name="date" id="date">
+                            <small class="danger"></small>
+                        </div>
+                        <div class="d-inline-flex align-items-center mt-5" >
+                            <select  class="form-control mx-2 uppercase" name="car" id="car">
+                                <option value="">Select your car</option>
+                                <option></option>
+                            </select>
+                            <small class="danger"></small>
+                        </div>
+                        <div class="d-inline-flex align-items-center">
+                            <textarea type="text" class="form-control mt-5 col-xs-12" rows="7" cols="50"
+                                    name="description" id="descriptiom"
+                            placeholder="Describe your car problem"></textarea>
+                            <small class="danger"></small>
+                        </div>
+                            <div class="align-content-center">
+                        <button class="btn-lg blue mt-5 text-danger fw-bold" type="submit">Submit New Service Order</button>
+                            </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="container">
+
+</div>
+</main>
+<footer th:replace="~{fragments/commons::footer}"></footer>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
 </body>
 </html>

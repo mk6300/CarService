@@ -1,8 +1,10 @@
 package project.carservice.model.dto;
 
 
-public class CarDTO {
+import java.util.UUID;
 
+public class CarDTO {
+    private UUID id;
     private String registration;
     private String make;
     private String model;
@@ -50,5 +52,13 @@ public class CarDTO {
 
     public void setVinNumber(String vinNumber) {
         this.vinNumber = vinNumber;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

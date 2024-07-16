@@ -13,7 +13,7 @@ public interface HomeController {
     String home(Model model, @AuthenticationPrincipal UserDetails userDetails);
 
     @GetMapping("/home/garage")
-    String garage(Model model, AppUserDetails appUserDetails);
+    String garage(Model model, @AuthenticationPrincipal UserDetails userDetails);
 
     @GetMapping("/home/my-profile")
     String profile(Model model);

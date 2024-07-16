@@ -37,10 +37,10 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarDTO> allOwnedBy(AppUserDetails appUserDetails) {
-        return carRepository.findAllByOwner(userService.getUserByUsername(userService.getCurrentUser().getUsername()))
+        return carRepository.getAllByOwner_Id(appUserDetails.getId())
                 .stream()
                 .map(this::mapCarDTO)
-                .collect(Collectors.toList());
+                .toList();
 
     }
 

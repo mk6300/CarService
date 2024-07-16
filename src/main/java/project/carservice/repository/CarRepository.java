@@ -6,10 +6,11 @@ import project.carservice.model.entity.Car;
 import project.carservice.model.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface CarRepository extends JpaRepository <Car, UUID> {
 
-    List<Car> findAllByOwner(User owner);
+   List<Car> getAllByOwner_Id (UUID id);
 }

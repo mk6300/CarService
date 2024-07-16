@@ -35,17 +35,18 @@ public class HomeControllerImpl implements HomeController {
     }
 
     @Override
-    public String garage(Model model, AppUserDetails appUserDetails) {
+    public String garage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails instanceof AppUserDetails appUserDetails) {
+
             List<CarDTO> myCars = carService.allOwnedBy(appUserDetails);
-            model.addAttribute("myCars", myCars);
+            model.addAttribute("myCars", myCars);}
 
-        return "garage";
+            return "garage";
+        }
+
+        @Override
+        public String profile (Model model){
+            return "my-profile";
+        }
+
     }
-
-    @Override
-    public String profile(Model model) {
-        return "my-profile";
-    }
-
-
-}

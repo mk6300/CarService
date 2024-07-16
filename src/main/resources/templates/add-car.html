@@ -33,35 +33,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="http://www.carqueryapi.com/js/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.carqueryapi.com/js/carquery.0.3.4.js"></script>
-    <!--    <script>-->
-    <!--        $(document).ready(function () {-->
-    <!--            var startYear = 2022;-->
-    <!--            var yearDropdown = $('#year');-->
-    <!--            for (var year = startYear; year >= 1941; year&#45;&#45;) {-->
-    <!--                yearDropdown.append($('<option></option>').attr('value', year).text(year));-->
-    <!--            }-->
-
-    <!--            // Handle make and year change-->
-    <!--            $('#make, #year').change(function () {-->
-    <!--                var make = $('#make').val();-->
-    <!--                var year = $('#year').val();-->
-    <!--                if (make && year) {-->
-    <!--                    $.ajax({-->
-    <!--                        url: '/api/cars/models?make=' + make + '&year=' + year,-->
-    <!--                        method: 'GET',-->
-    <!--                        success: function (data) {-->
-    <!--                            var modelDropdown = $('#model');-->
-    <!--                            modelDropdown.empty();-->
-    <!--                            $.each(data, function (key, model) {-->
-    <!--                                modelDropdown.append($('<option></option>').attr('value', model).text(model));-->
-    <!--                            });-->
-    <!--                        }-->
-    <!--                    });-->
-    <!--                }-->
-    <!--            });-->
-    <!--        });-->
-    <!--    </script>-->
-
     <script type="text/javascript">
         $(document).ready(
             function () {
@@ -226,7 +197,7 @@
 
 </div>
 </main>
-<footer th:replace="fragments/commons::footer"></footer>
+<footer th:replace="~{fragments/commons::footer}"></footer>
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>

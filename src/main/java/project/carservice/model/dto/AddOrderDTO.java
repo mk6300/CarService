@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 public class AddOrderDTO {
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Future(message = "Date must be in future!")
     private LocalDate date;
 

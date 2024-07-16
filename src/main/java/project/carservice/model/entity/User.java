@@ -34,7 +34,7 @@ public class User extends BaseEntity {
     )
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Car> cars;
 
     @OneToMany(mappedBy = "addedBy")

@@ -15,9 +15,6 @@ public class Part extends BaseEntity{
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     private Supplier supplier;
 
-    @OneToMany
-    private Set<Car> cars;
-
     public String getName() {
         return name;
     }
@@ -34,11 +31,4 @@ public class Part extends BaseEntity{
         this.supplier = supplier;
     }
 
-    public Set<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
-    }
 }
