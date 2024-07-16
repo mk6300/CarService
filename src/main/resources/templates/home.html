@@ -50,7 +50,8 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content d-flex" id="content">
         <div class="col justify-content-center mt-5">
-            <h1 class="text-center font-weight-bold text-danger">WELCOME TO CAR SERVICE</h1> </div>
+            <h1 class="text-center font-weight-bold text-danger text-uppercase">WELCOME TO CAR SERVICE <th:block th:text="${welcomeMessage}"></th:block>!</h1> </div>
+
         <div class="col justify-content-center align-items-center mt-5">
             <img class="img-fluid" alt="Responsive image" src="/images/home.jpg">
         </div>

@@ -1,13 +1,16 @@
 package project.carservice.service;
 
-import jakarta.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.entity.User;
 import project.carservice.repository.UserRepository;
+
+import java.security.Principal;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -16,14 +19,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
-    private final HttpSession session;
+    private final AppUserDetailsService appUserDetailsService;
 
 
-    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, HttpSession session) {
+    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, AppUserDetailsService appUserDetailsService) {
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.encoder = encoder;
-        this.session = session;
+        this.appUserDetailsService = appUserDetailsService;
     }
 
     @Override
@@ -79,6 +82,10 @@ public class UserServiceImpl implements UserService {
 
         return userDTO;
     }
-
+    @Override
+    public UserDetails getCurrentUser() {
+        Principal principal = SecurityContextHolder.getContext().getAuthentication();
+        return this.appUserDetailsService.loadUserByUsername(principal.getName());
+    }
 
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import project.carservice.model.entity.enums.EngineTypeEnum;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table (name="cars")

@@ -15,7 +15,10 @@ public class Order extends BaseEntity {
     private String description;
 
     @Column
-    private boolean inProgress;
+    private boolean isInProgress;
+
+    @Column
+    private boolean isFinished;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User addedBy;
@@ -43,11 +46,19 @@ public class Order extends BaseEntity {
     }
 
     public boolean isInProgress() {
-        return inProgress;
+        return isInProgress;
     }
 
     public void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
+        isInProgress = inProgress;
+    }
+
+    public boolean isIsFinished() {
+        return isFinished;
+    }
+
+    public void setIsFinished(boolean isfinished) {
+        this.isFinished = isfinished;
     }
 
     public User getAddedBy() {

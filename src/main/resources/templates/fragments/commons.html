@@ -50,7 +50,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="/home" class="nav-item nav-link active" sec:authorize="isAuthenticated()">Home</a>
+            <a th:href="@{/home}" class="nav-item nav-link active" sec:authorize="isAuthenticated()">Home</a>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Register/Login</a>
                 <div class="dropdown-menu fade-up m-0">
@@ -58,9 +58,9 @@
                     <a href="/users/register" class="dropdown-item">Register</a>
                 </div>
             </div>
-            <a href="/service" class="nav-item nav-link">Services</a>
-            <a href="/about" class="nav-item nav-link">About Us</a>
-            <a href="/contact" class="nav-item nav-link">Contact</a>
+            <a th:href="@{/service}" class="nav-item nav-link">Services</a>
+            <a th:href="@{/about}" class="nav-item nav-link">About Us</a>
+            <a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Language</a>
                 <div class="dropdown-menu fade-up m-0" >
@@ -151,10 +151,15 @@
 </footer>
 <!-- Footer End -->
 <sidebar class="sidebar">
-    <a href="/home/garage">My Garage</a>
-    <a href="/orders/my-orders">My Service Orders</a>
-    <a href="/orders/add-order">New Service Order</a>
-    <a href="/home/my-profile">My profile</a>
+    <a th:href="@{/home/garage}">My Garage</a>
+    <a th:href="@{/orders/my-orders}">My Service Orders</a>
+    <a th:href="@{/orders/add-order}">New Service Order</a>
+    <a th:href="@{/home/my-profile}">My profile</a>
+    <a th:href="@{/admin/unsigned-orders}">Unsigned Orders</a>
+    <a th:href="@{/admin/manage-users}">Manage Users</a>
+    <a th:href="@{/admin/supplier}">Manage Suppliers</a>
+    <a th:href="@{/mechanic/tasks}">Assigned Tasks</a>
+
 </sidebar>
 <!--Side Bar-->
 

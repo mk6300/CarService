@@ -1,5 +1,6 @@
 package project.carservice.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
@@ -17,4 +18,6 @@ public interface UserService {
 
     void register(RegisterUserDTO registerDTO);
 
- }
+
+    UserDetails getCurrentUser();
+}
