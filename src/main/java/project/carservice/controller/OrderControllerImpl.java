@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.AddOrderDTO;
 import project.carservice.model.dto.CarDTO;
+import project.carservice.model.dto.OrderDTO;
 import project.carservice.service.CarService;
 import project.carservice.service.OrderService;
 import project.carservice.service.UserHelperService;
@@ -27,6 +28,8 @@ public class OrderControllerImpl implements OrderController {
 
     @Override
     public String orders(Model model) {
+        List<OrderDTO> myOrders = orderService.allOrdersByUser(userHelperService.getUser().getId());
+        model.addAttribute("myOrders", myOrders);
         return "orders";
     }
 
@@ -49,7 +52,7 @@ public class OrderControllerImpl implements OrderController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.addOrderDTO", result);
 
             System.out.println("Date: " + addOrderDTO.getDate());
-            return "add-order";
+            return "redirect: orders/add-order";
         }
 
         this.orderService.addOrder(addOrderDTO);

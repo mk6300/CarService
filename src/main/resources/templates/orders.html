@@ -49,27 +49,24 @@
 <div class="main-container">
   <div th:replace="~{fragments/commons::sidebar}"></div>
   <div class="content" id="content">
-    <h1 class="d-flex justify-content-center">MY GARAGE</h1>
-    <div th:each="car: ${myCars}" class="rounded m-auto">
+    <h1 class="d-flex justify-content-center">MY ORDERS</h1>
+    <div th:each="o: ${myOrders}" class="rounded m-auto">
       <div class="border p-3">
-        <h4 class="mySticky bg-gray text-dark rounded text-uppercase" th:text="${car.getMake()}+' '+${car.getModel()}"></h4>
+        <h4 class="mySticky bg-gray text-dark rounded text-uppercase" th:text="'Order for Car '+${o.getCar().getMake()}+' '+${o.getCar().getModel()}"></h4>
         <div class="d-flex mt-3 rounded align-items-center ">
-          <label> Year</label>
-          <span th:text="${car.getYear()}" class="text-uppercase form-control mx-2"></span>
-          <label> Registration number </label>
-          <span th:text="${car.getRegistration()}" class="text-uppercase form-control mx-2"></span>
-          <label>VIN Number</label>
-          <span th:text="${car.getVinNumber()}" class="text-uppercase form-control mx-2"></span>
+          <label> Date</label>
+          <span th:text="${o.getDate()}" class="text-uppercase form-control mx-2 w-25"></span>
+          <label> Description </label>
+          <span th:text="${o.getDescription()}" class="text-uppercase form-control mx-2"></span>
+          <label>Status</label>
+          <span th:text="${o.getStatus()}" class="text-uppercase form-control mx-2 w-25"></span>
         </div>
         <div class="d-flex justify-content-end">
-          <button class="btn text-danger float-right text-uppercase align-content-center" th:href="@{cars/remove/{id}(id=*{car.getId()})}">Remove Car</button>
+          <button class="btn text-danger float-right text-uppercase align-content-center" th:href="@{orders/remove/{id}(id=*{o.getId()})}">Remove order</button>
         </div>
       </div>
     </div>
-    <div class="text-center">
-      <a href="/cars/add" class="btn btn-danger mt-5"> ADD NEW CAR TO GARAGE</a>
-    </div>
-  </div>
+   </div>
 </div>
 
 <footer th:replace="~{fragments/commons::footer}"></footer>

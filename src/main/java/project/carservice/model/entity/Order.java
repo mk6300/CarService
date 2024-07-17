@@ -1,6 +1,8 @@
 package project.carservice.model.entity;
 
 import jakarta.persistence.*;
+import project.carservice.model.entity.enums.EngineTypeEnum;
+import project.carservice.model.entity.enums.OrdersStatusEnum;
 
 import java.time.LocalDate;
 
@@ -14,11 +16,9 @@ public class Order extends BaseEntity {
     @Column(nullable = false)
     private String description;
 
-    @Column
-    private boolean isInProgress;
-
-    @Column
-    private boolean isFinished;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrdersStatusEnum status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User addedBy;
@@ -45,22 +45,6 @@ public class Order extends BaseEntity {
         this.description = description;
     }
 
-    public boolean isInProgress() {
-        return isInProgress;
-    }
-
-    public void setInProgress(boolean inProgress) {
-        isInProgress = inProgress;
-    }
-
-    public boolean isIsFinished() {
-        return isFinished;
-    }
-
-    public void setIsFinished(boolean isfinished) {
-        this.isFinished = isfinished;
-    }
-
     public User getAddedBy() {
         return addedBy;
     }
@@ -85,4 +69,11 @@ public class Order extends BaseEntity {
         this.car = car;
     }
 
+    public OrdersStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrdersStatusEnum status) {
+        this.status = status;
+    }
 }
