@@ -1,4 +1,4 @@
-package project.carservice.service;
+package project.carservice.service.session;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,8 +12,6 @@ import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.model.user.AppUserDetails;
 import project.carservice.repository.UserRepository;
 
-import java.util.List;
-import java.util.stream.Collectors;
 @Service
 public class AppUserDetailsService implements UserDetailsService {
 

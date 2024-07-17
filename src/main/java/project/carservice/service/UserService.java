@@ -19,5 +19,7 @@ public interface UserService {
     void register(RegisterUserDTO registerDTO);
 
 
-    UserDetails getCurrentUser();
+    UserDetails getCurrentUserDetails();
+
+    User getCurrentUser();
 }

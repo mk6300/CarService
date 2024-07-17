@@ -4,6 +4,7 @@ package project.carservice.validation;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import project.carservice.service.UserService;
+import project.carservice.validation.annotations.UniqueUsername;
 
 
 public class UniqueUsernameValidator implements ConstraintValidator<UniqueUsername, String> {

@@ -5,6 +5,7 @@ package project.carservice.validation;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import project.carservice.service.UserService;
+import project.carservice.validation.annotations.UniqueEmail;
 
 
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {

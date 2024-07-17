@@ -50,22 +50,24 @@
   <div th:replace="~{fragments/commons::sidebar}"></div>
   <div class="content" id="content">
     <h1 class="d-flex justify-content-center">MY GARAGE</h1>
-    <div class="col-5 rounded m-auto" style="height: 30vh; overflow: auto">
-      <h3 class="mySticky bg-gray text-dark rounded"></h3>
-      <th:block>
-        <div class="mt-3 rounded badge-warning">
-          <!--                            <img class="mr-2" src="/img/german.png" alt="Flag" width="20px" height="20px">-->
-          <span></span>
-          <br>
-          <span> </span>
-          <br>
-          <span></span>
-          <a class="ml-3 text-danger">Remove</a>
+    <div th:each="car: ${myCars}" class="rounded m-auto">
+      <div class="border p-3">
+        <h4 class="mySticky bg-gray text-dark rounded text-uppercase" th:text="${car.getMake()}+' '+${car.getModel()}"></h4>
+        <div class="d-flex mt-3 rounded align-items-center ">
+          <label> Year</label>
+          <span th:text="${car.getYear()}" class="text-uppercase form-control mx-2"></span>
+          <label> Registration number </label>
+          <span th:text="${car.getRegistration()}" class="text-uppercase form-control mx-2"></span>
+          <label>VIN Number</label>
+          <span th:text="${car.getVinNumber()}" class="text-uppercase form-control mx-2"></span>
         </div>
-      </th:block>
+        <div class="d-flex justify-content-end">
+          <button class="btn text-danger float-right text-uppercase align-content-center" th:href="@{cars/remove/{id}(id=*{car.getId()})}">Remove Car</button>
+        </div>
+      </div>
     </div>
     <div class="text-center">
-      <a href="/cars/add" class="btn btn-danger"> ADD NEW CAR TO GARAGE</a>
+      <a href="/cars/add" class="btn btn-danger mt-5"> ADD NEW CAR TO GARAGE</a>
     </div>
   </div>
 </div>

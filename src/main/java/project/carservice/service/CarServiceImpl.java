@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service;
 import project.carservice.model.dto.AddCarDTO;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.entity.Car;
-import project.carservice.model.user.AppUserDetails;
 import project.carservice.repository.CarRepository;
 import project.carservice.repository.UserRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -36,18 +35,23 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<CarDTO> allOwnedBy(AppUserDetails appUserDetails) {
-        return carRepository.getAllByOwner_Id(appUserDetails.getId())
+    public List<CarDTO> allOwnedBy(String username) {
+        return carRepository.getAllByOwner_Username(username)
                 .stream()
                 .map(this::mapCarDTO)
                 .toList();
-
     }
+
+    @Override
+    public Car getById(UUID id) {
+        return carRepository.findById(id).orElseThrow();
+    }
+
 
     private Car mapCar(AddCarDTO addCarDTO) {
         Car car = modelMapper.map(addCarDTO, Car.class);
 
-        car.setOwner(userRepository.findByUsername(userService.getCurrentUser().getUsername()).orElseThrow());
+        car.setOwner(userService.getCurrentUser());
         return car;
     }
 
@@ -55,5 +59,4 @@ public class CarServiceImpl implements CarService {
 
         return modelMapper.map(car, CarDTO.class);
     }
-
 }

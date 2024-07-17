@@ -9,6 +9,7 @@ import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.entity.User;
 import project.carservice.repository.UserRepository;
+import project.carservice.service.session.AppUserDetailsService;
 
 import java.security.Principal;
 
@@ -82,10 +83,15 @@ public class UserServiceImpl implements UserService {
 
         return userDTO;
     }
+
     @Override
-    public UserDetails getCurrentUser() {
+    public UserDetails getCurrentUserDetails() {
         Principal principal = SecurityContextHolder.getContext().getAuthentication();
         return this.appUserDetailsService.loadUserByUsername(principal.getName());
     }
 
+    @Override
+    public User getCurrentUser() {
+        return this.getUserByUsername(this.getCurrentUserDetails().getUsername());
+    }
 }

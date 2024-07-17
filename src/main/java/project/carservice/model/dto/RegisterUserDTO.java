@@ -1,9 +1,8 @@
 package project.carservice.model.dto;
 
 import jakarta.validation.constraints.*;
-import project.carservice.validation.UniqueEmail;
-import project.carservice.validation.UniqueUsername;
-import project.carservice.validation.ValidPhoneNumber;
+import project.carservice.validation.annotations.UniqueEmail;
+import project.carservice.validation.annotations.UniqueUsername;
 
 public class RegisterUserDTO {
 

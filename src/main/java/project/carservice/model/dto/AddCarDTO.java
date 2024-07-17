@@ -1,17 +1,17 @@
 package project.carservice.model.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import project.carservice.model.entity.enums.EngineTypeEnum;
-import project.carservice.validation.ValidVinNumber;
+import project.carservice.validation.annotations.UniqueRegistration;
+import project.carservice.validation.annotations.UniqueVinNumber;
+import project.carservice.validation.annotations.ValidVinNumber;
 
 public class AddCarDTO {
    @NotNull
+   @UniqueRegistration
    @Size (min =2, max = 9, message = "Registration number must be between 2 and 9 characters!)")
    private String registration;
    @NotNull
@@ -28,6 +28,7 @@ public class AddCarDTO {
     private EngineTypeEnum engine;
 
     @ValidVinNumber (message = "Need add valid VIN number")
+    @UniqueVinNumber
     private String vinNumber;
 
     public AddCarDTO(String registration, String make, String model, int year, EngineTypeEnum engine, String vinNumber) {

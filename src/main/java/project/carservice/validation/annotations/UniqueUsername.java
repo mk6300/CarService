@@ -1,7 +1,8 @@
-package project.carservice.validation;
+package project.carservice.validation.annotations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import project.carservice.validation.UniqueUsernameValidator;
 
 import java.lang.annotation.*;
 

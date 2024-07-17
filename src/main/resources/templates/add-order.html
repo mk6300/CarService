@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Car Service</title>
@@ -59,26 +59,35 @@
                 <div class="container">
                     <div class="row justify-content-center align-items-center mt-5">
                         <div class="d-inline-flex align-items-center">
-                            <input type="date" class="date form-control mx-2 uppercase align-content-center"
-                                    name="date" id="date">
-                            <small class="danger"></small>
+                            <label class="text-uppercase">Appointment Date</label>
+                            <input th:field="*{date}" th:errorclass="'is-invalid'" type="date"
+                                   class="form-control mx-2 uppercase align-content-center w-25"
+                                   name="date" id="date">
+                            <small th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="danger"></small>
                         </div>
-                        <div class="d-inline-flex align-items-center mt-5" >
-                            <select  class="form-control mx-2 uppercase" name="car" id="car">
+                        <div class="d-inline-flex align-items-center mt-5">
+                            <select th:feild="*{id}" th:errorclass="'is-invalid'"
+                                    class="form-control mx-2 text-uppercase" name="id" id="id">
                                 <option value="">Select your car</option>
-                                <option></option>
+                                <option class="text-uppercase" th:each="car: ${cars}"
+                                        th:value="${car.getId}"
+                                        th:text="${car.getMake} + ' ' + ${car.getModel} + ' ' + ${car.getRegistration}"></option>
                             </select>
-                            <small class="danger"></small>
+                            <small th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="danger"></small>
                         </div>
                         <div class="d-inline-flex align-items-center">
-                            <textarea type="text" class="form-control mt-5 col-xs-12" rows="7" cols="50"
-                                    name="description" id="descriptiom"
-                            placeholder="Describe your car problem"></textarea>
-                            <small class="danger"></small>
+                            <textarea th:feild="*{description}" th:errorclass="'is-invalid'" type="text"
+                                      class="form-control mt-5 col-xs-12" rows="7" cols="50"
+                                      name="description" id="description"
+                                      placeholder="Describe your car problem"></textarea>
+                            <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                                   class="danger"></small>
                         </div>
-                            <div class="align-content-center">
-                        <button class="btn-lg blue mt-5 text-danger fw-bold" type="submit">Submit New Service Order</button>
-                            </div>
+                        <div class="align-content-center">
+                            <button class="btn-lg blue mt-5 text-danger fw-bold" type="submit">Submit New Service
+                                Order
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>

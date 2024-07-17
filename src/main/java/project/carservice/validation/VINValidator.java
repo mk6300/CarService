@@ -2,6 +2,7 @@ package project.carservice.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import project.carservice.validation.annotations.ValidVinNumber;
 
 import java.util.regex.Pattern;
 
