@@ -35,13 +35,13 @@ public class User extends BaseEntity {
     private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Car> cars;
+    private List<Car> cars;
 
     @OneToMany(mappedBy = "addedBy")
-    private Set<Order> orders;
+    private List<Order> orders;
 
     @OneToMany(mappedBy = "responsibleMechanic")
-    private Set<Order> ordersInProgress;
+    private List<Order> responsible;
 
     public User(String username, String password, Collection<? extends GrantedAuthority> authorities) {
     }
@@ -105,27 +105,29 @@ public class User extends BaseEntity {
         this.roles = roles;
     }
 
-    public Set<Car> getCars() {
+    public List<Car> getCars() {
         return cars;
     }
 
-    public void setCars(Set<Car> cars) {
+    public void setCars(List<Car> cars) {
         this.cars = cars;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
-    public Set<Order> getOrdersInProgress() {
-        return ordersInProgress;
+    public List<Order> getResponsible() {
+        return responsible;
     }
 
-    public void setOrdersInProgress(Set<Order> ordersInProgress) {
-        this.ordersInProgress = ordersInProgress;
+    public void setResponsible(List<Order> responsible) {
+        this.responsible = responsible;
     }
 }
+
+

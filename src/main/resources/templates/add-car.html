@@ -138,7 +138,7 @@
                 <div class="container">
                     <div class="row justify-content-center align-items-center mt-5">
                         <div class="d-inline-flex align-items-center">
-                            <select th:value="*{year}" th:errorclass="'is-invalid'"class="form-control mx-2 uppercase"
+                            <select th:value="*{year}" th:errorclass="'is-invalid'" class="form-control mx-2 uppercase"
                                     name="year" id="year">
                                 <option value="">Select Year</option>
                             </select>
@@ -181,20 +181,14 @@
                             <small th:if="${#fields.hasErrors('engine')}" th:errors="*{engine}" class="danger">Add
                                 Engine Type</small>
                         </div>
-                        <button class="btn-lg blue mt-5" type="submit">Add Car</button>
-                        <input class="mt-5" id="cq-show-data" type="button" value="Show Available Data"/>
+                        <button class="btn-lg blue mt-5 w-25 text-danger" type="submit">Add Car</button>
+                        <input class="mt-5 text-uppercase" id="cq-show-data" type="button" value="Show Available Car Data For The Selected Car Model"/>
                         <div id="car-model-data" class="d-inline-flex align-items-center mt-5"></div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-</div>
-</div>
-</div>
-
-<div class="container">
-
 </div>
 </main>
 <footer th:replace="~{fragments/commons::footer}"></footer>

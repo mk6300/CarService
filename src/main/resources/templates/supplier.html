@@ -43,17 +43,57 @@
     </div>
 </div>
 <!-- Spinner End-->
+
+
 <!-- Topbar Start -->
-<div th:replace="fragments/commons::topbar"></div>
+<div th:replace="~{fragments/commons::topbar}"></div>
 <!-- Topbar End -->
 <!-- Navbar Start -->
-<header th:replace="~{fragments/commons::nav(activeLink=${'supplier'})}"></header>
-<main>
+<header th:replace="~{fragments/commons::nav (activeLink=${'home'})}"></header>
+<div class="main-container">
+    <div th:replace="~{fragments/commons::sidebar}"></div>
+    <div class="content" id="content">
+        <h1 class="d-flex justify-content-center">Spare Parts Suppliers</h1>
+        <div th:each="s : ${suppliers}" class="rounded m-auto">
+            <div class="border p-3">
+                <div class="d-inline-flex align-items-center mt-5">
+                    <select th:feild="*{id}" th:errorclass="'is-invalid'"
+                            class="form-control mx-2 text-uppercase" name="id" id="id">
+                        <option value="">Select supplier</option>
+                        <option class="text-uppercase" th:each="s : ${supplier}"
+                                th:value="${s.getId}"
+                                th:text="${s.getName}"></option>
+                    </select>
+                    <small th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="danger"></small>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn text-danger float-right text-uppercase align-content-center" th:href="@{admin/edit-supplier/{id}(id=*{s.getId()})}">Edit Supplier</button>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn text-danger float-right text-uppercase align-content-center" th:href="@{admin/remove-supplier/{id}(id=*{s.getId()})}">Remove Supplier</button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a th:href="@{admin/add-supplier}" class="btn btn-danger mt-5"> ADD NEW SUPPLIER</a>
+        </div>
+    </div>
+</div>
 
-</main>
 <footer th:replace="~{fragments/commons::footer}"></footer>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/wow/wow.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/waypoints/waypoints.min.js"></script>
+<script src="/lib/counterup/counterup.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/lib/tempusdominus/js/moment.min.js"></script>
+<script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="/js/main.js"></script>
+
 </body>
 </html>

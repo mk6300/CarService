@@ -34,7 +34,19 @@ logging:
 server:
   port: 8080
 
-orders:
+mail:
+  host: smtp.gmail.com
+  port: 587
+  username: mk000636363@gmail.com
+  password: @Mitko800620
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+
+parts:
   api:
     baseurl: "http://localhost:8081"
 
