@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.user.AppUserDetails;
 import project.carservice.service.UserHelperService;
+import project.carservice.service.UserService;
 import project.carservice.service.session.AppUserDetailsService;
 import project.carservice.service.CarService;
 
@@ -14,16 +15,18 @@ import java.util.List;
 
 @Controller
 public class HomeControllerImpl implements HomeController {
-    private final AppUserDetailsService appUserDetailsService;
+
     private final UserHelperService userHelperService;
     private final CarService carService;
 
+    private final UserService userService;
 
-    public HomeControllerImpl(AppUserDetailsService appUserDetailsService, UserHelperService userHelperService, CarService carService) {
-        this.appUserDetailsService = appUserDetailsService;
+
+    public HomeControllerImpl(UserHelperService userHelperService, CarService carService, UserService userService) {
         this.userHelperService = userHelperService;
 
         this.carService = carService;
+        this.userService = userService;
     }
 
 
@@ -50,7 +53,9 @@ public class HomeControllerImpl implements HomeController {
 
         @Override
         public String profile (Model model){
-            return "my-profile";
+            model.addAttribute("user",userService.getUserById(userHelperService.getUser().getId()));
+
+        return "my-profile";
         }
 
     }

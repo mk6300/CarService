@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.carservice.model.user.AppUserDetails;
 
-@RequestMapping(name = "/home")
+@RequestMapping("/home")
 public interface HomeController {
-    @GetMapping("/home")
+    @GetMapping()
     String home(Model model, @AuthenticationPrincipal UserDetails userDetails);
 
-    @GetMapping("/home/garage")
+    @GetMapping("/garage")
     String garage(Model model, @AuthenticationPrincipal UserDetails userDetails);
 
-    @GetMapping("/home/my-profile")
+    @GetMapping("/my-profile")
     String profile(Model model);
 }

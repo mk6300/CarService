@@ -56,6 +56,23 @@ public class OrderServiceImpl implements OrderService {
         orderDTO.setStatus(order.getStatus().getDisplayName());
         orderDTO.setCar(modelMapper.map(order.getCar(), CarDTO.class));
         return orderDTO;
+    }
+
+    @Override
+    public List<OrderDTO> allOrdersByMechanic(UUID id) {
+        return this.orderRepository.findAllByResponsibleMechanic_IdAndStatusNot(id, OrdersStatusEnum.FINISHED)
+                .stream()
+                .map(this::mapOrderDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderDTO> getUnassignedOrders() {
+        return this.orderRepository.findAllByResponsibleMechanicIsNullOrderByDateAsc()
+                .stream()
+                .map(this::mapOrderDTO)
+                .collect(Collectors.toList());
+
 
     }
 }

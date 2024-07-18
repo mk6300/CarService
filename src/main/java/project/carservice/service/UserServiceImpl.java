@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.entity.User;
+import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.repository.UserRepository;
 import project.carservice.service.session.AppUserDetailsService;
 
+import javax.management.relation.Role;
 import java.security.Principal;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -67,6 +71,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO getUserById(UUID id) {
+        return this.mapUserDTO(this.userRepository.findById(id).orElse(null));
+    }
+
+    @Override
     public void register(RegisterUserDTO registerUserDTO) {
         this.userRepository.save(this.mapUser(registerUserDTO));
 
@@ -93,5 +102,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         return this.getUserByUsername(this.getCurrentUserDetails().getUsername());
+    }
+
+    @Override
+    public List<UserDTO> AllMechanics() {
+        return this.userRepository.findAllByRole(UserRoleEnum.MECHANIC).stream()
+                .map(this::mapUserDTO)
+                .toList();
+
     }
 }

@@ -20,7 +20,7 @@ public class RegisterUserDTO {
     @Size(min = 2, max = 15, message = "Name length must be between 2 and 15 characters!")
     private String lastName;
     @UniqueEmail
-    @Email(message = "Enter valid email!")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Enter valid email!")
     @NotBlank(message = "Email cannot be empty!")
     private String email;
     @Pattern (regexp="^([+]?359)|0?(|-| )8[789]\\d{1}(|-| )\\d{3}(|-| )\\d{3}$", message = "Need add valid phone number")

@@ -52,7 +52,7 @@ public class OrderControllerImpl implements OrderController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.addOrderDTO", result);
 
             System.out.println("Date: " + addOrderDTO.getDate());
-            return "redirect: orders/add-order";
+            return "redirect:/orders/add-order";
         }
 
         this.orderService.addOrder(addOrderDTO);

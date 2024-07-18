@@ -9,7 +9,11 @@ import java.util.UUID;
 
 public interface OrderService {
 
-    void addOrder (AddOrderDTO addOrderDTO);
+    void addOrder(AddOrderDTO addOrderDTO);
 
     List<OrderDTO> allOrdersByUser(UUID id);
+
+    List<OrderDTO> allOrdersByMechanic(UUID id);
+
+    List<OrderDTO> getUnassignedOrders();
 }

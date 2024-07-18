@@ -11,9 +11,8 @@ public class OrderDTO {
     private LocalDate date;
     private String description;
     private String status;
-
     private CarDTO car;
-
+    private UserDTO mechanic;
     public OrderDTO() {
     }
 
@@ -55,5 +54,13 @@ public class OrderDTO {
 
     public void setCar(CarDTO car) {
         this.car = car;
+    }
+
+    public UserDTO getMechanic() {
+        return mechanic;
+    }
+
+    public void setMechanic(UserDTO mechanic) {
+        this.mechanic = mechanic;
     }
 }

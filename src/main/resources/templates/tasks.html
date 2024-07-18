@@ -49,7 +49,7 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
-        <h1 class="d-flex justify-content-center text-danger">MY ORDERS</h1>
+        <h1 class="d-flex justify-content-center text-danger">TASKS FOR ME</h1>
         <div th:each="o: ${myOrders}" class="rounded m-auto">
             <div class="border p-3">
                 <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
@@ -69,7 +69,7 @@
                 </div>
                 <div class="d-flex justify-content-end">
                     <button class="btn text-danger float-right text-uppercase align-content-center"
-                            th:href="@{orders/remove/{id}(id=*{o.getId()})}">Remove order
+                            th:href="@{mechanic//{id}(id=*{o.getId()})}">Remove order
                     </button>
                 </div>
             </div>

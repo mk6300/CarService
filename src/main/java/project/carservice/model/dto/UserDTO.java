@@ -33,11 +33,6 @@ public class UserDTO {
 
     private List<Role> roles;
 
-    private Set<Car> cars;
-
-    private Set<Order> orders;
-
-    private Set<Order> ordersInProgress;
 
     public String getFirstName() {
         return firstName;
@@ -93,27 +88,5 @@ public class UserDTO {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
-    public Set<Car> getCars() {
-        return cars;
-    }
 
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
-
-    public Set<Order> getOrdersInProgress() {
-        return ordersInProgress;
-    }
-
-    public void setOrdersInProgress(Set<Order> ordersInProgress) {
-        this.ordersInProgress = ordersInProgress;
-    }
 }
