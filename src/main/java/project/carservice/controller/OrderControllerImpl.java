@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.model.dto.AddOrderDTO;
+import project.carservice.model.dto.AddDTOs.AddOrderDTO;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.service.CarService;
@@ -50,8 +50,6 @@ public class OrderControllerImpl implements OrderController {
             redirectAttributes
                     .addFlashAttribute("addOrderDTO", addOrderDTO)
                     .addFlashAttribute("org.springframework.validation.BindingResult.addOrderDTO", result);
-
-            System.out.println("Date: " + addOrderDTO.getDate());
             return "redirect:/orders/add-order";
         }
 

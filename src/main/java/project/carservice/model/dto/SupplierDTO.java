@@ -1,40 +1,37 @@
-package project.carservice.model.entity;
+package project.carservice.model.dto;
 
-import jakarta.persistence.*;
+import java.util.UUID;
 
-import java.util.List;
-import java.util.Set;
+public class SupplierDTO {
 
-@Entity
-@Table (name = "suppliers")
-public class Supplier extends BaseEntity{
-
-    @Column (nullable = false,unique = true)
+    private UUID id;
     private String name;
-    @Column (nullable = false)
     private String address;
-    @Column (nullable = false)
     private String phoneNumber;
-    @Column(nullable = false)
     private String email;
-    @Column
     private String information;
-    @OneToMany(mappedBy = "supplier")
-    private List<Part> parts;
 
-    public Supplier() {
+    public SupplierDTO() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getAddress() {
         return address;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setAddress(String address) {
@@ -63,9 +60,5 @@ public class Supplier extends BaseEntity{
 
     public void setInformation(String information) {
         this.information = information;
-    }
-
-    public List<Part> getParts() {
-        return parts;
     }
 }

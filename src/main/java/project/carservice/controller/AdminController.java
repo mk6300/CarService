@@ -15,6 +15,6 @@ public interface AdminController {
     @PutMapping ("/assign-order")
     String assignOrder(OrderDTO orderDTO);
 
-    @GetMapping ("/supplier")
-    String supplier(Model model);
+    @GetMapping ("/suppliers")
+    String suppliers(Model model);
 }

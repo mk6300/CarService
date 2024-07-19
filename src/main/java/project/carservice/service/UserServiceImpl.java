@@ -5,14 +5,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import project.carservice.model.dto.RegisterUserDTO;
+import project.carservice.model.dto.AddDTOs.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.entity.User;
 import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.repository.UserRepository;
 import project.carservice.service.session.AppUserDetailsService;
 
-import javax.management.relation.Role;
 import java.security.Principal;
 import java.util.List;
 import java.util.UUID;

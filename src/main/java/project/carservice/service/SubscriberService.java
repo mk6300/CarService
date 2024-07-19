@@ -1,7 +1,8 @@
 package project.carservice.service;
 
-import project.carservice.model.entity.Subscriber;
+import project.carservice.model.dto.AddDTOs.SubscriberDTO;
+
 
 public interface SubscriberService {
-    void subscribe(Subscriber subscriberDTO);
+    void subscribe(SubscriberDTO subscriberDTO);
 }

@@ -1,11 +1,8 @@
 package project.carservice.model.dto;
 
-import project.carservice.model.entity.Car;
-import project.carservice.model.entity.Order;
-import project.carservice.model.entity.Role;
+import project.carservice.model.entity.UserRole;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class UserDTO {
@@ -31,7 +28,7 @@ public class UserDTO {
 
     private String phone;
 
-    private List<Role> roles;
+    private List<UserRole> roles;
 
 
     public String getFirstName() {
@@ -82,10 +79,10 @@ public class UserDTO {
         this.phone = phone;
     }
 
-    public List<Role> getRoles() {
+    public List<UserRole> getRoles() {
         return roles;
     }
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<UserRole> roles) {
         this.roles = roles;
     }
 

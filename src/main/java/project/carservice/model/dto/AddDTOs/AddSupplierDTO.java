@@ -1,29 +1,31 @@
-package project.carservice.model.entity;
+package project.carservice.model.dto.AddDTOs;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import project.carservice.validation.annotations.ValidPhoneNumber;
 
-import java.util.List;
-import java.util.Set;
+public class AddSupplierDTO {
 
-@Entity
-@Table (name = "suppliers")
-public class Supplier extends BaseEntity{
-
-    @Column (nullable = false,unique = true)
+    @NotNull
+    @Size (min=3, message = "Name must be at least 3 characters")
     private String name;
-    @Column (nullable = false)
+    @NotNull
+    @Size (min=5, message = "Address must be at least 10 characters")
     private String address;
-    @Column (nullable = false)
+    @NotNull
+    @ValidPhoneNumber (message = "Please enter valid phone number")
     private String phoneNumber;
-    @Column(nullable = false)
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$", message = "Please enter valid email")
     private String email;
-    @Column
-    private String information;
-    @OneToMany(mappedBy = "supplier")
-    private List<Part> parts;
 
-    public Supplier() {
+    private String information;
+
+    public AddSupplierDTO() {
     }
+
+
 
     public String getName() {
         return name;
@@ -65,7 +67,7 @@ public class Supplier extends BaseEntity{
         this.information = information;
     }
 
-    public List<Part> getParts() {
-        return parts;
+    public static AddSupplierDTO empty() {
+        return new AddSupplierDTO();
     }
 }

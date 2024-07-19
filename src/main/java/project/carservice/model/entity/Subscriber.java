@@ -1,31 +1,21 @@
 package project.carservice.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "subscribers")
-public class Subscriber {
-    @Id
-    private Long id;
+public class Subscriber extends BaseEntity {
+
     @NotNull
-    private String email;
+    private String subsEmail;
 
-    public String getEmail() {
-        return email;
+    public String getSubsEmail() {
+        return subsEmail;
     }
 
-    public Long getId() {
-        return id;
+    public void setSubsEmail(String subsEmail) {
+        this.subsEmail = subsEmail;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

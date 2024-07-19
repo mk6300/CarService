@@ -1,14 +1,12 @@
 package project.carservice.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.model.dto.AddCarDTO;
+import project.carservice.model.dto.AddDTOs.AddCarDTO;
 import project.carservice.model.entity.enums.EngineTypeEnum;
-import project.carservice.model.user.AppUserDetails;
 import project.carservice.service.CarService;
 
 @Controller

@@ -61,11 +61,20 @@
                     <span th:text="${o.getDescription()}" class="text-uppercase form-control mx-2"></span>
                     <label>Status</label>
                     <span th:text="${o.getStatus()}" th:style="${o.getStatus == 'Scheduled'}
-        ? 'background-color: green; color: white;' : (${o.getStatus == 'In Progress'} ? 'background-color: red; color: white;' :
-        (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : ''))"
-                          class="text-uppercase form-control mx-2 w-25 bg">
+                             ? 'background-color: green; color: white;' : (${o.getStatus == 'Pending'} ? 'background-color: yellow; color: white;' : (${o.getStatus == 'In Progress'} ? 'background-color: red; color: white;' :
+                            (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : '')))"
+                             class="text-uppercase form-control mx-2 w-25 bg">
                     </span>
-                    <div th:each="m: ${mechanics}" class="d-inline-flex align-items-center mt-5">
+                    <div class="d-flex justify-content-end">
+                        <button th:if="${o.getStatus == 'Scheduled' or o.getStatus=='Pending'}" class="btn text-danger float-right text-uppercase align-content-center"
+                                th:href="@{admin/remove-order/{id}(id=*{o.getId()})}">
+                            Remove order
+                        </button>
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-sm-start">
+                    <div th:each="m: ${mechanics}" class="d-inline-flex align-items-center mt-5 w-50">
                         <select
                                 class="form-control mx-2 text-uppercase" name="id" id="id">
                             <option value="">Select Mechanic</option>
@@ -73,14 +82,13 @@
                                     th:value="${m.getId}"
                                     th:text="${m.getFirstName} + ' ' + ${m.getLastName}"></option>
                         </select>
-                        <div class="d-flex justify-content-end">
-                            <button class="btn text-danger float-right text-uppercase align-content-center"
+                        <div class="d-flex justify-content-sm-start">
+                            <button class="btn  text-uppercase align-content-center" type="submit"
                                     th:href="@{admin/assign-order/{id}/{mid}(id=*{o.getId()},mid=*{m.getId()})}">
-                                Remove order
+                                Set Responsible Mechanic
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

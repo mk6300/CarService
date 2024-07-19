@@ -6,6 +6,8 @@ import project.carservice.validation.annotations.ValidPhoneNumber;
 
 import java.util.regex.Pattern;
 
+import static org.springframework.security.config.http.MatcherType.regex;
+
 public class PhoneNumberValidator implements ConstraintValidator<ValidPhoneNumber, String> {
 
     private static final String PHONE_NUMBER_PATTERN = "^([+]?359)|0?(|-| )8[789]\\d{1}(|-| )\\d{3}(|-| )\\d{3}$";

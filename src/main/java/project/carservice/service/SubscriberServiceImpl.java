@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import project.carservice.model.dto.AddDTOs.SubscriberDTO;
 import project.carservice.model.entity.Subscriber;
 import project.carservice.repository.SubscriberRepository;
 
@@ -19,10 +20,12 @@ public class SubscriberServiceImpl implements SubscriberService {
         this.mailSender = mailSender;
     }
     @Override
-    public void subscribe(Subscriber subscriberDTO) {
-        if (!subscriberRepository.existsByEmail(subscriberDTO.getEmail())) {
-            subscriberRepository.save(modelMapper.map(subscriberDTO, Subscriber.class));
-            sendConfirmationEmail(subscriberDTO.getEmail());
+    public void subscribe (SubscriberDTO subscriberDTO) {
+        if (!subscriberRepository.existsBySubsEmail(subscriberDTO.getSubsEmail())) {
+            Subscriber subscriber= new Subscriber();
+            subscriber.setSubsEmail(subscriberDTO.getSubsEmail());
+            subscriberRepository.save(subscriber);
+            sendConfirmationEmail(subscriber.getSubsEmail());
         }
     }
     private void sendConfirmationEmail(String email) {

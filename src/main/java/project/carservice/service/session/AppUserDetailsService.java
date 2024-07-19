@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import project.carservice.model.entity.Role;
+import project.carservice.model.entity.UserRole;
 import project.carservice.model.entity.User;
 import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.model.user.AppUserDetails;
@@ -38,7 +38,7 @@ public class AppUserDetailsService implements UserDetailsService {
                 user.getId(),
                 user.getUsername(),
                 user.getPassword(),
-                user.getRoles().stream().map(Role::getRole).map(AppUserDetailsService::map).toList(),
+                user.getRoles().stream().map(UserRole::getRole).map(AppUserDetailsService::map).toList(),
                 user.getFirstName(),
                 user.getLastName()
         );

@@ -1,8 +1,10 @@
 package project.carservice.service;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-import project.carservice.model.dto.AddOrderDTO;
+import project.carservice.model.dto.AddDTOs.AddOrderDTO;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.model.entity.Order;
@@ -20,18 +22,21 @@ public class OrderServiceImpl implements OrderService {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final CarService carService;
+    private final MailSender mailSender;
 
-    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, UserService userService, CarService carService) {
+    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender) {
         this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.carService = carService;
+        this.mailSender = mailSender;
     }
 
     @Override
     public void addOrder(AddOrderDTO addOrderDTO) {
         Order order = this.mapOrder(addOrderDTO);
         order.setStatus(OrdersStatusEnum.SCHEDULED);
+//        this.sendConfirmationOrderEmail(userService.getCurrentUser().getEmail());
         this.orderRepository.save(order);
 
     }
@@ -72,7 +77,13 @@ public class OrderServiceImpl implements OrderService {
                 .stream()
                 .map(this::mapOrderDTO)
                 .collect(Collectors.toList());
+    }
 
-
+    private void sendConfirmationOrderEmail(String email) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Service Order Confirmation");
+        message.setText("Thank you for making new Service Order in Car Service!");
+        mailSender.send(message);
     }
 }

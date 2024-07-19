@@ -1,12 +1,10 @@
-package project.carservice.model.dto;
+package project.carservice.model.dto.AddDTOs;
 
 
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
-import project.carservice.model.entity.Car;
 
 
 import java.time.LocalDate;

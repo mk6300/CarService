@@ -52,10 +52,10 @@
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a th:href="@{/home}" class="nav-item nav-link active" sec:authorize="isAuthenticated()">Home</a>
             <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" sec:authorize="isAnonymous()">Register/Login</a>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" sec:authorize="isAnonymous()">Login/Register</a>
                 <div class="dropdown-menu fade-up m-0">
-                    <a href="/users/login" class="dropdown-item">Login</a>
-                    <a href="/users/register" class="dropdown-item">Register</a>
+                    <a th:href="@{/users/login}" class="dropdown-item">Login</a>
+                    <a th:href="@{/users/register}" class="dropdown-item">Register</a>
                 </div>
             </div>
             <a th:href="@{/service}" class="nav-item nav-link">Services</a>
@@ -63,7 +63,7 @@
             <a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Language</a>
-                <div class="dropdown-menu fade-up m-0" >
+                <div class="dropdown-menu fade-up m-0">
                     <option value="en_US" class="dropdown-item">English</option>
                     <option value="bg_BG" class="dropdown-item">Български</option>
                 </div>
@@ -71,7 +71,7 @@
 
             <div class="nav-item" sec:authorize="isAuthenticated()">
                 <div class="my-2 my-lg-0 pt-3">
-                     <form th:method="post"
+                    <form th:method="post"
                           th:action="@{/users/logout}">
                         <input class="nav-item button" type="submit" value="Logout"/>
                     </form>
@@ -116,13 +116,20 @@
                 <a class="btn btn-link" href="">Oil Changing</a>
                 <a class="btn btn-link" href="">Vacuam Cleaning</a>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div sec:authorize="isAuthenticated()" class="col-lg-3 col-md-6">
                 <h4 class="text-light mb-4">Newsletter</h4>
                 <p>Subscribe for our newsletter. Always stay informed for news about our services!</p>
-                <div class="position-relative mx-auto" style="max-width: 400px;">
-                    <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                    <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                </div>
+                <form th:method="post"
+                      th:action="@{/subscribe}"
+                      th:object="${subscriberDTO}" class="position-relative mx-auto" style="max-width: 400px;">
+                    <input th:field="*{subsEmail}" th:errorclass="'is-invalid'"
+                           class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" id="subsEmail"
+                           name="subsEmail" placeholder="Your email">
+                    <button type="submit" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
+                        Subscribe
+                    </button>
+                    <small class="text-danger">Username error message</small>
+                </form>
             </div>
         </div>
     </div>
@@ -153,7 +160,7 @@
     <a th:href="@{/orders/my-orders}">My Service Orders</a>
     <a th:href="@{/orders/add-order}">New Service Order</a>
     <a th:href="@{/admin/unsigned-orders}">Unsigned Orders</a>
-    <a th:href="@{/admin/supplier}">Manage Suppliers</a>
+    <a th:href="@{/admin/suppliers}">Manage Suppliers</a>
     <a th:href="@{/parts/manage-parts}">Manage Spare Parts</a>
     <a th:href="@{/mechanic/tasks}">Tasks For Me</a>
     <a th:href="@{/admin/manage-users}">Manage Users</a>

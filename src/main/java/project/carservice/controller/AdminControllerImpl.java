@@ -2,10 +2,10 @@ package project.carservice.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import project.carservice.model.dto.AddOrderDTO;
 import project.carservice.model.dto.EditOrderDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.service.OrderService;
+import project.carservice.service.SupplierService;
 import project.carservice.service.UserService;
 
 @Controller
@@ -14,9 +14,12 @@ public class AdminControllerImpl implements AdminController {
     private final OrderService orderService;
     private final UserService userService;
 
-    public AdminControllerImpl(OrderService orderService, UserService userService) {
+    private final SupplierService supplierService;
+
+    public AdminControllerImpl(OrderService orderService, UserService userService, SupplierService supplierService) {
         this.orderService = orderService;
         this.userService = userService;
+        this.supplierService = supplierService;
     }
 
     @Override
@@ -34,8 +37,9 @@ public class AdminControllerImpl implements AdminController {
     }
 
     @Override
-    public String supplier(Model model) {
-        return "supplier";
+    public String suppliers(Model model) {
+        model.addAttribute("suppliers", supplierService.getAllSuppliers());
+        return "suppliers";
     }
 
 }

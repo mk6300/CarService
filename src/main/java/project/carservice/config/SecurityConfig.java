@@ -23,7 +23,7 @@ public class SecurityConfig {
                                     // all static resources to "common locations" (css, images, js) are available to anyone
                                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                     // some more resources for all users
-                                    .requestMatchers("/", "/users/login", "/users/register", "/service", "/about", "/contact").permitAll()
+                                    .requestMatchers("/", "/users/login", "/users/register", "/service", "/about", "/contact", "/subscribe").permitAll()
                                     // all other URL-s should be authenticated.
                                     .anyRequest()
                                     .authenticated();
@@ -54,6 +54,10 @@ public class SecurityConfig {
                                     .invalidateHttpSession(true);
                         }
                 )
+
+                .csrf((csrf) -> csrf .ignoringRequestMatchers("/subscribe"))
+
+
                 .build();
     }
 
