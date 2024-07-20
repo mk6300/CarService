@@ -10,16 +10,10 @@ import org.springframework.web.client.RestClient;
 public class RestConfig {
 
     @Bean
-
-    public RestClient restClient() {
-        return RestClient.create();
-    }
-
-    @Bean
-    public RestClient ordersRestClient(OrderApiConfig orderApiConfig){
+    public RestClient partsRestClient(PartsApiConfig partsApiConfig){
         return RestClient
                 .builder()
-                .baseUrl(orderApiConfig.getBaseUrl())
+                .baseUrl(partsApiConfig.getBaseUrl())
                 .defaultHeader("Content-Type", MediaType.APPLICATION_JSON.getType())
                 .build();
     }

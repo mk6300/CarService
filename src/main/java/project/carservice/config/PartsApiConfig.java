@@ -4,8 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties (prefix = "order.api")
-public class OrderApiConfig {
+@ConfigurationProperties (prefix = "parts.api")
+public class PartsApiConfig {
  private String baseUrl;
 
     public String getBaseUrl() {

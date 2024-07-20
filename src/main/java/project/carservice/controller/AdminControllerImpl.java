@@ -42,4 +42,9 @@ public class AdminControllerImpl implements AdminController {
         return "suppliers";
     }
 
+    @Override
+    public String manageUsers(Model model) {
+        return "manage-users";
+    }
+
 }

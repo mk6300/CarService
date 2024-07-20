@@ -17,4 +17,7 @@ public interface AdminController {
 
     @GetMapping ("/suppliers")
     String suppliers(Model model);
+
+    @GetMapping("/manage-users")
+    String manageUsers(Model model);
 }
