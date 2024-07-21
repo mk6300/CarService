@@ -1,4 +1,4 @@
-package project.carservice.model.dto.AddDTOs;
+package project.carservice.model.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -87,6 +87,7 @@ public class AddCarDTO {
     public void setVinNumber(String vinNumber) {
         this.vinNumber = vinNumber;
     }
+
     public static AddCarDTO empty() {
         return new AddCarDTO(null, null, null, 0, null, null);
     }

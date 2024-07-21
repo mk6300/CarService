@@ -18,7 +18,6 @@ public class HomeControllerImpl implements HomeController {
 
     private final UserHelperService userHelperService;
     private final CarService carService;
-
     private final UserService userService;
 
 

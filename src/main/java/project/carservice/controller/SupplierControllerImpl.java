@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.model.dto.AddDTOs.AddSupplierDTO;
+import project.carservice.model.dto.AddSupplierDTO;
 import project.carservice.service.SupplierService;
 
 

@@ -1,6 +1,6 @@
 package project.carservice.service;
 
-import project.carservice.model.dto.AddDTOs.AddCarDTO;
+import project.carservice.model.dto.AddCarDTO;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.entity.Car;
 

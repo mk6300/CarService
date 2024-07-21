@@ -1,4 +1,4 @@
-package project.carservice.model.dto.AddDTOs;
+package project.carservice.model.dto;
 
 import jakarta.validation.constraints.*;
 import project.carservice.validation.annotations.UniqueEmail;

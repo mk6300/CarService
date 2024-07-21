@@ -4,12 +4,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-import project.carservice.model.dto.AddDTOs.AddOrderDTO;
+import project.carservice.model.dto.AddOrderDTO;
 import project.carservice.model.dto.CarDTO;
+import project.carservice.model.dto.EditOrderDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.model.entity.Order;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
+import project.carservice.repository.UserRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,13 +21,16 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+
+private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final CarService carService;
     private final MailSender mailSender;
 
-    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender) {
+    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender) {
         this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.carService = carService;
@@ -77,6 +82,14 @@ public class OrderServiceImpl implements OrderService {
                 .stream()
                 .map(this::mapOrderDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void assignOrder(EditOrderDTO editOrderDTO) {
+        Order order = this.orderRepository.findById(editOrderDTO.getId()).orElse(null);
+        order.setResponsibleMechanic(userRepository.findById(editOrderDTO.getMechanicId()).orElseThrow(null));
+        this.orderRepository.save(order);
+
     }
 
     private void sendConfirmationOrderEmail(String email) {

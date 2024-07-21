@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import project.carservice.model.dto.AddDTOs.SubscriberDTO;
+import project.carservice.model.dto.SubscriberDTO;
 import project.carservice.model.entity.Subscriber;
 import project.carservice.repository.SubscriberRepository;
 

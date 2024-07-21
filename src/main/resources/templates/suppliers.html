@@ -53,26 +53,26 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
         <h1 class="d-flex justify-content-center">Suppliers List</h1>
-        <div th:each="supplier : ${suppliers}" class="rounded m-auto">
+        <div class="rounded m-auto">
             <div class="border p-3 justify-content-center">
                 <div class="d-flex justify-content-center mb-5">
                     <select id="supplierSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id">
                         <option value="">Select supplier</option>
-                        <option class="text-uppercase"
-                                th:value="${supplier.getId}"
-                                th:text="${supplier.getName}"></option>
+                        <option th:each="s: ${suppliers}" class="text-uppercase"
+                                th:value="${s.id}"
+                                th:text="${s.name}"></option>
                     </select>
                     <small class="danger"></small>
                 </div>
                 <div class="d-flex justify-content-center">
                     <div>
                         <button type="submit" class="btn border-dark text-danger float-right text-uppercase align-content-center mx-3"
-                                th:href="@{admin/edit-supplier/{id}(id=*{supplier.getId()})}">Edit Supplier
+                                th:href="@{admin/edit-supplier}">Edit Supplier
                         </button>
                     </div>
                     <div>
                         <button type="submit" class="btn border-dark text-danger float-right text-uppercase align-content-center"
-                                th:href="@{admin/remove-supplier/{id}(id=*{supplier.getId()})}">Remove Supplier
+                                th:href="@{admin/remove-supplier}">Remove Supplier
                         </button>
                     </div>
                 </div>

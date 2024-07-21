@@ -2,9 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parts Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <select id="partsSelect" class="form-control" onchange="showPartDetails()">
+                <option value="">Select a part</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-3" id="partDetails" style="display:none;">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="partName">Part Name</label>
+                <input type="text" id="partName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="partPrice">Part Price</label>
+                <input type="number" id="partPrice" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="supplierId">Supplier ID</label>
+                <input type="text" id="supplierId" class="form-control" readonly>
+            </div>
+            <button class="btn btn-primary" onclick="editPart()">Edit</button>
+            <button class="btn btn-danger" onclick="deletePart()">Delete</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetchParts();
+    });
+
+    function fetchParts() {
+        fetch('http://localhost:8081/parts')
+            .then(response => response.json())
+            .then(data => {
+                let partsSelect = document.getElementById('partsSelect');
+                data.forEach(part => {
+                    let option = document.createElement('option');
+                    option.value = part.id;
+                    option.text = part.name;
+                    partsSelect.add(option);
+                });
+            });
+    }
+
+    function showPartDetails() {
+        let partsSelect = document.getElementById('partsSelect');
+        let selectedPartId = partsSelect.value;
+
+        if (!selectedPartId) {
+            document.getElementById('partDetails').style.display = 'none';
+            return;
+        }
+
+        fetch(`http://localhost:8081/parts/${selectedPartId}`)
+            .then(response => response.json())
+            .then(part => {
+                document.getElementById('partName').value = part.name;
+                document.getElementById('partPrice').value = part.price;
+                document.getElementById('supplierId').value = part.supplierId;
+                document.getElementById('partDetails').style.display = 'block';
+            });
+    }
+
+    function editPart() {
+        let selectedPartId = document.getElementById('partsSelect').value;
+        let partName = document.getElementById('partName').value;
+        let partPrice = document.getElementById('partPrice').value;
+
+        let partData = {
+            name: partName,
+            price: partPrice
+        };
+
+        fetch(`http://localhost:8081/parts/${selectedPartId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(partData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Part updated successfully');
+                    fetchParts();
+                } else {
+                    alert('Failed to update part');
+                }
+            });
+    }
+
+    function deletePart() {
+        let selectedPartId = document.getElementById('partsSelect').value;
+
+        fetch(`http://localhost:8081/parts/${selectedPartId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Part deleted successfully');
+                    fetchParts();
+                    document.getElementById('partDetails').style.display = 'none';
+                } else {
+                    alert('Failed to delete part');
+                }
+            });
+    }
+</script>
 
 </body>
 </html>

@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.model.dto.AddOrderDTO;
+import project.carservice.model.dto.AddPartDTO;
 
-@RequestMapping("/orders")
-public interface OrderController {
+@RequestMapping("/parts")
+public interface PartsController {
 
-    @GetMapping("/my-orders")
-    String orders(Model model);
+    @GetMapping("/manage-parts")
+    public String manageParts(Model model);
 
-    @GetMapping("/add-order")
-    String addOrder(Model model);
+    @GetMapping("add-part")
+    public String addPart(Model model);
 
-    @PostMapping("/add-order")
-    String add(@Valid AddOrderDTO addOrderDTO, BindingResult result, RedirectAttributes redirectAttributes);
+    @PostMapping("/add-part")
+    public String addPart(@Valid AddPartDTO addPartDTO, BindingResult result, RedirectAttributes redirectAttributes);
 }

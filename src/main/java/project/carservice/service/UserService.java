@@ -1,7 +1,7 @@
 package project.carservice.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import project.carservice.model.dto.AddDTOs.RegisterUserDTO;
+import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.entity.User;
 
@@ -28,4 +28,6 @@ public interface UserService {
     User getCurrentUser();
 
     List<UserDTO> AllMechanics();
+
+    List<UserDTO> AllUsers();
 }

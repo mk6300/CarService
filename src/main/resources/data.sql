@@ -13,6 +13,6 @@ VALUES
     ('9914095b-eead-4950-b355-b5fa9b75f1d7', 1),
     ('9914095b-eead-4950-b355-b5fa9b75f1d7', 3);
 
-INSERT INTO `suppliers` (`id`, `name`, `address`, `phone`, `email`)
+INSERT INTO `suppliers` (`id`,`name`,`address`,`phone`,`email`)
 VALUES
-    ('5c96658d-2058-43d5-a1cd-2abe7f2bce9f', 'Auto +', 'Sofia, Manastirski Livadi 5', '0887565656','autoplus@abv.bg');
+    ('5c96658d-2058-43d5-a1cd-2abe7f2bce9f','Auto +','Sofia, Manastirski Livadi 5','0887565656','autoplus@abv.bg');

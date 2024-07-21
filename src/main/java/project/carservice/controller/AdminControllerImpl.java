@@ -2,6 +2,9 @@ package project.carservice.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.carservice.model.dto.AddCarDTO;
 import project.carservice.model.dto.EditOrderDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.service.OrderService;
@@ -26,14 +29,22 @@ public class AdminControllerImpl implements AdminController {
     public String getUnsignedOrders(Model model) {
         model.addAttribute("unsignedOrders", orderService.getUnassignedOrders());
         model.addAttribute("mechanics", userService.AllMechanics());
-        model.addAttribute("editOrderDTO", new EditOrderDTO());
+        model.addAttribute("editOrderDTO", EditOrderDTO.empty());
 
         return "unsigned-orders";
     }
 
     @Override
-    public String assignOrder(OrderDTO OrderDTO) {
-        return null;
+    public String assignOrder(EditOrderDTO editOrderDTO, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("editOrderDTO", editOrderDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.editOrderDTO", result);
+            return "redirect:/admin/unsigned-orders";
+        }
+        orderService.assignOrder(editOrderDTO);
+        return "redirect:/admin/unsigned-orders";
     }
 
     @Override
@@ -44,6 +55,8 @@ public class AdminControllerImpl implements AdminController {
 
     @Override
     public String manageUsers(Model model) {
+        model.addAttribute("users", userService.AllUsers());
+        model.addAttribute("mechanics", userService.AllMechanics());
         return "manage-users";
     }
 

@@ -1,7 +1,10 @@
 package project.carservice.service;
 
-import project.carservice.model.dto.AddDTOs.AddOrderDTO;
+
+import project.carservice.model.dto.EditOrderDTO;
 import project.carservice.model.dto.OrderDTO;
+import project.carservice.model.dto.AddOrderDTO;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -15,4 +18,6 @@ public interface OrderService {
     List<OrderDTO> allOrdersByMechanic(UUID id);
 
     List<OrderDTO> getUnassignedOrders();
+
+    void assignOrder(EditOrderDTO editOrderDTO);
 }

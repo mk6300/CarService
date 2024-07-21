@@ -7,7 +7,7 @@ public class EditOrderDTO {
     private UUID id;
     private String description;
     private String status;
-    private String mechanicId;
+    private UUID mechanicId;
 
     public EditOrderDTO() {
     }
@@ -36,11 +36,14 @@ public class EditOrderDTO {
         this.status = status;
     }
 
-    public String getMechanicId() {
+    public UUID getMechanicId() {
         return mechanicId;
     }
 
-    public void setMechanicId(String mechanicId) {
+    public void setMechanicId(UUID mechanicId) {
         this.mechanicId = mechanicId;
     }
+
+    public static Object empty() {return new EditOrderDTO();}
+
 }

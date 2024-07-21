@@ -5,11 +5,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import project.carservice.model.dto.AddDTOs.RegisterUserDTO;
+import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.entity.User;
 import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.repository.UserRepository;
+import project.carservice.repository.UserRoleRepository;
 import project.carservice.service.session.AppUserDetailsService;
 
 import java.security.Principal;
@@ -25,12 +26,15 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
     private final AppUserDetailsService appUserDetailsService;
 
+    private final UserRoleRepository userRoleRepository;
 
-    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, AppUserDetailsService appUserDetailsService) {
+
+    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, AppUserDetailsService appUserDetailsService, UserRoleRepository userRoleRepository) {
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.appUserDetailsService = appUserDetailsService;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
@@ -76,14 +80,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(RegisterUserDTO registerUserDTO) {
-        this.userRepository.save(this.mapUser(registerUserDTO));
+        User user = this.mapUser(registerUserDTO);
+        user.setPassword(encoder.encode(registerUserDTO.getPassword()));
+        user.getRoles().add(userRoleRepository.findByRole(UserRoleEnum.USER).orElse(null));
+        this.userRepository.save(user);
 
     }
 
     private User mapUser(RegisterUserDTO registerUserDTO) {
-        User user = this.modelMapper.map(registerUserDTO, User.class);
-        user.setPassword(encoder.encode(registerUserDTO.getPassword()));
-        return user;
+        return this.modelMapper.map(registerUserDTO, User.class);
     }
 
     private UserDTO mapUserDTO(User user) {
@@ -106,6 +111,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> AllMechanics() {
         return this.userRepository.findAllByRole(UserRoleEnum.MECHANIC).stream()
+                .map(this::mapUserDTO)
+                .toList();
+
+    }
+
+    @Override
+    public List<UserDTO> AllUsers() {
+        return this.userRepository.findAllByRole(UserRoleEnum.USER).stream()
                 .map(this::mapUserDTO)
                 .toList();
 

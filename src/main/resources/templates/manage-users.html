@@ -52,12 +52,12 @@
     <div class="content" id="content">
         <div id="users-container">
             <h1 class="d-flex justify-content-center">Users List</h1>
-            <div th:each="u : ${users}" class="rounded m-auto">
-                <div class="border p-3 justify-content-center">
+            <div class="rounded m-auto">
+                <form class="border p-3 justify-content-center">
                     <div class="d-flex justify-content-center mb-5">
                         <select id="userSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id">
                             <option value="">Select User</option>
-                            <option class="text-uppercase"
+                            <option th:each="u : ${users}" class="text-uppercase"
                                     th:value="${u.getId}"
                                     th:text="${u.getUsername} + ' - ' + ${u.getFirstName} + ' ' + ${u.getLastName}"></option>
                         </select>
@@ -66,33 +66,33 @@
                     <div class="d-flex justify-content-center">
                         <div>
                             <button type="submit"
-                                    class="btn border-dark text-danger float-right text-uppercase align-content-center mx-3"
-                                    th:href="@{admin/edit-user/{id}(id=*{u.getId()})}">Edit Supplier
+                                    class="btn border-dark text-danger float-right text-uppercase
+                                    align-content-center mx-3">Edit User
                             </button>
                         </div>
                         <div>
                             <button type="submit"
-                                    class="btn border-dark text-danger float-right text-uppercase align-content-center"
-                                    th:href="@{admin/remove-user/{id}(id=*{u.getId()})}">Remove User
+                                    class="btn border-dark text-danger float-right text-uppercase
+                                    align-content-center mx-3">Make Mechanic
                             </button>
                         </div>
                         <div>
                             <button type="submit"
-                                    class="btn border-dark text-danger float-right text-uppercase align-content-center"
-                                    th:href="@{admin/make-mechanic/{id}(id=*{u.getId()})}">Make Mechanic
+                                    class="btn border-dark text-danger float-right text-uppercase
+                                    align-content-center">Remove User
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <div id="mechanics-container"><h1 class="d-flex justify-content-center">Mechanics List</h1>
-            <div th:each="m : ${mechanics}" class="rounded m-auto">
+            <div class="rounded m-auto">
                 <div class="border p-3 justify-content-center">
                     <div class="d-flex justify-content-center mb-5">
                         <select class="form-control mx-2 mt-3 text-uppercase w-75" name="id">
                             <option value="">Select Mechanic</option>
-                            <option class="text-uppercase"
+                            <option th:each="m : ${mechanics}" class="text-uppercase"
                                     th:value="${m.getId}"
                                     th:text="${m.getUsername} + ' - ' + ${m.getFirstName} + ' ' + ${m.getLastName}"></option>
                         </select>
@@ -101,14 +101,14 @@
                     <div class="d-flex justify-content-center">
                         <div>
                             <button type="submit"
-                                    class="btn border-dark text-danger float-right text-uppercase align-content-center mx-3"
-                                    th:href="@{admin/edit-user/{id}(id=*{u.getId()})}">Edit Mechanic
+                                    class="btn border-dark text-danger float-right text-uppercase
+                                     align-content-center mx-3">Edit Mechanic
                             </button>
                         </div>
                         <div>
                             <button type="submit"
-                                    class="btn border-dark text-danger float-right text-uppercase align-content-center"
-                                    th:href="@{admin/remove-user/{id}(id=*{u.getId()})}">Remove Mechanic
+                                    class="btn border-dark text-danger float-right text-uppercase
+                                     align-content-center">Remove Mechanic
                             </button>
                         </div>
                     </div>
@@ -125,7 +125,6 @@
 <script src="/lib/easing/easing.min.js"></script>
 <script src="/lib/waypoints/waypoints.min.js"></script>
 <script src="/lib/counterup/counterup.min.js"></script>
-<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="/lib/tempusdominus/js/moment.min.js"></script>
 <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
 <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
