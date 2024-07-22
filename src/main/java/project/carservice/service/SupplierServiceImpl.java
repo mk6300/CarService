@@ -8,6 +8,7 @@ import project.carservice.model.entity.Supplier;
 import project.carservice.repository.SupplierRepository;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,5 +34,9 @@ public class SupplierServiceImpl implements SupplierService {
         return supplierRepository.findAll().stream()
                 .map(supplier -> modelMapper.map(supplier, SupplierDTO.class))
                 .collect(Collectors.toList());
+    }
+@Override
+    public Supplier getSupplierById(UUID id) {
+        return supplierRepository.findById(id).orElse(null);
     }
 }

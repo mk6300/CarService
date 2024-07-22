@@ -2,16 +2,23 @@ package project.carservice.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
 
 public class AddPartDTO {
     @NotNull
+    @Size(min = 3, max = 30, message = "Name must be between 3 and 255 characters")
     private String name;
-    @NotBlank
+    @NotNull
+    @Positive(message = "Price must be positive number")
     private Double price;
-    @NotBlank
+    @NotNull (message = "You must choose supplier")
     private UUID supplierId;
+    @NotNull
+    @Size(min = 3, max = 255, message = "Description must be between 3 and 255 characters")
+    private String description;
 
     public String getName() {
         return name;
