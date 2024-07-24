@@ -8,7 +8,6 @@ import java.util.UUID;
 public class UserDTO {
 
     private UUID id;
-    private String firstName;
 
     public UUID getId() {
         return id;
@@ -18,14 +17,13 @@ public class UserDTO {
         this.id = id;
     }
 
-    private String lastName;
-
     private String username;
-
     private String password;
 
     private String email;
+    private String firstName;
 
+    private String lastName;
     private String phone;
 
     private List<UserRole> roles;
@@ -82,6 +80,7 @@ public class UserDTO {
     public List<UserRole> getRoles() {
         return roles;
     }
+
     public void setRoles(List<UserRole> roles) {
         this.roles = roles;
     }

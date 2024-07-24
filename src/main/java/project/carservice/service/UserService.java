@@ -3,6 +3,7 @@ package project.carservice.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
+import project.carservice.model.dto.editDTOs.EditUserDTO;
 import project.carservice.model.entity.User;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface UserService {
 
     UserDTO getUserById(UUID id);
 
+    EditUserDTO getUserEditById(UUID id);
+
     void register(RegisterUserDTO registerDTO);
 
 
@@ -30,4 +33,12 @@ public interface UserService {
     List<UserDTO> AllMechanics();
 
     List<UserDTO> AllUsers();
+
+    void editUser(EditUserDTO editUserDTO);
+
+    void makeMechanic(UUID id);
+
+    void removeUser(UUID id);
+
+    void removeMechanic(UUID id);
 }

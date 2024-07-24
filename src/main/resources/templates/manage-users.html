@@ -53,66 +53,96 @@
         <div id="users-container">
             <h1 class="d-flex justify-content-center">Users List</h1>
             <div class="rounded m-auto">
-                <form class="border p-3 justify-content-center">
+                <form class="border p-3 justify-content-center" th:method="post" th:action="@{/admin/manage}">
                     <div class="d-flex justify-content-center mb-5">
                         <select id="userSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id">
                             <option value="">Select User</option>
                             <option th:each="u : ${users}" class="text-uppercase"
-                                    th:value="${u.getId}"
-                                    th:text="${u.getUsername} + ' - ' + ${u.getFirstName} + ' ' + ${u.getLastName}"></option>
+                                    th:value="${u.id}"
+                                    th:text="${u.username} + ' - ' + ${u.firstName} + ' ' + ${u.lastName}"></option>
                         </select>
                         <small class="danger"></small>
                     </div>
                     <div class="d-flex justify-content-center">
                         <div>
-                            <button type="submit"
+                            <button id="editButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                                    align-content-center mx-3">Edit User
+                align-content-center" name="action" value="edit">Edit User
                             </button>
                         </div>
                         <div>
-                            <button type="submit"
+                            <button id="makeMechanicButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                                    align-content-center mx-3">Make Mechanic
+                align-content-center mx-3" name="action" value="makeMechanic">Make Mechanic
                             </button>
                         </div>
                         <div>
-                            <button type="submit"
+                            <button id="removeButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                                    align-content-center">Remove User
+                align-content-center" name="action" value="remove">Remove User
                             </button>
                         </div>
                     </div>
                 </form>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var userSelect = document.getElementById('userSelect');
+                        var editButton = document.getElementById('editButton');
+                        var makeMecahincButton = document.getElementById('makeMechanicButton');
+                        var removeButton = document.getElementById('removeButton');
+
+                        userSelect.addEventListener('change', function () {
+                            if (userSelect.value) {
+                                editButton.removeAttribute('disabled');
+                                makeMecahincButton.removeAttribute('disabled');
+                                removeButton.removeAttribute('disabled');
+                            } else {
+                                editButton.setAttribute('disabled', 'disabled');
+                                makeMecahincButton.setAttribute('disabled', 'disabled');
+                                removeButton.setAttribute('disabled', 'disabled');
+                            }
+                        });
+                    });
+                </script>
             </div>
         </div>
-        <div id="mechanics-container"><h1 class="d-flex justify-content-center">Mechanics List</h1>
+        <div id="mechanics-container">
+            <h1 class="d-flex justify-content-center">Mechanics List</h1>
             <div class="rounded m-auto">
-                <div class="border p-3 justify-content-center">
+                <form class="border p-3 justify-content-center" th:method="post" th:action="@{/admin/remove-mechanic}">
                     <div class="d-flex justify-content-center mb-5">
-                        <select class="form-control mx-2 mt-3 text-uppercase w-75" name="id">
+                        <select id="mechanicSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id">
                             <option value="">Select Mechanic</option>
                             <option th:each="m : ${mechanics}" class="text-uppercase"
-                                    th:value="${m.getId}"
-                                    th:text="${m.getUsername} + ' - ' + ${m.getFirstName} + ' ' + ${m.getLastName}"></option>
+                                    th:value="${m.id}"
+                                    th:text="${m.username} + ' - ' + ${m.firstName} + ' ' + ${m.lastName}"></option>
                         </select>
                         <small class="danger"></small>
                     </div>
                     <div class="d-flex justify-content-center">
                         <div>
-                            <button type="submit"
+                            <button id="removeMechanicButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                                     align-content-center mx-3">Edit Mechanic
-                            </button>
-                        </div>
-                        <div>
-                            <button type="submit"
-                                    class="btn border-dark text-danger float-right text-uppercase
-                                     align-content-center">Remove Mechanic
+                                 align-content-center">Remove Mechanic
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var mechanicSelect = document.getElementById('mechanicSelect');
+                        var removeMechanicButton = document.getElementById('removeMechanicButton');
+
+
+                        mechanicSelect.addEventListener('change', function () {
+                            if (mechanicSelect.value) {
+                                removeMechanicButton.removeAttribute('disabled');
+                            } else {
+                                removeMechanicButton.setAttribute('disabled', 'disabled');
+                            }
+                        });
+                    });
+                </script>
             </div>
         </div>
     </div>

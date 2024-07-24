@@ -1,13 +1,16 @@
 package project.carservice.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.EditOrderDTO;
-import project.carservice.model.dto.OrderDTO;
+import project.carservice.model.dto.UserDTO;
+import project.carservice.model.dto.editDTOs.EditUserDTO;
+
+
+import java.util.UUID;
 
 @RequestMapping("/admin")
 public interface AdminController {
@@ -23,5 +26,17 @@ public interface AdminController {
 
     @GetMapping("/manage-users")
     String manageUsers(Model model);
+
+    @PostMapping("/manage")
+    String manageUser(@RequestParam UUID id, @RequestParam String action, RedirectAttributes redirectAttributes);
+
+    @GetMapping("/edit-user/{id}")
+    String edit(@PathVariable UUID id, Model model);
+
+    @PostMapping("/edit-user")
+    String editUser(@Valid EditUserDTO editUserDTO, BindingResult result, RedirectAttributes redirectAttributes);
+
+    @PostMapping ("/remove-mechanic")
+    String removeMechanic(@RequestParam UUID id, RedirectAttributes redirectAttributes);
 
 }

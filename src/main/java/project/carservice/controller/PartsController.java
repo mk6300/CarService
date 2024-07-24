@@ -11,16 +11,19 @@ import project.carservice.model.dto.AddPartDTO;
 public interface PartsController {
 
     @GetMapping("/manage-parts")
-    public String manageParts(Model model, @RequestParam(required = false) Long id);
+    String manageParts(Model model, @RequestParam(required = false) Long id);
     @PostMapping("/manage-parts")
-    public String selectPart(@RequestParam("partId") Long partId, Model model);
+    String selectPart(@RequestParam("partId") Long partId, Model model);
 
     @GetMapping("add-part")
-    public String addPart(Model model);
+    String add(Model model);
 
     @PostMapping("/add-part")
-    public String addPart(@Valid AddPartDTO addPartDTO, BindingResult result, RedirectAttributes redirectAttributes);
+    String addPart(@Valid AddPartDTO addPartDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
     @GetMapping("/{id}")
-    public String editPart(@PathVariable("id") Long id, Model model);
+    String editPart(@PathVariable("id") Long id, Model model);
+
+    @DeleteMapping("/remove/{id}")
+    String removePart(@PathVariable("id") Long id);
 }

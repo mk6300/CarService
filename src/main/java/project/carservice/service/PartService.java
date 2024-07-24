@@ -12,4 +12,6 @@ public interface PartService {
     PartDTO getPartDetails(Long id);
 
     List<PartDTO> getAllParts();
+
+    void deletePart(Long id);
 }

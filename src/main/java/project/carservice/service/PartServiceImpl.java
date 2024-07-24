@@ -28,7 +28,8 @@ public class PartServiceImpl implements PartService {
 
         restClient
                 .post()
-                .uri("http://localhost:8081/parts")
+                .uri("http://localhost:8081/parts/add-part")
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(addPartDTO)
                 .retrieve();
     }
@@ -55,5 +56,15 @@ public class PartServiceImpl implements PartService {
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
                 });
+    }
+
+    @Override
+    public void deletePart(Long id) {
+        LOGGER.info("Deleting part...");
+
+        restClient
+                .delete()
+                .uri("http://localhost:8081/parts/{id}", id)
+                .retrieve();
     }
 }

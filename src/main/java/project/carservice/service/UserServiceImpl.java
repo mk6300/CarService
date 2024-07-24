@@ -1,16 +1,23 @@
 package project.carservice.service;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
+import project.carservice.model.dto.editDTOs.EditUserDTO;
 import project.carservice.model.entity.User;
+import project.carservice.model.entity.UserRole;
 import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.repository.UserRepository;
 import project.carservice.repository.UserRoleRepository;
+import project.carservice.service.exceptions.RoleNotFoundException;
+import project.carservice.service.exceptions.UserNotFoundException;
 import project.carservice.service.session.AppUserDetailsService;
 
 import java.security.Principal;
@@ -27,6 +34,8 @@ public class UserServiceImpl implements UserService {
     private final AppUserDetailsService appUserDetailsService;
 
     private final UserRoleRepository userRoleRepository;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
 
     public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, AppUserDetailsService appUserDetailsService, UserRoleRepository userRoleRepository) {
@@ -79,6 +88,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public EditUserDTO getUserEditById(UUID id) {
+        return this.modelMapper.map(this.userRepository.findById(id).orElse(null), EditUserDTO.class);
+    }
+
+    @Override
     public void register(RegisterUserDTO registerUserDTO) {
         User user = this.mapUser(registerUserDTO);
         user.setPassword(encoder.encode(registerUserDTO.getPassword()));
@@ -124,4 +138,46 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void editUser(EditUserDTO editUserDTO) {
+        userRepository.findById(editUserDTO.getId()).ifPresent(user -> {
+            user.setFirstName(editUserDTO.getFirstName());
+            user.setLastName(editUserDTO.getLastName());
+            user.setEmail(editUserDTO.getEmail());
+            user.setPhone(editUserDTO.getPhone());
+            userRepository.save(user);
+        });
+    }
+
+    public void makeMechanic(UUID userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        UserRole mechanicRole = userRoleRepository.findByRole(UserRoleEnum.MECHANIC)
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        user.getRoles().add(mechanicRole);
+        userRepository.save(user);
+    }
+
+    public void removeUser(UUID userId) {
+        userRepository.deleteById(userId);
+    }
+
+    @Override
+    @Transactional
+    public void removeMechanic(UUID id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        LOGGER.debug("User found: {}", user);
+        UserRole mechanicRole = userRoleRepository.findByRole(UserRoleEnum.MECHANIC)
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        LOGGER.debug("Mechanic role found: {}", mechanicRole);
+        user.getRoles().remove(mechanicRole);
+        if (user.getRoles().contains(mechanicRole)) {
+            user.getRoles().remove(mechanicRole);
+            userRepository.save(user);
+            LOGGER.debug("Mechanic role removed and user updated: {}", user);
+        } else {
+            LOGGER.debug("User does not have mechanic role");
+        }
+    }
 }

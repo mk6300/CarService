@@ -1,15 +1,17 @@
 package project.carservice.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.model.dto.AddCarDTO;
 import project.carservice.model.dto.EditOrderDTO;
-import project.carservice.model.dto.OrderDTO;
+import project.carservice.model.dto.editDTOs.EditUserDTO;
 import project.carservice.service.OrderService;
 import project.carservice.service.SupplierService;
 import project.carservice.service.UserService;
+
+import java.util.UUID;
 
 @Controller
 public class AdminControllerImpl implements AdminController {
@@ -60,4 +62,52 @@ public class AdminControllerImpl implements AdminController {
         return "manage-users";
     }
 
+    @Override
+    public String manageUser(UUID id, String action, RedirectAttributes redirectAttributes) {
+        switch (action) {
+            case "edit":
+                return "redirect:/admin/edit-user/" + id;
+            case "makeMechanic":
+                userService.makeMechanic(id);
+                redirectAttributes.addFlashAttribute("message", "User role updated to mechanic successfully.");
+                break;
+            case "remove":
+                userService.removeUser(id);
+                redirectAttributes.addFlashAttribute("message", "User removed successfully.");
+                break;
+            default:
+                redirectAttributes.addFlashAttribute("message", "Invalid action.");
+                break;
+        }
+        return "redirect:/admin/manage-users";
+    }
+
+    @Override
+    public String edit(UUID id, Model model) {
+        EditUserDTO editUserDTO = userService.getUserEditById(id);
+        if (!model.containsAttribute("editUserDTO")) {
+            model.addAttribute("editUserDTO", editUserDTO);
+        }
+
+        return "edit-user";
+    }
+
+    @Override
+    public String editUser(EditUserDTO editUserDTO, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("editUserDTO", editUserDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.editUserDTO", result);
+
+            return "redirect:/admin/edit-user/" + editUserDTO.getId();
+        }
+        userService.editUser(editUserDTO);
+        return "redirect:/admin/manage-users";
+    }
+
+    @Override
+    public String removeMechanic(UUID id, RedirectAttributes redirectAttributes) {
+        userService.removeMechanic(id);
+        return "redirect:/admin/manage-users";
+    }
 }

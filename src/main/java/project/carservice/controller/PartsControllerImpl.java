@@ -3,9 +3,12 @@ package project.carservice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.carservice.model.dto.AddCarDTO;
 import project.carservice.model.dto.AddPartDTO;
+import project.carservice.model.dto.PartDTO;
 import project.carservice.service.PartService;
 import project.carservice.service.SupplierService;
 
@@ -25,31 +28,43 @@ public class PartsControllerImpl implements PartsController{
 
         model.addAttribute("parts", partService.getAllParts());
         model.addAttribute("selectedPartId", partId);
-        return "manage-parts";
-    }
 
+        if (partId != null) {
+            PartDTO selectedPart = partService.getPartDetails(partId);
+            model.addAttribute("selectedPart", selectedPart);
+            if (selectedPart != null) {
+                String supplierName = supplierService.getSupplierById(selectedPart.getSupplierId()).getName();
+                model.addAttribute("supplierName", supplierName);
+
+            }
+        }
+            return "manage-parts";
+    }
     @Override
     public String selectPart(@RequestParam("partId") Long partId, Model model) {
+
         return "redirect:/parts/manage-parts?partId=" + partId;
     }
 
     @Override
-    public String addPart(Model model) {
+    public String add(Model model) {
         model.addAttribute("suppliers", supplierService.getAllSuppliers());
-        model.addAttribute("addPartDTO", new AddPartDTO());
+        if (!model.containsAttribute("addPartDTO")) {
+            model.addAttribute("addPartDTO", new AddPartDTO());
+        }
         return "add-part";
     }
 
     @Override
     public String addPart(AddPartDTO addPartDTO, BindingResult result, RedirectAttributes redirectAttributes) {
-
-        if(result.hasErrors()){
-            redirectAttributes.addFlashAttribute("addPartDTO", addPartDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addPartDTO", result);
-
+        if (result.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("addPartDTO", addPartDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.addPartDTO", result);
             return "redirect:/parts/add-part";
         }
 
+        this.partService.addPart(addPartDTO);
         return "redirect:/parts/manage-parts";
     }
 
@@ -57,5 +72,11 @@ public class PartsControllerImpl implements PartsController{
     public String editPart(Long id, Model model) {
         model.addAttribute("editOffer", partService.getPartDetails(id));
         return "edit-part";
+    }
+
+    @Override
+    public String removePart(Long id) {
+        partService.deletePart(id);
+        return "redirect:/parts/manage-parts";
     }
 }

@@ -69,34 +69,56 @@
                             th:text="${p.name}"></option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Select Part</button>
+            <button type="submit" id="selectButton" disabled class="btn btn-primary mt-3">Select Part</button>
         </form>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var partSelect = document.getElementById('partSelect');
+                var selectButton = document.getElementById('selectButton');
 
-        <div class="mt-5" th:if="${selectedPartId != null}">
+                partSelect.addEventListener('change', function () {
+                    if (partSelect.value) {
+                        selectButton.removeAttribute('disabled');
+                    } else {
+                        selectButton.setAttribute('disabled', 'disabled');
+                    }
+                });
+            });
+        </script>
+        <div class="mt-5 border p-3" th:if="${selectedPart != null}">
             <h3>Selected Part Details</h3>
-            <div th:each="part : ${parts}" th:if="${part.id} == ${selectedPartId}">
-                <p><strong>Name:</strong> <span th:text="${part.name}"></span></p>
-                <p><strong>Price:</strong> <span th:text="${part.price}"></span></p>
-                <p><strong>Supplier:</strong> <span th:text="${part.supplierId}"></span></p>
-            </div>
+                <p><strong>Name:</strong> <span th:text="${selectedPart.name}"></span></p>
+                 <p><strong>Description:</strong> <span th:text="${selectedPart.description}"></span></p>
+                <p><strong>Price:</strong> <span th:text="${selectedPart.price}"></span></p>
+                <p><strong>Supplier:</strong> <span th:text="${supplierName}"></span></p>
+
 
             <div class="d-flex justify-content-center mt-3">
-                <form th:action="@{/parts/edit/{id}(id=${selectedPartId})}" method="get">
+                <form th:action="@{/parts/edit/{id}(id=${selectedPartId})}" th:method="get">
                     <button class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center mx-3"
                             type="submit">Edit Part
                     </button>
                 </form>
-                <form th:action="@{/parts/remove/{id}(id=${selectedPartId})}" method="post">
-                    <button class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center ml-3"
-                            type="submit">Remove Part
+                <form th:action="@{/parts/remove/{id}(id=${selectedPartId})}" th:method="delete" id="deleteForm">
+                    <button id="deleteButton" class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center ml-3"
+                            type="submit" onclick="confirmDelete()">Remove Part
                     </button>
                 </form>
             </div>
         </div>
+        <a th:href="@{/parts/add-part}" class="btn btn-danger mt-5"> ADD NEW SPARE PART</a>
     </div>
 </div>
 <footer th:replace="~{fragments/commons::footer}"></footer>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('deleteButton').addEventListener('click', function(event) {
+        var confirmation = confirm("Are you sure you want to delete this part?");
+        if (confirmation) {
+            document.getElementById('deleteForm').submit();
+        }
+    });
+</script>
 </body>
 </html>
