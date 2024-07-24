@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import project.carservice.model.dto.AddCarDTO;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.entity.Car;
+import project.carservice.model.entity.Order;
 import project.carservice.repository.CarRepository;
+import project.carservice.repository.OrderRepository;
 import project.carservice.repository.UserRepository;
 
 import java.util.List;
@@ -16,13 +18,15 @@ public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
     private final UserRepository userRepository;
+    private  final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
     private final UserService userService;
 
 
-    public CarServiceImpl(CarRepository carRepository, UserRepository userRepository, ModelMapper modelMapper, UserService userService) {
+    public CarServiceImpl(CarRepository carRepository, UserRepository userRepository, OrderRepository orderRepository, ModelMapper modelMapper, UserService userService) {
         this.carRepository = carRepository;
         this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
     }
@@ -45,6 +49,12 @@ public class CarServiceImpl implements CarService {
     @Override
     public Car getById(UUID id) {
         return carRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void removeCar(UUID id) {
+        orderRepository.deleteAll(orderRepository.findAllByCar_Id(id));
+        carRepository.deleteById(id);
     }
 
 

@@ -55,7 +55,14 @@ private final UserRepository userRepository;
 
     @Override
     public List<OrderDTO> allOrdersByUser(UUID id) {
-        return this.orderRepository.findAllByAddedBy_Id(id)
+        return this.orderRepository.findAllByAddedBy_IdAndStatusIsNot(id, OrdersStatusEnum.FINISHED)
+                .stream()
+                .map(this::mapOrderDTO)
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<OrderDTO> allOrdersByUserFinished(UUID id) {
+        return this.orderRepository.findAllByAddedBy_IdAndStatusIs(id, OrdersStatusEnum.FINISHED)
                 .stream()
                 .map(this::mapOrderDTO)
                 .collect(Collectors.toList());
@@ -92,6 +99,14 @@ private final UserRepository userRepository;
 
     }
 
+    @Override
+    public void removeOrder(UUID id) {
+        Order order = this.orderRepository.findById(id).orElse(null);
+            if(!order.getStatus().equals(OrdersStatusEnum.IN_PROGRESS)) {
+                this.orderRepository.delete(order);
+        }
+
+    }
     private void sendConfirmationOrderEmail(String email) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);

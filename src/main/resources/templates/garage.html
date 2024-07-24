@@ -62,7 +62,17 @@
                                   <span th:text="${car.getVinNumber()}" class="text-uppercase form-control mx-2"></span>
                                 </div>
                             <div class="d-flex justify-content-end">
-                            <button class="btn text-danger float-right text-uppercase align-content-center" th:href="@{cars/remove/{id}(id=*{car.getId()})}">Remove Car</button>
+                                <form id="deleteForm" th:method="delete" th:action="@{/cars/remove/{id}(id=*{car.id})}">
+                                    <input id="deleteButton" type="submit" class="btn btn-link text-danger text-uppercase border-primary" value="Remove car">
+                                </form>
+<!--                                <script>-->
+<!--                                    document.getElementById('deleteButton').addEventListener('click', function(event) {-->
+<!--                                        var confirmation = confirm("Are you sure you want to delete this car? All Connected offers will be deleted as well.");-->
+<!--                                        if (confirmation) {-->
+<!--                                            document.getElementById('deleteForm').submit();-->
+<!--                                        }-->
+<!--                                    });-->
+<!--                                </script>-->
                             </div>
                         </div>
                     </div>
@@ -74,15 +84,6 @@
 
     <footer th:replace="~{fragments/commons::footer}"></footer>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/lib/wow/wow.min.js"></script>
-    <script src="/lib/easing/easing.min.js"></script>
-    <script src="/lib/waypoints/waypoints.min.js"></script>
-    <script src="/lib/counterup/counterup.min.js"></script>
-    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>

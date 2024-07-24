@@ -15,9 +15,14 @@ public interface OrderService {
 
     List<OrderDTO> allOrdersByUser(UUID id);
 
+    List<OrderDTO> allOrdersByUserFinished(UUID id);
+
     List<OrderDTO> allOrdersByMechanic(UUID id);
 
     List<OrderDTO> getUnassignedOrders();
 
     void assignOrder(EditOrderDTO editOrderDTO);
+
+    void removeOrder(UUID id);
+
 }

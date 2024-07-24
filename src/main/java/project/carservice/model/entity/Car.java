@@ -32,7 +32,7 @@ public class Car extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User owner;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", fetch = FetchType.EAGER)
     private List<Order> orders;
 
 

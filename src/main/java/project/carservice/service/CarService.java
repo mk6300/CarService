@@ -14,4 +14,6 @@ public interface CarService {
     List<CarDTO> allOwnedBy(String username);
 
     Car getById(UUID id);
+
+    void removeCar(UUID id);
 }

@@ -12,6 +12,7 @@ import project.carservice.service.OrderService;
 import project.carservice.service.UserHelperService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class OrderControllerImpl implements OrderController {
@@ -55,5 +56,18 @@ public class OrderControllerImpl implements OrderController {
 
         this.orderService.addOrder(addOrderDTO);
         return "redirect:/orders/my-orders";
+    }
+
+    @Override
+    public String removeOrder(UUID id) {
+        orderService.removeOrder(id);
+        return "redirect:/orders/my-orders";
+    }
+
+    @Override
+    public String history(Model model) {
+        List<OrderDTO> orders = orderService.allOrdersByUserFinished(userHelperService.getUser().getId());
+        model.addAttribute("orders", orders);
+        return "history";
     }
 }

@@ -9,6 +9,8 @@ import project.carservice.model.dto.AddCarDTO;
 import project.carservice.model.entity.enums.EngineTypeEnum;
 import project.carservice.service.CarService;
 
+import java.util.UUID;
+
 @Controller
 public class CarControllerImpl implements CarController {
     private final CarService carService;
@@ -35,7 +37,13 @@ public class CarControllerImpl implements CarController {
             return "redirect:/cars/add";
         }
     this.carService.addCar(addCarDTO);
-        return "redirect:/home/garage";
+        return "redirect:/users/garage";
+    }
+
+    @Override
+    public String removeCar(UUID id) {
+        this.carService.removeCar(id);
+        return "redirect:/users/garage";
     }
 
 

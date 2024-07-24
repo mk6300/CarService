@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service</title>
+    <title>Car Service - Order History</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -50,18 +50,18 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
         <div>
-            <h1 class="d-flex justify-content-center text-danger">MY ORDERS</h1>
-            <div th:each="o: ${myOrders}" class="rounded m-auto">
+            <h1 class="d-flex justify-content-center text-danger">MY FINISHED ORDERS</h1>
+            <div th:each="o: ${orders}" class="rounded m-auto">
                 <div class="border p-3">
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
-                        th:text="'Service order for Car: '+${o.getCar().getMake()}+' '+${o.getCar().getModel()}"></h4>
+                        th:text="'Service order for Car: '+${o.car.make}+' '+${o.car.model}"></h4>
                     <div class="d-flex mt-3 rounded align-items-center ">
                         <label> Date</label>
-                        <span th:text="${o.getDate()}" class="text-uppercase form-control mx-2 w-25"></span>
+                        <span th:text="${o.date}" class="text-uppercase form-control mx-2 w-25"></span>
                         <label> Description </label>
-                        <span th:text="${o.getDescription()}" class="text-uppercase form-control mx-2"></span>
+                        <span th:text="${o.description}" class="text-uppercase form-control mx-2"></span>
                         <label>Status</label>
-                        <span th:text="${o.getStatus()}" th:style="${o.getStatus == 'Scheduled'}
+                        <span th:text="${o.status}" th:style="${o.getStatus == 'Scheduled'}
                              ? 'background-color: green; color: white;' : (${o.getStatus == 'Pending'} ? 'background-color: yellow; color: white;' : (${o.getStatus == 'In Progress'} ? 'background-color: red; color: white;' :
                             (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : '')))"
                               class="text-uppercase form-control mx-2 w-25 bg">
@@ -73,14 +73,14 @@
                         </div>
                         <form th:method="delete" th:action="@{/orders/remove/{id}(id=*{o.id})}">
                             <input th:if="${o.getStatus == 'Scheduled' or o.getStatus=='Pending'}" type="submit"
-                                class="btn btn-link text-danger text-uppercase border-primary" value="Remove order">
+                                   class="btn btn-link text-danger text-uppercase border-primary" value="Remove order">
                         </form>
                     </div>
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <form th:method="get" th:action="@{/orders/history}">
-                    <button type="submit" class="btn-link float-right text-uppercase align-content-center border-primary mt-5">Finished orders</button>
+                <form th:method="get" th:action="@{/orders/my-orders}">
+                    <button type="submit" class="btn-link float-right text-uppercase align-content-center border-primary mt-5">Back</button>
                 </form>
             </div>
         </div>

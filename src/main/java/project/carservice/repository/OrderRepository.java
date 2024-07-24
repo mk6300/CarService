@@ -15,7 +15,12 @@ public interface OrderRepository extends JpaRepository <Order, UUID> {
 
     List<Order> findAllByAddedBy_Id(UUID id);
 
+    List<Order> findAllByAddedBy_IdAndStatusIs(UUID id, OrdersStatusEnum status);
+
+    List<Order> findAllByAddedBy_IdAndStatusIsNot(UUID id, OrdersStatusEnum status);
     List<Order> findAllByResponsibleMechanic_IdAndStatusNot(UUID id, OrdersStatusEnum status);
 
    List<Order> findAllByResponsibleMechanicIsNullOrderByDateAsc ();
+
+   List<Order> findAllByCar_Id(UUID id);
 }
