@@ -33,7 +33,7 @@ public class User extends BaseEntity {
     )
     private List<UserRole> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Car> cars;
 
     @OneToMany(mappedBy = "addedBy")

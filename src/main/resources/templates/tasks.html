@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service</title>
+    <title>Car Service - Mechanic Panel</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -67,10 +67,14 @@
 
                     </span>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <button class="btn text-danger float-right text-uppercase align-content-center"
-                            th:href="@{mechanic/{id}(id=*{o.getId()})}">Remove order
-                    </button>
+                <div class="d-flex justify-content-lg-center mt-4">
+                    <form th:method="get" th:action="@{/mechanic/tasks/{id}(id=*{o.id})}">
+                        <input type="submit" class="btn btn-link text-danger text-uppercase border-primary" value="Manage Task">
+                    </form>
+                    <form th:method="delete" th:action="@{/orders/remove/{id}(id=*{o.id})}">
+                        <input th:if="${o.getStatus == 'Scheduled' or o.getStatus=='Pending'}" type="submit"
+                               class="btn btn-link text-danger text-uppercase border-primary" value="Remove order">
+                    </form>
                 </div>
             </div>
         </div>

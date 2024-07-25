@@ -1,6 +1,8 @@
 package project.carservice.model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import project.carservice.model.entity.enums.EngineTypeEnum;
 
 import java.util.List;
@@ -29,10 +31,10 @@ public class Car extends BaseEntity {
     private String vinNumber;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User owner;
 
-    @OneToMany(mappedBy = "car", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 
 

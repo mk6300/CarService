@@ -15,5 +15,5 @@ public interface CarService {
 
     Car getById(UUID id);
 
-    void removeCar(UUID id);
+    void removeCar(java.util.UUID id);
 }

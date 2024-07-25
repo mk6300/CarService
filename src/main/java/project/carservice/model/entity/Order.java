@@ -5,6 +5,7 @@ import project.carservice.model.entity.enums.EngineTypeEnum;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table (name = "orders")
@@ -16,18 +17,26 @@ public class Order extends BaseEntity {
     @Column(nullable = false)
     private String description;
 
+    @Column
+    private String mechanicComment;
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private OrdersStatusEnum status;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User addedBy;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User responsibleMechanic;
+    @Column
+    @ElementCollection
+    private List<Long> partId;
 
     @ManyToOne
+    private User addedBy;
+
+    @ManyToOne
+    private User responsibleMechanic;
+
+    @ManyToOne (fetch = FetchType.EAGER)
     private Car car;
+
+
 
     public LocalDate getDate() {
         return date;

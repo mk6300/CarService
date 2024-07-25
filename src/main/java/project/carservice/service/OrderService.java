@@ -25,4 +25,7 @@ public interface OrderService {
 
     void removeOrder(UUID id);
 
+    OrderDTO getOrderById(UUID id);
+
+    void updateOrderStatus(UUID id);
 }

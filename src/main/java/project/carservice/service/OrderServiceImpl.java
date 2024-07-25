@@ -107,6 +107,21 @@ private final UserRepository userRepository;
         }
 
     }
+
+    @Override
+    public OrderDTO getOrderById(UUID id) {
+        return this.mapOrderDTO(this.orderRepository.findById(id).orElse(null));
+    }
+
+    @Override
+    public void updateOrderStatus(UUID id) {
+        Order order = this.orderRepository.findById(id).orElse(null);
+        if (order.getStatus().equals(OrdersStatusEnum.PENDING) || order.getStatus().equals(OrdersStatusEnum.SCHEDULED)) {
+            order.setStatus(OrdersStatusEnum.IN_PROGRESS);
+        }
+        this.orderRepository.save(order);
+    }
+
     private void sendConfirmationOrderEmail(String email) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);

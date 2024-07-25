@@ -1,6 +1,7 @@
 package project.carservice.model.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class OrderDTO {
@@ -10,6 +11,10 @@ public class OrderDTO {
     private String status;
     private CarDTO car;
     private UserDTO mechanic;
+    private String mechanicComment;
+
+    private List<Long> partId;
+
     public OrderDTO() {
     }
 
@@ -59,5 +64,21 @@ public class OrderDTO {
 
     public void setMechanic(UserDTO mechanic) {
         this.mechanic = mechanic;
+    }
+
+    public String getMechanicComment() {
+        return mechanicComment;
+    }
+
+    public void setMechanicComment(String mechanicComment) {
+        this.mechanicComment = mechanicComment;
+    }
+
+    public List<Long> getPartId() {
+        return partId;
+    }
+
+    public void setPartId(List<Long> partId) {
+        this.partId = partId;
     }
 }
