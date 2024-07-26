@@ -38,5 +38,5 @@ public interface OrderService {
 
     void finishTask(UUID id, String mechanicComment);
 
-    void updateOrderStatusProgress();
+    void updateOrderStatus();
 }

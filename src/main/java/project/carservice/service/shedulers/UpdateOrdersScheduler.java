@@ -19,7 +19,7 @@ public class UpdateOrdersScheduler {
     @Scheduled(cron = "0 0/15 * * * *")
     public void updateOrders() {
         LOGGER.info("Start updating orders...");
-        orderService.updateOrderStatusProgress();
+        orderService.updateOrderStatus();
         LOGGER.info("Orders updated");
     }
 

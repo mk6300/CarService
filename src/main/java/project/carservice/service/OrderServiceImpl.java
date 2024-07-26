@@ -11,7 +11,6 @@ import project.carservice.repository.OrderRepository;
 import project.carservice.repository.UserRepository;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -160,8 +159,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    @Override
-    public void updateOrderStatusProgress() {
+    public void updateOrderStatus() {
         this.orderRepository.findAllByDateAndStatus(LocalDate.now(), OrdersStatusEnum.SCHEDULED)
                 .forEach(order -> {
                     order.setStatus(OrdersStatusEnum.PENDING);
