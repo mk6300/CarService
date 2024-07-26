@@ -4,10 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-import project.carservice.model.dto.AddOrderDTO;
-import project.carservice.model.dto.CarDTO;
-import project.carservice.model.dto.EditOrderDTO;
-import project.carservice.model.dto.OrderDTO;
+import project.carservice.model.dto.*;
 import project.carservice.model.entity.Order;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
@@ -22,19 +19,22 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
 
-private final UserRepository userRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final CarService carService;
     private final MailSender mailSender;
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender) {
+    private final PartService partService;
+
+    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender, PartService partService) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.carService = carService;
         this.mailSender = mailSender;
+        this.partService = partService;
     }
 
     @Override
@@ -60,6 +60,7 @@ private final UserRepository userRepository;
                 .map(this::mapOrderDTO)
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<OrderDTO> allOrdersByUserFinished(UUID id) {
         return this.orderRepository.findAllByAddedBy_IdAndStatusIs(id, OrdersStatusEnum.FINISHED)
@@ -96,16 +97,14 @@ private final UserRepository userRepository;
         Order order = this.orderRepository.findById(editOrderDTO.getId()).orElse(null);
         order.setResponsibleMechanic(userRepository.findById(editOrderDTO.getMechanicId()).orElseThrow(null));
         this.orderRepository.save(order);
-
     }
 
     @Override
     public void removeOrder(UUID id) {
         Order order = this.orderRepository.findById(id).orElse(null);
-            if(!order.getStatus().equals(OrdersStatusEnum.IN_PROGRESS)) {
-                this.orderRepository.delete(order);
+        if (!order.getStatus().equals(OrdersStatusEnum.IN_PROGRESS)) {
+            this.orderRepository.delete(order);
         }
-
     }
 
     @Override
@@ -120,6 +119,45 @@ private final UserRepository userRepository;
             order.setStatus(OrdersStatusEnum.IN_PROGRESS);
         }
         this.orderRepository.save(order);
+    }
+
+    @Override
+    public void addPartToOrder(UUID id, Long partId, int quantity) {
+        Order order = this.orderRepository.findById(id).orElse(null);
+        for (int i = 0; i < quantity; i++) {
+            order.getPartId().add(partId);
+        }
+        this.orderRepository.save(order);
+    }
+
+    @Override
+    public List<PartDTO> getPartsForOrder(UUID id) {
+        List<Long> partIds = this.orderRepository.findById(id).orElse(null).getPartId();
+        return partIds.stream()
+                .map(this.partService::getPartDetails)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public double calculateOrderPrice(UUID id) {
+        Order order = this.orderRepository.findById(id).orElse(null);
+        List<Long> partIds = order.getPartId();
+        return partIds.stream()
+                .map(this.partService::getPartDetails)
+                .mapToDouble(PartDTO::getPrice)
+                .sum();
+    }
+
+    @Override
+    public void finishTask(UUID id, String mechanicComment) {
+        Order order = this.orderRepository.findById(id).orElse(null);
+        if(mechanicComment == ""){
+            mechanicComment = "Job Done!";
+        }
+        order.setMechanicComment(mechanicComment);
+        order.setStatus(OrdersStatusEnum.FINISHED);
+        this.orderRepository.save(order);
+
     }
 
     private void sendConfirmationOrderEmail(String email) {

@@ -1,7 +1,6 @@
 package project.carservice.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 
 @Controller
 public class IndexControllerImpl implements IndexController {

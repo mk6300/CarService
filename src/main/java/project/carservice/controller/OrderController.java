@@ -26,4 +26,7 @@ public interface OrderController {
 
     @GetMapping ("/history")
     String history(Model model);
+
+    @GetMapping("/history/{id}")
+    String orderInfo(Model model, @PathVariable UUID id);
 }

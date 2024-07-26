@@ -12,9 +12,7 @@ public class OrderDTO {
     private CarDTO car;
     private UserDTO mechanic;
     private String mechanicComment;
-
     private List<Long> partId;
-
     public OrderDTO() {
     }
 

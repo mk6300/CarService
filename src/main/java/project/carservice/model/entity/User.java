@@ -36,7 +36,7 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Car> cars;
 
-    @OneToMany(mappedBy = "addedBy")
+    @OneToMany(mappedBy = "addedBy", fetch = FetchType.EAGER)
     private List<Order> orders;
 
     @OneToMany(mappedBy = "responsibleMechanic")

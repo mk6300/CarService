@@ -70,4 +70,11 @@ public class OrderControllerImpl implements OrderController {
         model.addAttribute("orders", orders);
         return "history";
     }
+    @Override
+    public String orderInfo(Model model, UUID id) {
+        model.addAttribute("order", orderService.getOrderById(id));
+        model.addAttribute("parts", orderService.getPartsForOrder(id));
+        model.addAttribute("orderPrice", orderService.calculateOrderPrice(id));
+        return "order-details";
+    }
 }

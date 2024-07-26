@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title>Car Service - Mechanic Panel</title>
+    <title>Car Service - Order Details</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -51,7 +51,7 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="container mx-2 mt-3">
-        <h2>Edit Task Details</h2>
+        <h2>Finished Order Task Details</h2>
         <div class="border p-3">
             <div>
                 <h4 class="bg-gray text-dark rounded text-uppercase justify-content-center"
@@ -66,7 +66,7 @@
                            ? 'background-color: green; color: white;' : (${order.status == 'In Progress'} ? 'background-color: red; color: white;' :
                             (${order.status == 'Finished'} ? 'background-color: blue; color:white' : (${order.status == 'Pending'} ? 'background-color: yellow; color: white;' : '')))"
                           class="text-uppercase form-control mx-2 w-25 bg">
-                        </span>
+                     </span>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
             <div class="d-inline">
                 <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center">Used Spare Parts</h5>
                 <div class="mt-2 rounded">
-                    <div th:each="part : ${usedSpares}" class="d-flex mx-2">
+                    <div th:each="part : ${parts}" class="d-flex mx-2">
                         <label> Part Name</label>
                         <div th:text="${part.name}" class="text-uppercase form-control lh-base w-50"></div>
                         <label> Part Price</label>
@@ -86,58 +86,22 @@
                         <label> Total Spare Parts Price</label>
                         <span th:text="${orderPrice}" class="text-uppercase form-control lh-base"></span>
                     </div>
-
-                </div>
-
-                <div class="d-flex justify-content-lg-center mt-4">
-                    <form th:method="post" th:action="@{/mechanic/progress/{id}(id=${id})}" class="mx-5">
-                        <input th:if="${order.status == 'Scheduled' or order.status=='Pending'}" type="submit"
-                               class="btn btn-link text-danger text-uppercase border-primary"
-                               value="Change Status IN PROGRESS">
-                    </form>
-                    <form th:method="delete" th:action="@{/orders/remove/{id}(id=*{id})}" class="mx-5">
-                        <input th:if="${order.status == 'Scheduled' or order.status=='Pending'}" type="submit"
-                               class="btn btn-link text-danger text-uppercase border-primary"
-                               value="Remove order">
-                    </form>
                 </div>
             </div>
         </div>
-        <div th:if="${order.status == 'In Progress'}" >
-            <form th:method="post" th:action="@{/mechanic/add-part/{id}(id=${order.id})}"
-                  th:object="${addPartToOrder}">
-                <div class="main-form flex justify-content-center border my-3 p-3">
-                    <h5 class="text-danger"> ADD SPARE PARTS USED IN SERVICE </h5>
-                    <label for="selectedPartId">Select Part:</label>
-                    <select th:field="*{selectedPartId}" th:errorclass="'is-invalid'" id="selectedPartId" name="selectedPartId"
-                            class="form-control mx-2 text-uppercase">
-                        <option value="">Select part</option>
-                        <option th:each="p : ${parts}"
-                                th:value="${p.id}"
-                                th:text="${p.name}"></option>
-                    </select>
-                    <small th:if="${#fields.hasErrors('selectedPartId')}" th:errors="*{selectedPartId}" class="danger"></small>
-                    <label for="quantity" class="mt-3">Quantity:</label>
-                    <input th:field="*{quantity}" th:errorclass="'is-invalid'" type="number" id="quantity" name="quantity"
-                           class="form-control w-auto mb-3 input-full"
-                           th:default="1" min="1"
-                           step="1">
-                    <small th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="danger"></small>
-                    <input type="submit"
-                           class="btn-danger btn-link text-white text-uppercase border-primary"
-                           value="Add Spare Part">
-                </div>
-            </form>
-            <form th:method="post" th:action="@{/mechanic/finish/{id}(id=${order.id})}">
-                <div class="d-inline justify-content-center align-items-center mx-auto">
-                            <textarea th:feild="*{order.mechanicComment}" type="text"
-                                      class="form-control col-xs-12" rows="5" cols="90"
-                                      name="mechanicComment" id="mechanicComment"
-                                      placeholder="Mechanic comments about done service job"></textarea>
-                    <input type="submit"
-                           class="btn-primary btn-link text-white justify-center text-uppercase border-primary my-3"
-                           value="Add Comment and Finish Task">
-                </div>
+        <div class="d-inline justify-content-center align-items-center mx-auto">
+            <h4 class="bg-gray text-dark rounded text-uppercase justify-content-center">Mechanic Comments</h4>
+            <textarea th:feild="*{order.mechanicComment}" type="text"
+                      class="form-control col-xs-12" rows="5" cols="90"
+                      name="mechanicComment" id="mechanicComment"
+                      placeholder="Mechanic comments about done service job">
+            </textarea>
+        </div>
+        <div class="d-flex justify-content-lg-center mt-4">
+            <form th:method="get" th:action="@{/orders/history}" class="mx-5">
+                <input type="submit"
+                       class="btn btn-link text-danger text-uppercase border-primary"
+                       value="BACK">
             </form>
         </div>
     </div>

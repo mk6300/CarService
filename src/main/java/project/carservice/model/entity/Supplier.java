@@ -24,9 +24,6 @@ public class Supplier extends BaseEntity {
     private String email;
     @Column
     private String information;
-    @Column
-    @ElementCollection
-    private List<Long> partsId;
 
     public Supplier() {
     }

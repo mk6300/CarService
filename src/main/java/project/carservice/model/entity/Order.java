@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table (name = "orders")
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
     @Column(nullable = false)
@@ -24,7 +24,7 @@ public class Order extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OrdersStatusEnum status;
     @Column
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Long> partId;
 
     @ManyToOne
@@ -33,9 +33,8 @@ public class Order extends BaseEntity {
     @ManyToOne
     private User responsibleMechanic;
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Car car;
-
 
 
     public LocalDate getDate() {
@@ -84,5 +83,21 @@ public class Order extends BaseEntity {
 
     public void setStatus(OrdersStatusEnum status) {
         this.status = status;
+    }
+
+    public String getMechanicComment() {
+        return mechanicComment;
+    }
+
+    public void setMechanicComment(String mechanicComment) {
+        this.mechanicComment = mechanicComment;
+    }
+
+    public List<Long> getPartId() {
+        return partId;
+    }
+
+    public void setPartId(List<Long> partId) {
+        this.partId = partId;
     }
 }

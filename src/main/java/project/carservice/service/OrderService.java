@@ -4,6 +4,7 @@ package project.carservice.service;
 import project.carservice.model.dto.EditOrderDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.model.dto.AddOrderDTO;
+import project.carservice.model.dto.PartDTO;
 
 
 import java.util.List;
@@ -28,4 +29,12 @@ public interface OrderService {
     OrderDTO getOrderById(UUID id);
 
     void updateOrderStatus(UUID id);
+
+    void addPartToOrder(UUID id, Long partId, int quantity);
+
+    List<PartDTO> getPartsForOrder(UUID id);
+
+    double calculateOrderPrice(UUID id);
+
+    void finishTask(UUID id, String mechanicComment);
 }
