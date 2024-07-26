@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 import project.carservice.model.dto.AddPartDTO;
 import project.carservice.model.dto.PartDTO;
@@ -59,6 +60,7 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
+    @Transactional
     public void deletePart(Long id) {
         LOGGER.info("Deleting part...");
 

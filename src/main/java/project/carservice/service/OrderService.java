@@ -28,7 +28,7 @@ public interface OrderService {
 
     OrderDTO getOrderById(UUID id);
 
-    void updateOrderStatus(UUID id);
+    void updateOrderStatusProgress(UUID id);
 
     void addPartToOrder(UUID id, Long partId, int quantity);
 
@@ -37,4 +37,6 @@ public interface OrderService {
     double calculateOrderPrice(UUID id);
 
     void finishTask(UUID id, String mechanicComment);
+
+    void updateOrderStatusProgress();
 }

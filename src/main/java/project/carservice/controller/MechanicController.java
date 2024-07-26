@@ -25,7 +25,7 @@ public interface MechanicController {
     String addSparePart(@PathVariable UUID id, @Valid PartToOrderDTO partToOrderDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
     @PostMapping("finish/{id}")
-    String finishTask(@PathVariable UUID Id,
+    String finishTask(@PathVariable UUID id,
                       @RequestParam("mechanicComment") String mechanicComment);
 
 }

@@ -5,10 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.PartToOrderDTO;
-import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.service.OrderService;
 import project.carservice.service.PartService;
-import project.carservice.service.UserHelperService;
 import project.carservice.service.UserService;
 
 import java.util.UUID;
@@ -36,8 +34,8 @@ public class MechanicControllerImpl implements MechanicController {
     public String getTaskById(Model model, UUID id) {
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("parts", partService.getAllParts());
-        if (!model.containsAttribute("addPartToOrder")) {
-            model.addAttribute("addPartToOrder", new PartToOrderDTO());
+        if (!model.containsAttribute("partToOrderDTO")) {
+            model.addAttribute("partToOrderDTO", new PartToOrderDTO());
         }
         model.addAttribute("usedSpares", orderService.getPartsForOrder(id));
         model.addAttribute("orderPrice", orderService.calculateOrderPrice(id));
@@ -46,7 +44,7 @@ public class MechanicControllerImpl implements MechanicController {
 
     @Override
     public String updateTaskProgress(UUID id) {
-        orderService.updateOrderStatus(id);
+        orderService.updateOrderStatusProgress(id);
         return "redirect:/mechanic/tasks";
     }
 
@@ -54,8 +52,8 @@ public class MechanicControllerImpl implements MechanicController {
     public String addSparePart(UUID id, PartToOrderDTO partToOrderDTO, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             redirectAttributes
-                    .addFlashAttribute("addPartToOrder", partToOrderDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.addPartToOrder", result);
+                    .addFlashAttribute("partToOrderDTO", partToOrderDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.partToOrderDTO", result);
             return "redirect:/mechanic/tasks/" + id;
         }
         orderService.addPartToOrder(id, partToOrderDTO.getSelectedPartId(), partToOrderDTO.getQuantity());

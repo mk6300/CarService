@@ -10,6 +10,8 @@ import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
 import project.carservice.repository.UserRepository;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,13 +20,11 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final CarService carService;
     private final MailSender mailSender;
-
     private final PartService partService;
 
     public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender, PartService partService) {
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     public void addOrder(AddOrderDTO addOrderDTO) {
         Order order = this.mapOrder(addOrderDTO);
         order.setStatus(OrdersStatusEnum.SCHEDULED);
-//        this.sendConfirmationOrderEmail(userService.getCurrentUser().getEmail());
+        this.sendConfirmationOrderEmail(userService.getCurrentUser().getEmail());
         this.orderRepository.save(order);
 
     }
@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> allOrdersByUser(UUID id) {
-        return this.orderRepository.findAllByAddedBy_IdAndStatusIsNot(id, OrdersStatusEnum.FINISHED)
+        return this.orderRepository.findAllByAddedBy_IdAndStatusIsNotOrderByDateAsc(id, OrdersStatusEnum.FINISHED)
                 .stream()
                 .map(this::mapOrderDTO)
                 .collect(Collectors.toList());
@@ -63,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> allOrdersByUserFinished(UUID id) {
-        return this.orderRepository.findAllByAddedBy_IdAndStatusIs(id, OrdersStatusEnum.FINISHED)
+        return this.orderRepository.findAllByAddedBy_IdAndStatusIsOrderByDateAsc(id, OrdersStatusEnum.FINISHED)
                 .stream()
                 .map(this::mapOrderDTO)
                 .collect(Collectors.toList());
@@ -78,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> allOrdersByMechanic(UUID id) {
-        return this.orderRepository.findAllByResponsibleMechanic_IdAndStatusNot(id, OrdersStatusEnum.FINISHED)
+        return this.orderRepository.findAllByResponsibleMechanic_IdAndStatusNotOrderByDateAsc(id, OrdersStatusEnum.FINISHED)
                 .stream()
                 .map(this::mapOrderDTO)
                 .collect(Collectors.toList());
@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrderStatus(UUID id) {
+    public void updateOrderStatusProgress(UUID id) {
         Order order = this.orderRepository.findById(id).orElse(null);
         if (order.getStatus().equals(OrdersStatusEnum.PENDING) || order.getStatus().equals(OrdersStatusEnum.SCHEDULED)) {
             order.setStatus(OrdersStatusEnum.IN_PROGRESS);
@@ -151,13 +151,22 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void finishTask(UUID id, String mechanicComment) {
         Order order = this.orderRepository.findById(id).orElse(null);
-        if(mechanicComment == ""){
+        if (mechanicComment == null || mechanicComment.isEmpty()) {
             mechanicComment = "Job Done!";
         }
         order.setMechanicComment(mechanicComment);
         order.setStatus(OrdersStatusEnum.FINISHED);
         this.orderRepository.save(order);
 
+    }
+
+    @Override
+    public void updateOrderStatusProgress() {
+        this.orderRepository.findAllByDateAndStatus(LocalDate.now(), OrdersStatusEnum.SCHEDULED)
+                .forEach(order -> {
+                    order.setStatus(OrdersStatusEnum.PENDING);
+                    this.orderRepository.save(order);
+                });
     }
 
     private void sendConfirmationOrderEmail(String email) {

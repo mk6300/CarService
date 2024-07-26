@@ -64,7 +64,7 @@
                     <label>Status</label>
                     <span th:text="${order.status}" th:style="${order.status == 'Scheduled'}
                            ? 'background-color: green; color: white;' : (${order.status == 'In Progress'} ? 'background-color: red; color: white;' :
-                            (${order.status == 'Finished'} ? 'background-color: blue; color:white' : (${order.status == 'Pending'} ? 'background-color: yellow; color: white;' : '')))"
+                            (${order.status == 'Finished'} ? 'background-color: blue; color:white' : (${order.status == 'Pending'} ? 'background-color: yellow; color: black;' : '')))"
                           class="text-uppercase form-control mx-2 w-25 bg">
                      </span>
                 </div>
@@ -91,11 +91,10 @@
         </div>
         <div class="d-inline justify-content-center align-items-center mx-auto">
             <h4 class="bg-gray text-dark rounded text-uppercase justify-content-center">Mechanic Comments</h4>
-            <textarea th:feild="*{order.mechanicComment}" type="text"
+            <span th:text="*{order.mechanicComment}" type="text"
                       class="form-control col-xs-12" rows="5" cols="90"
-                      name="mechanicComment" id="mechanicComment"
-                      placeholder="Mechanic comments about done service job">
-            </textarea>
+                      name="mechanicComment" id="mechanicComment">
+            </span>
         </div>
         <div class="d-flex justify-content-lg-center mt-4">
             <form th:method="get" th:action="@{/orders/history}" class="mx-5">

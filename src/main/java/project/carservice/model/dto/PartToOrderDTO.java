@@ -7,6 +7,7 @@ public class PartToOrderDTO {
     @NotNull (message = "You must choose spare part")
     private Long selectedPartId;
     @Positive (message = "You must choose quantity")
+    @NotNull (message = "You must choose quantity")
     private Integer quantity;
 
     public PartToOrderDTO() {

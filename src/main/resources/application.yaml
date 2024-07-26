@@ -35,10 +35,9 @@ server:
   port: 8080
 
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: 'mk000636363@gmail.com'
-    password: '@Mitko800620'
+    host: smtp.freesmtpservers.com
+    port: 25
+    Authentication: none
     properties:
       mail:
         smtp:

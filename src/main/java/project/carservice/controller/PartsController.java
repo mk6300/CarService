@@ -21,7 +21,7 @@ public interface PartsController {
     @PostMapping("/add-part")
     String addPart(@Valid AddPartDTO addPartDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
-    @GetMapping("/{id}")
+    @GetMapping("/edit/{id}")
     String editPart(@PathVariable("id") Long id, Model model);
 
     @DeleteMapping("/remove/{id}")

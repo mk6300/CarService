@@ -2,6 +2,7 @@ package project.carservice.model.dto;
 
 
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import java.util.UUID;
 public class AddOrderDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "Date must be in future!")
+    @FutureOrPresent(message = "Date must be in future!")
     @NotNull(message = "Please select date!")
     private LocalDate date;
 

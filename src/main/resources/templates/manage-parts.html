@@ -36,6 +36,20 @@
 
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var partSelect = document.getElementById('partSelect');
+            var selectButton = document.getElementById('selectButton');
+
+            partSelect.addEventListener('change', function () {
+                if (partSelect.value) {
+                    selectButton.removeAttribute('disabled');
+                } else {
+                    selectButton.setAttribute('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
 
 </head>
 <body>
@@ -71,20 +85,6 @@
             </div>
             <button type="submit" id="selectButton" disabled class="btn btn-primary mt-3">Select Part</button>
         </form>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var partSelect = document.getElementById('partSelect');
-                var selectButton = document.getElementById('selectButton');
-
-                partSelect.addEventListener('change', function () {
-                    if (partSelect.value) {
-                        selectButton.removeAttribute('disabled');
-                    } else {
-                        selectButton.setAttribute('disabled', 'disabled');
-                    }
-                });
-            });
-        </script>
         <div class="mt-5 border p-3" th:if="${selectedPart != null}">
             <h3>Selected Part Details</h3>
                 <p><strong>Name:</strong> <span th:text="${selectedPart.name}"></span></p>
@@ -94,12 +94,12 @@
 
 
             <div class="d-flex justify-content-center mt-3">
-                <form th:action="@{/parts/edit/{id}(id=${selectedPartId})}" th:method="get">
+                <form th:action="@{/parts/edit/{id}(id=${selectedPart.id})}" th:method="get">
                     <button class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center mx-3"
                             type="submit">Edit Part
                     </button>
                 </form>
-                <form th:action="@{/parts/remove/{id}(id=${selectedPartId})}" th:method="delete" id="deleteForm">
+                <form th:action="@{/parts/remove/{id}(id=${selectedPart.id})}" th:method="delete" id="deleteForm">
                     <button id="deleteButton" class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center ml-3"
                             type="submit" onclick="confirmDelete()">Remove Part
                     </button>

@@ -62,7 +62,7 @@
                     <label>Status</label>
                     <span th:text="${o.getStatus()}" th:style="${o.getStatus == 'Scheduled'}
         ? 'background-color: green; color: white;' : (${o.getStatus == 'In Progress'} ? 'background-color: red; color: white;' :
-        (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : ''))" class="text-uppercase form-control mx-2 w-25 bg">
+        (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : (${o.getStatus == 'Pending'} ? 'background-color: yellow; color: black;' : '')))" class="text-uppercase form-control mx-2 w-25 bg">
 
 
                     </span>
