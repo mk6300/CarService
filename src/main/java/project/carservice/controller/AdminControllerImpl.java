@@ -105,8 +105,21 @@ public class AdminControllerImpl implements AdminController {
         return "redirect:/admin/manage-users";
     }
 
+
     @Override
-    public String removeMechanic(UUID id, RedirectAttributes redirectAttributes) {
+    public String removeUser(UUID id) {
+        userService.removeUser(id);
+        return "redirect:/admin/manage-users";
+    }
+
+    @Override
+    public String removeOrder(UUID id) {
+        orderService.removeOrder(id);
+        return "redirect:/admin/unsigned-orders";
+    }
+
+    @Override
+    public String removeMechanic(UUID id) {
         userService.removeMechanic(id);
         return "redirect:/admin/manage-users";
     }

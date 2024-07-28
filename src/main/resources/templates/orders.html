@@ -50,17 +50,17 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
         <div>
-            <h1 class="d-flex justify-content-center text-danger">MY ORDERS</h1>
+            <h1 class="d-flex justify-content-center text-danger text-uppercase" th:text="#{myOrders}">MY ORDERS</h1>
             <div th:each="o: ${myOrders}" class="rounded m-auto">
                 <div class="border p-3">
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
                         th:text="'Service order for Car: '+${o.getCar().getMake()}+' '+${o.getCar().getModel()}"></h4>
                     <div class="d-flex mt-3 rounded align-items-center ">
-                        <label> Date</label>
+                        <label th:text="#{date}"> Date</label>
                         <span th:text="${o.getDate()}" class="text-uppercase form-control mx-2 w-25"></span>
-                        <label> Description </label>
+                        <label th:text="#{description}"> Description </label>
                         <span th:text="${o.getDescription()}" class="text-uppercase form-control mx-2"></span>
-                        <label>Status</label>
+                        <label th:text="#{status}">Status</label>
                         <span th:text="${o.getStatus()}" th:style="${o.getStatus == 'Scheduled'}
                              ? 'background-color: green; color: white;' : (${o.getStatus == 'Pending'} ? 'background-color: yellow; color: black;' : (${o.getStatus == 'In Progress'} ? 'background-color: red; color: white;' :
                             (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : '')))"
@@ -80,7 +80,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 <form th:method="get" th:action="@{/orders/history}">
-                    <button type="submit" class="btn-link float-right text-uppercase align-content-center border-primary mt-5">Finished orders</button>
+                    <button type="submit" class="btn-link float-right text-uppercase align-content-center border-primary mt-5" th:text="#{finishedOrders}">Finished orders</button>
                 </form>
             </div>
         </div>

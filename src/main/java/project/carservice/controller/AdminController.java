@@ -37,6 +37,12 @@ public interface AdminController {
     String editUser(@Valid EditUserDTO editUserDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
     @PostMapping ("/remove-mechanic")
-    String removeMechanic(@RequestParam UUID id, RedirectAttributes redirectAttributes);
+    String removeMechanic(@RequestParam UUID id);
+
+    @DeleteMapping ("/remove-user/{id}")
+    String removeUser(@PathVariable UUID id);
+
+    @DeleteMapping ("/remove-order/{id}")
+    String removeOrder(@PathVariable UUID id);
 
 }

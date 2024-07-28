@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>CarServ - Car Service</title>
+    <title>Car Service</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -50,39 +50,37 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a th:href="@{/home}" class="nav-item nav-link active" sec:authorize="isAuthenticated()">Home</a>
+            <a th:href="@{/home}" class="nav-item nav-link active" sec:authorize="isAuthenticated()"
+               th:text="#{home}">Home</a>
             <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" sec:authorize="isAnonymous()">Login/Register</a>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" sec:authorize="isAnonymous()"
+                   th:text="#{login}">Login/Register</a>
                 <div class="dropdown-menu fade-up m-0">
-                    <a th:href="@{/users/login}" class="dropdown-item">Login</a>
-                    <a th:href="@{/users/register}" class="dropdown-item">Register</a>
+                    <a th:href="@{/users/login}" class="dropdown-item" th:text="#{login}">Login</a>
+                    <a th:href="@{/users/register}" class="dropdown-item" th:text="#{register}">Register</a>
                 </div>
             </div>
-            <a th:href="@{/service}" class="nav-item nav-link">Services</a>
-            <a th:href="@{/about}" class="nav-item nav-link">About Us</a>
-            <a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
+            <a th:href="@{/service}" class="nav-item nav-link" th:text="#{services}">Services</a>
+            <a th:href="@{/about}" class="nav-item nav-link" th:text="#{about}">About Us</a>
+            <a th:href="@{/contact}" class="nav-item nav-link" th:text="#{contact}">Contact</a>
             <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Language</a>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" th:text="#{language}">Language</a>
                 <div class="dropdown-menu fade-up m-0">
-                    <option value="en_US" class="dropdown-item">English</option>
-                    <option value="bg_BG" class="dropdown-item">Български</option>
+                    <a class="dropdown-item" href="?lang=en_US" th:text="#{english}">English</a>
+                    <a class="dropdown-item" href="?lang=bg_BG" th:text="#{bulgarian}">Български</a>
                 </div>
             </div>
-
             <div class="nav-item" sec:authorize="isAuthenticated()">
                 <div class="my-2 my-lg-0 pt-3">
-                    <form th:method="post"
-                          th:action="@{/users/logout}">
-                        <input class="nav-item button" type="submit" value="Logout"/>
+                    <form th:method="post" th:action="@{/users/logout}">
+                        <input class="nav-item button" type="submit" value="Logout" th:value="#{logout}"/>
                     </form>
                 </div>
             </div>
-
         </div>
-
-        <!--<a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>-->
     </div>
 </nav>
+
 <!-- Navbar End -->
 
 <!--Footer start-->
@@ -156,15 +154,15 @@
 </footer>
 <!-- Footer End -->
 <sidebar class="sidebar">
-    <a th:href="@{/users/garage}">My Garage</a>
-    <a th:href="@{/orders/my-orders}">My Service Orders</a>
-    <a th:href="@{/orders/add-order}">New Service Order</a>
-    <a th:href="@{/admin/unsigned-orders}">Unsigned Orders</a>
-    <a th:href="@{/admin/suppliers}">Manage Suppliers</a>
-    <a th:href="@{/parts/manage-parts}">Manage Spare Parts</a>
-    <a th:href="@{/mechanic/tasks}">Tasks For Me</a>
-    <a th:href="@{/admin/manage-users}">Manage Users</a>
-    <a th:href="@{/users/my-profile}">My profile</a>
+    <a th:href="@{/users/garage}" th:text="#{garage}">My Garage</a>
+    <a th:href="@{/orders/my-orders}" th:text="#{myOrders}">My Service Orders</a>
+    <a th:href="@{/orders/add-order}" th:text="#{newOrder}">New Service Order</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/unsigned-orders}" th:text="#{unassignedOrders}">Unsigned Orders</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/suppliers}" th:text="#{manageSuppliers}">Manage Suppliers</a>
+    <a th:href="@{/parts/manage-parts}" th:text="#{manageSpareParts}">Manage Spare Parts</a>
+    <a th:href="@{/mechanic/tasks}" th:text="#{tasksForMe}">Tasks For Me</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/manage-users}" th:text="#{manageUsers}">Manage Users</a>
+    <a th:href="@{/users/my-profile}" th:text="#{myProfile}">My profile</a>
 
 </sidebar>
 <!--Side Bar-->

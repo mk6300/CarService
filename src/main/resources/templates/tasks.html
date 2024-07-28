@@ -49,17 +49,17 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
-        <h1 class="d-flex justify-content-center text-danger">TASKS FOR ME</h1>
+        <h1 class="d-flex justify-content-center text-danger text-uppercase" th:text="#{tasksForMe}">TASKS FOR ME</h1>
         <div th:each="o: ${orders}" class="rounded m-auto">
             <div class="border p-3">
                 <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
                     th:text="'Service order for Car: '+${o.getCar().getMake()}+' '+${o.getCar().getModel()}"></h4>
                 <div class="d-flex mt-3 rounded align-items-center ">
-                    <label> Date</label>
+                    <label th:text="#{date}"> Date</label>
                     <span th:text="${o.getDate()}" class="text-uppercase form-control mx-2 w-25"></span>
-                    <label> Description </label>
+                    <label th:text="#{description}"> Description </label>
                     <span th:text="${o.getDescription()}" class="text-uppercase form-control mx-2"></span>
-                    <label>Status</label>
+                    <label th:text="#{status}">Status</label>
                     <span th:text="${o.getStatus()}" th:style="${o.getStatus == 'Scheduled'}
         ? 'background-color: green; color: white;' : (${o.getStatus == 'In Progress'} ? 'background-color: red; color: white;' :
         (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : (${o.getStatus == 'Pending'} ? 'background-color: yellow; color: black;' : '')))" class="text-uppercase form-control mx-2 w-25 bg">
@@ -69,11 +69,11 @@
                 </div>
                 <div class="d-flex justify-content-lg-center mt-4">
                     <form th:method="get" th:action="@{/mechanic/tasks/{id}(id=*{o.id})}">
-                        <input type="submit" class="btn btn-link text-danger text-uppercase border-primary" value="Manage Task">
+                        <input type="submit" class="btn btn-link text-danger text-uppercase border-primary" th:value="#{manageTask}">
                     </form>
                     <form th:method="delete" th:action="@{/orders/remove/{id}(id=*{o.id})}">
                         <input th:if="${o.getStatus == 'Scheduled' or o.getStatus=='Pending'}" type="submit"
-                               class="btn btn-link text-danger text-uppercase border-primary" value="Remove order">
+                               class="btn btn-link text-danger text-uppercase border-primary" th:value="#{removeOrder}">
                     </form>
                 </div>
             </div>

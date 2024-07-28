@@ -49,12 +49,11 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
-        <h1 class="d-flex justify-content-center text-danger">ALL UNSIGNED ORDERS</h1>
-
-        <div th:each="o :${unsignedOrders}" class="rounded m-auto">
+        <h1 class="d-flex justify-content-center text-danger" th:text="#{unassignedOrders}">ALL UNSIGNED ORDERS</h1>
+        <div th:each="o :${unsignedOrders}" class="rounded m-auto border my-3">
             <form th:method="put" th:action="@{/admin/assign-mechanic}" th:object="${editOrderDTO}">
                 <input type="hidden" th:feild="*{id}" th:value="${o.id}" id="id" name="id"/>
-                <div class="border p-3">
+                <div class="p-3">
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
                         th:text="'Service order for Car: '+${o.car.getMake}+' '+${o.car.getModel}"></h4>
                     <div class="d-flex mt-3 rounded align-items-center ">
@@ -63,18 +62,11 @@
                         <label> Description </label>
                         <span th:text="${o.description}" class="text-uppercase form-control mx-2"></span>
                         <label>Status</label>
-                        <span th:text="${o.getStatus()}" th:style="${o.getStatus == 'Scheduled'}
+                        <span th:text="${o.status}" th:style="${o.getStatus == 'Scheduled'}
                              ? 'background-color: green; color: white;' : (${o.getStatus == 'Pending'} ? 'background-color: yellow; color: black;' : (${o.getStatus == 'In Progress'} ? 'background-color: red; color: white;' :
                             (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : '')))"
                               class="text-uppercase form-control mx-2 w-25 bg">
-                    </span>
-                        <div class="d-flex justify-content-end">
-                            <button th:if="${o.getStatus == 'Scheduled' or o.getStatus=='Pending'}"
-                                    class="btn text-danger float-right text-uppercase align-content-center">
-                                Remove order
-                            </button>
-                        </div>
-
+                        </span>
                     </div>
                     <div class="d-flex justify-content-sm-start">
                         <div class="d-inline-flex align-items-center mt-5 w-50">
@@ -94,6 +86,12 @@
                     </div>
                 </div>
             </form>
+            <div class="d-flex justify-content-end">
+                <form th:method="delete" th:action="@{/admin/remove-order/{id}(id=${o.id})}">
+                    <input th:if="${o.getStatus == 'Scheduled' or o.getStatus=='Pending'}" type="submit"
+                           class="btn btn-link text-danger text-uppercase border-primary" th:value="#{removeOrder}">
+                </form>
+            </div>
         </div>
     </div>
 </div>

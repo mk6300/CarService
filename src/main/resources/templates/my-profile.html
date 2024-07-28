@@ -49,32 +49,32 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
-        <div><h1 class="d-flex justify-content-center">MY PROFILE</h1></div>
+        <div><h1 class="d-flex justify-content-center" th:text="#{myProfile}">MY PROFILE</h1></div>
         <div class="rounded center d-flex justify-content-center">
             <div class="border p-3 w-75">
                 <div class="mt-3 rounded align-content-xl-center">
-                    <h5 class="d-flex justify-content-center"> Username</h5>
+                    <h5 class="d-flex justify-content-center" th:text="#{username}"> Username</h5>
                     <span th:text="${user.getUsername()}" class="d-flex justify-content-center form-control mx-2"></span>
                 </div>
                 <div class="mt-3 rounded align-items-center ">
-                    <h5 class="d-flex justify-content-center"> First Name </h5>
+                    <h5 class="d-flex justify-content-center" th:text="#{firstName}"> First Name </h5>
                     <span th:text="${user.getFirstName()}" class="d-flex justify-content-center form-control mx-2"></span>
                 </div>
                 <div class="mt-3 rounded align-items-center ">
-                    <h5 class="d-flex justify-content-center">Last Name </h5>
+                    <h5 class="d-flex justify-content-center" th:text="#{lastName}">Last Name </h5>
                     <span th:text="${user.getLastName()}" class="d-flex justify-content-center form-control mx-2"></span>
                 </div>
                 <div class="mt-3 rounded align-items-center ">
-                    <h5 class="d-flex justify-content-center">Phone Number </h5>
+                    <h5 class="d-flex justify-content-center" th:text="#{phone}">Phone Number </h5>
                     <span th:text="${user.getPhone()}" class="d-flex justify-content-center form-control mx-2"></span>
                 </div>
                 <div class="mt-3 rounded align-items-center ">
-                    <h5 class="d-flex justify-content-center">E-mail Address </h5>
+                    <h5 class="d-flex justify-content-center" th:text="#{email}">E-mail Address </h5>
                     <span th:text="${user.getEmail()}" class="text d-flex justify-content-center form-control mx-2"></span>
                 </div>
                 <div class="d-flex justify-content-end">
                     <a class="btn text-danger float-right text-uppercase align-content-center" type="submit"
-                            th:href="@{/users/edit/{id}(id=*{user.getId()})}">Edit Details
+                            th:href="@{/users/edit/{id}(id=*{user.getId()})}" th:text="#{editDetails}">Edit Details
                     </a>
                 </div>
             </div>

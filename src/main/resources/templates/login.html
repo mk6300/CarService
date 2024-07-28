@@ -41,7 +41,7 @@
 <!-- Navbar End -->
 <main>
     <div th:href="@{/}" class="block-20 pt-5" th:style="'background-image: url('+@{/images/service.jpg}+'); height: 80vh; background-position: center center'">
-        <h1 class="text-center mx-auto"><span class="h1 mb-2">Login</span></h1>
+        <h1 class="text-center mx-auto"><span class="h1 mb-2" th:text="#{login}">Login</span></h1>
         <hr class="hr-3 w-25 bg-black"/>
         <form class="mx-auto w-25 bg-blur" th:method="post"
               th:action="@{/users/login}">
@@ -67,7 +67,7 @@
             </p>
 
             <div class="button-holder d-flex justify-content-center">
-                <button type="submit" class="btn btn-warning mt-5" value="Login">Login</button>
+                <button type="submit" class="btn btn-warning mt-5" value="Login" th:text="#{login}">Login</button>
             </div>
 
         </form>
