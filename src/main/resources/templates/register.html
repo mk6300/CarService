@@ -39,14 +39,14 @@
 <header th:replace="~{fragments/commons::nav(activeLink=${'register'})}"></header>
 <main>
     <div class="container">
-        <h2 class="text-center text">Register New User</h2>
+        <h2 class="text-center text" th:text="#{registerNewUser}">Register New User</h2>
         <form th:method="post"
               th:action="@{/users/register}"
               th:object="${registerUserDTO}"
               class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
             <div class="form-group">
                 <div class="label-holder textCol d-flex justify-content-center">
-                    <label for="username" class="h4 mb-2">Username</label>
+                    <label for="username" class="h4 mb-2" th:text="#{username}">Username</label>
                 </div>
 
                 <input th:field="*{username}" th:errorclass="'is-invalid'"
@@ -56,7 +56,7 @@
 
             <div class="form-group">
                 <div class="label-holder text-white textCol d-flex justify-content-center">
-                    <label for="password" class="h4 mb-2">Password</label>
+                    <label for="password" class="h4 mb-2" th:text="#{password}">Password</label>
                 </div>
                 <input th:field="*{password}"
                        th:errorclass="'is-invalid'"
@@ -67,7 +67,7 @@
 
             <div class="form-group">
                 <div class="label-holder text-white textCol d-flex justify-content-center">
-                    <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
+                    <label for="confirmPassword" class="h4 mb-2" th:text="#{confirmPassword}">Confirm Password</label>
                 </div>
                 <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
                        th:errorclass="bg-danger"
@@ -79,7 +79,7 @@
 
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
-                    <label th:for="firstName" class="text-black font-weight-bold">First Name</label>
+                    <label th:for="firstName" class="text-black font-weight-bold" th:text="#{firstName}">First Name</label>
                     <input  th:field="*{firstName}"
                             type="text"
                             class="form-control"
@@ -89,7 +89,7 @@
                            class="text-danger">First name can't be blank</small>
                 </div>
                 <div class="form-group col-md-6 mb-3">
-                    <label th:for="lastName" class="text-black font-weight-bold">Last Name</label>
+                    <label th:for="lastName" class="text-black font-weight-bold" th:text="#{lastName}">Last Name</label>
                     <input
                             th:field="*{lastName}"
                             type="text"
@@ -102,7 +102,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-md-6 mb-3">
-                    <label th:for="email" class="text-black font-weight-bold">Email</label>
+                    <label th:for="email" class="text-black font-weight-bold" th:text="#{email}">Email</label>
                     <input
                             th:field="*{email}"
                             type="text"
@@ -113,7 +113,7 @@
                            class="text-danger">Need add valid e-mail address</small>
                 </div>
                 <div class="form-group col-md-6 mb-3 justify-content-center">
-                    <label th:for="phone" class="text-black font-weight-bold">Phone Number</label>
+                    <label th:for="phone" class="text-black font-weight-bold" th:text="#{phone}">Phone Number</label>
                     <input
                             th:field="*{phone}"
                             type="text"
@@ -128,7 +128,7 @@
             <div class="row justify-content-center">
                 <div class="col col-md-4">
                     <div class="button-holder d-flex justify-content-center">
-                        <input type="submit" class="btn btn-info btn-lg" value="Register New User"/>
+                        <input type="submit" class="btn btn-info btn-lg" th:value="#{registerNewUser}"/>
                     </div>
                 </div>
             </div>

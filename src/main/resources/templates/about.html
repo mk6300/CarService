@@ -37,7 +37,7 @@
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only" th:text="#{loading}">Loading...</span>
         </div>
     </div>
     <!-- Spinner End -->
@@ -55,7 +55,7 @@
     <div class="container-fluid page-header mb-5 p-0" style="background-image: url(/images/carousel-bg-1.jpg);">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown" th:text="#{about}">About Us</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -122,8 +122,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <h6 class="text-primary text-uppercase">// About Us //</h6>
-                    <h1 class="mb-4"><span class="text-primary">CarServ</span> Is The Best Place For Your Auto Care</h1>
+                    <h1 class="mb-4"><span class="text-primary">Car Service</span> Is The Best Place For Your Auto Care</h1>
                     <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
                     <div class="row g-4 mb-3 pb-3">
                         <div class="col-12 wow fadeIn" data-wow-delay="0.1s">

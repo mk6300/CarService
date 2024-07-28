@@ -67,13 +67,13 @@
                               class="text-uppercase form-control mx-2 w-25 bg">
                         </span>
                     </div>
-                    <div class="d-flex justify-content-lg-center mt-4">
+                    <div class="d-flex justify-content-lg-between mt-4">
                         <div th:if="${o.mechanic!=null}" class="mx-3">
-                            <span th:text="'Responsible Mechanic: '+${o.mechanic.firstName}+' '+${o.mechanic.lastName}"class="text-uppercase form-control mx-2"> </span>
+                            <span th:text="#{responsibleMechanic}+': '+${o.mechanic.firstName}+' '+${o.mechanic.lastName}" class="text-uppercase form-control mx-2"> </span>
                         </div>
                         <form th:method="delete" th:action="@{/orders/remove/{id}(id=*{o.id})}">
                             <input th:if="${o.getStatus == 'Scheduled' or o.getStatus=='Pending'}" type="submit"
-                                class="btn btn-link text-danger text-uppercase border-primary" value="Remove order">
+                                class="btn btn-link text-danger text-uppercase border-primary" th:value="#{removeOrder}">
                         </form>
                     </div>
                 </div>
