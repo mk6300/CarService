@@ -55,7 +55,7 @@
             <div class="rounded m-auto">
                 <form class="border p-3 justify-content-center" th:method="post" th:action="@{/admin/manage}">
                     <div class="d-flex justify-content-center mb-5">
-                        <select id="userSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id">
+                        <select id="userSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id" required>
                             <option value="">Select User</option>
                             <option th:each="u : ${users}" class="text-uppercase"
                                     th:value="${u.id}"
@@ -77,6 +77,12 @@
                             </button>
                         </div>
                         <div>
+                            <button id="makeAdminButton" type="submit" disabled
+                                    class="btn border-dark text-danger float-right text-uppercase
+                align-content-center mx-3" name="action" value="makeAdmin">Make Admin
+                            </button>
+                        </div>
+                        <div>
                             <button id="removeButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
                 align-content-center" name="action" value="remove">Remove User
@@ -89,6 +95,7 @@
                         var userSelect = document.getElementById('userSelect');
                         var editButton = document.getElementById('editButton');
                         var makeMecahincButton = document.getElementById('makeMechanicButton');
+                        var makeAdminButton = document.getElementById('makeAdminButton');
                         var removeButton = document.getElementById('removeButton');
 
                         userSelect.addEventListener('change', function () {
@@ -96,10 +103,12 @@
                                 editButton.removeAttribute('disabled');
                                 makeMecahincButton.removeAttribute('disabled');
                                 removeButton.removeAttribute('disabled');
+                                makeAdminButton.removeAttribute('disabled');
                             } else {
                                 editButton.setAttribute('disabled', 'disabled');
                                 makeMecahincButton.setAttribute('disabled', 'disabled');
                                 removeButton.setAttribute('disabled', 'disabled');
+                                makeAdminButton.setAttribute('disabled', 'disabled');
                             }
                         });
                     });
@@ -111,7 +120,7 @@
             <div class="rounded m-auto">
                 <form class="border p-3 justify-content-center" th:method="post" th:action="@{/admin/remove-mechanic}">
                     <div class="d-flex justify-content-center mb-5">
-                        <select id="mechanicSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id">
+                        <select id="mechanicSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id" required>
                             <option value="">Select Mechanic</option>
                             <option th:each="m : ${mechanics}" class="text-uppercase"
                                     th:value="${m.id}"
@@ -139,6 +148,45 @@
                                 removeMechanicButton.removeAttribute('disabled');
                             } else {
                                 removeMechanicButton.setAttribute('disabled', 'disabled');
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <div id="admin-container">
+            <h1 class="d-flex justify-content-center">Admins List</h1>
+            <div class="rounded m-auto">
+                <form class="border p-3 justify-content-center" th:method="post" th:action="@{/admin/remove-admin}">
+                    <div class="d-flex justify-content-center mb-5">
+                        <select id="adminSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id" required>
+                            <option value="">Select Admin</option>
+                            <option th:each="a : ${admins}" class="text-uppercase"
+                                    th:value="${a.id}"
+                                    th:text="${a.username} + ' - ' + ${a.firstName} + ' ' + ${a.lastName}"></option>
+                        </select>
+                        <small class="danger"></small>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div>
+                            <button id="removeAdminButton" type="submit" disabled
+                                    class="btn border-dark text-danger float-right text-uppercase
+                                 align-content-center">Remove from Admins
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var adminSelect = document.getElementById('adminSelect');
+                        var removeAdminButton = document.getElementById('removeAdminButton');
+
+
+                        adminSelect.addEventListener('change', function () {
+                            if (adminSelect.value) {
+                                removeAdminButton.removeAttribute('disabled');
+                            } else {
+                                removeAdminButton.setAttribute('disabled', 'disabled');
                             }
                         });
                     });

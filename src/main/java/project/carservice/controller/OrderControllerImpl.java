@@ -74,7 +74,10 @@ public class OrderControllerImpl implements OrderController {
     public String orderInfo(Model model, UUID id) {
         model.addAttribute("order", orderService.getOrderById(id));
         model.addAttribute("parts", orderService.getPartsForOrder(id));
-        model.addAttribute("orderPrice", orderService.calculatePartsSumForOrder(id));
+        model.addAttribute("orderPartsPrice", orderService.calculatePartsSumForOrder(id));
+        model.addAttribute("services", orderService.getServicesForOrder(id));
+        model.addAttribute("orderServicePrice", orderService.calculateServicesSumForOrder(id));
+        model.addAttribute("totalPrice", orderService.calculateTotalSumForOrder(id));
         return "order-details";
     }
 }

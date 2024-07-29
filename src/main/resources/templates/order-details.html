@@ -71,22 +71,51 @@
             </div>
         </div>
         <div class="border p-3 mt-2">
-            <div class="d-inline">
-                <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center">Used Spare Parts</h5>
-                <div class="mt-2 rounded">
-                    <div th:each="part : ${parts}" class="d-flex mx-2">
-                        <label> Part Name</label>
-                        <div th:text="${part.name}" class="text-uppercase form-control lh-base w-50"></div>
-                        <label> Part Price</label>
-                        <span th:text="${part.price}" class="text-uppercase form-control lh-base w-25"></span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center">Used Spare Parts</h5>
+                        <div class="mt-2 rounded">
+                            <div th:each="part : ${parts}" class="d-flex mx-2">
+                                <label>Part Name</label>
+                                <div th:text="${part.name}" class="text-uppercase form-control lh-base w-50"></div>
+                                <label>Part Price</label>
+                                <span th:text="${part.price}" class="text-uppercase form-control lh-base w-25"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center">Made Services</h5>
+                        <div class="mt-2 rounded">
+                            <div th:each="s : ${services}" class="d-flex mx-2">
+                                <label>Service Name</label>
+                                <div th:text="${s.name}" class="text-uppercase form-control lh-base w-50"></div>
+                                <label>Service Price</label>
+                                <span th:text="${s.price}" class="text-uppercase form-control lh-base w-25"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="d-flex mt-3 rounded">
-                    <div class="text-uppercase">
-                        <label> Total Spare Parts Price</label>
-                        <span th:text="${orderPrice}" class="text-uppercase form-control lh-base"></span>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="text-uppercase font-weight-bold">
+                            <label>Total Spare Parts Price</label>
+                            <span th:text="${#numbers.formatDecimal(orderPartsPrice, 2, 2)}" class="text-uppercase form-control lh-base"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-uppercase">
+                            <label>Total Services Price</label>
+                            <span th:text="${#numbers.formatDecimal(orderServicePrice, 2, 2)}" class="text-uppercase form-control lh-base"></span>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="d-flex mt-3 rounded justify-content-center">
+            <div class="text-uppercase fs-5 fw-bold text-danger center">
+                <label> Services and Parts Total Price</label>
+                <span th:text="${#numbers.formatDecimal(totalPrice, 2, 2)}" class="text-uppercase form-control lh-base fs-5 fw-bold text-center"></span>
             </div>
         </div>
         <div class="d-inline justify-content-center align-items-center mx-auto">

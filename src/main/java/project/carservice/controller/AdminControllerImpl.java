@@ -59,6 +59,7 @@ public class AdminControllerImpl implements AdminController {
     public String manageUsers(Model model) {
         model.addAttribute("users", userService.AllUsers());
         model.addAttribute("mechanics", userService.AllMechanics());
+        model.addAttribute("admins", userService.AllAdmins());
         return "manage-users";
     }
 
@@ -74,6 +75,10 @@ public class AdminControllerImpl implements AdminController {
             case "remove":
                 userService.removeUser(id);
                 redirectAttributes.addFlashAttribute("message", "User removed successfully.");
+                break;
+            case "makeAdmin":
+                userService.makeAdmin(id);
+                redirectAttributes.addFlashAttribute("message", "User role updated to admin successfully.");
                 break;
             default:
                 redirectAttributes.addFlashAttribute("message", "Invalid action.");
@@ -121,6 +126,12 @@ public class AdminControllerImpl implements AdminController {
     @Override
     public String removeMechanic(UUID id) {
         userService.removeMechanic(id);
+        return "redirect:/admin/manage-users";
+    }
+
+    @Override
+    public String removeAdmin(UUID id) {
+        userService.removeAdmin(id);
         return "redirect:/admin/manage-users";
     }
 }

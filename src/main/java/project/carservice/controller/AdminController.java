@@ -38,6 +38,9 @@ public interface AdminController {
     @PostMapping ("/remove-mechanic")
     String removeMechanic(@RequestParam UUID id);
 
+    @PostMapping ("/remove-admin")
+    String removeAdmin(@RequestParam UUID id);
+
     @DeleteMapping ("/remove-user/{id}")
     String removeUser(@PathVariable UUID id);
 

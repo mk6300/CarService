@@ -3,6 +3,7 @@ package project.carservice.service;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,13 +29,10 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final ModelMapper modelMapper;
-
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
     private final AppUserDetailsService appUserDetailsService;
-
     private final UserRoleRepository userRoleRepository;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
 
@@ -148,7 +146,8 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         });
     }
-
+    @Override
+    @Secured("ROLE_ADMIN")
     public void makeMechanic(UUID userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -157,13 +156,15 @@ public class UserServiceImpl implements UserService {
         user.getRoles().add(mechanicRole);
         userRepository.save(user);
     }
-
+    @Override
+    @Secured("ROLE_ADMIN")
     public void removeUser(UUID userId) {
         userRepository.deleteById(userId);
     }
 
     @Override
     @Transactional
+    @Secured("ROLE_ADMIN")
     public void removeMechanic(UUID id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -179,5 +180,36 @@ public class UserServiceImpl implements UserService {
         } else {
             LOGGER.debug("User does not have mechanic role");
         }
+    }
+
+    @Override
+    public List<UserDTO> AllAdmins() {
+        return this.userRepository.findAllByRole(UserRoleEnum.ADMIN).stream()
+                .map(this::mapUserDTO)
+                .toList();
+    }
+
+    @Override
+    @Secured("ROLE_ADMIN")
+    public void removeAdmin(UUID id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        UserRole adminRole = userRoleRepository.findByRole(UserRoleEnum.ADMIN)
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        user.getRoles().remove(adminRole);
+        userRepository.save(user);
+
+    }
+
+    @Override
+    @Secured("ROLE_ADMIN")
+    public void makeAdmin(UUID id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        UserRole adminRole = userRoleRepository.findByRole(UserRoleEnum.ADMIN)
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        user.getRoles().add(adminRole);
+        userRepository.save(user);
+
     }
 }

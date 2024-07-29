@@ -41,4 +41,10 @@ public interface UserService {
     void removeUser(UUID id);
 
     void removeMechanic(UUID id);
+
+    List<UserDTO> AllAdmins();
+
+    void removeAdmin(UUID id);
+
+    void makeAdmin(UUID id);
 }

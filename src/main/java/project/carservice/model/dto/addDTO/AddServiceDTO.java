@@ -5,7 +5,7 @@ import jakarta.validation.constraints.*;
 public class AddServiceDTO {
 
     @NotNull
-    @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters")
+    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;
     @NotNull(message = "Price must be positive number")
     @PositiveOrZero(message = "Price must be positive number")
