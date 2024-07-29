@@ -107,15 +107,26 @@
                 <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center"
                 >Made Services</h5>
                 <div class="mt-2 rounded">
-                    <div th:each="part : ${usedSpares}" class="d-flex mx-2">
-                        <label> Part Name</label>
-                        <div th:text="${part.name}" class="text-uppercase form-control lh-base w-50"></div>
-                        <label> Part Price</label>
-                        <span th:text="${part.price}" class="text-uppercase form-control lh-base w-25"></span>
+                    <div th:each="s : ${orderServices}" class="d-flex mx-2">
+                        <label> Service Name</label>
+                        <div th:text="${s.name}" class="text-uppercase form-control lh-base w-50"></div>
+                        <label> Service Price</label>
+                        <span th:text="${s.price}" class="text-uppercase form-control lh-base w-25"></span>
+                    </div>
+                </div>
+                <div class="d-flex mt-3 rounded" th:if="${order.status == 'In Progress'}">
+                    <div class="text-uppercase">
+                        <label> Total Services Price</label>
+                        <span th:text="${orderServicePrice}" class="text-uppercase form-control lh-base"></span>
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="d-flex mt-3 rounded" th:if="${order.status == 'In Progress'}">
+            <div class="text-uppercase">
+                <label> Services and Parts Total Price</label>
+                <span th:text="${totalPrice}" class="text-uppercase form-control lh-base"></span>
+            </div>
         </div>
         <div th:if="${order.status == 'In Progress'}">
             <div class="container">

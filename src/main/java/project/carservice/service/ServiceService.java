@@ -20,4 +20,6 @@ public interface ServiceService {
     void editService(EditServiceDTO editServiceDTO);
 
     ServiceEntity getServiceEntity(UUID id);
+
+    ServiceDTO map(ServiceEntity service);
 }

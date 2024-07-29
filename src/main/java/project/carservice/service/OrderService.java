@@ -1,6 +1,7 @@
 package project.carservice.service;
 
 
+import project.carservice.model.dto.ServiceDTO;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
@@ -34,7 +35,13 @@ public interface OrderService {
 
     List<PartDTO> getPartsForOrder(UUID id);
 
-    double calculateOrderPrice(UUID id);
+    List<ServiceDTO> getServicesForOrder(UUID id);
+
+    double calculatePartsSumForOrder(UUID id);
+
+    double calculateServicesSumForOrder(UUID id);
+
+    double calculateTotalSumForOrder(UUID id);
 
     void finishTask(UUID id, String mechanicComment);
 

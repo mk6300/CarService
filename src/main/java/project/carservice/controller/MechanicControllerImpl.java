@@ -42,8 +42,11 @@ public class MechanicControllerImpl implements MechanicController {
             model.addAttribute("partToOrderDTO", new PartToOrderDTO());
         }
         model.addAttribute("usedSpares", orderService.getPartsForOrder(id));
-        model.addAttribute("orderPrice", orderService.calculateOrderPrice(id));
+        model.addAttribute("orderPrice", orderService.calculatePartsSumForOrder(id));
         model.addAttribute("services", serviceService.getAllServices());
+        model.addAttribute("orderServices", orderService.getServicesForOrder(id));
+        model.addAttribute("orderServicePrice", orderService.calculateServicesSumForOrder(id));
+        model.addAttribute("totalPrice", orderService.calculateTotalSumForOrder(id));
         return "task";
     }
 

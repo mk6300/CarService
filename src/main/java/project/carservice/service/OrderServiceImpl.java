@@ -8,6 +8,7 @@ import project.carservice.model.dto.*;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.entity.Order;
+import project.carservice.model.entity.ServiceEntity;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
 import project.carservice.repository.UserRepository;
@@ -142,13 +143,34 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public double calculateOrderPrice(UUID id) {
+    public List<ServiceDTO> getServicesForOrder(UUID id) {
+        return this.orderRepository.findById(id).orElse(null).getServices()
+                .stream()
+                .map(this.serviceService::map)
+                .collect(Collectors.toList());
+    }
+    @Override
+    public double calculatePartsSumForOrder(UUID id) {
         Order order = this.orderRepository.findById(id).orElse(null);
         List<Long> partIds = order.getPartId();
         return partIds.stream()
                 .map(this.partService::getPartDetails)
                 .mapToDouble(PartDTO::getPrice)
                 .sum();
+    }
+
+    @Override
+    public double calculateServicesSumForOrder(UUID id) {
+        Order order = this.orderRepository.findById(id).orElse(null);
+        return order.getServices()
+                .stream()
+                .mapToDouble(ServiceEntity::getPrice)
+                .sum();
+    }
+
+    @Override
+    public double calculateTotalSumForOrder(UUID id) {
+        return this.calculatePartsSumForOrder(id) + this.calculateServicesSumForOrder(id);
     }
 
     @Override

@@ -69,7 +69,8 @@ public class ServiceServiceImpl implements ServiceService {
         return serviceRepository.findById(id).orElseThrow();
     }
 
-    private ServiceDTO map(ServiceEntity service) {
+    @Override
+    public ServiceDTO map(ServiceEntity service) {
         return modelMapper.map(service, ServiceDTO.class);
     }
 
