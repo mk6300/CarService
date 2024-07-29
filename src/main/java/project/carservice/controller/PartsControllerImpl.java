@@ -3,11 +3,9 @@ package project.carservice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.model.dto.AddCarDTO;
-import project.carservice.model.dto.AddPartDTO;
+import project.carservice.model.dto.addDTO.AddPartDTO;
 import project.carservice.model.dto.PartDTO;
 import project.carservice.service.PartService;
 import project.carservice.service.SupplierService;
@@ -22,7 +20,6 @@ public class PartsControllerImpl implements PartsController{
         this.partService = partService;
         this.supplierService = supplierService;
     }
-
     @Override
     public String manageParts(Model model, Long partId) {
 

@@ -1,4 +1,4 @@
-package project.carservice.model.dto;
+package project.carservice.model.dto.addDTO;
 
 import jakarta.validation.constraints.*;
 

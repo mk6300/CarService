@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.model.dto.AddPartDTO;
+import project.carservice.model.dto.addDTO.AddPartDTO;
 
 @RequestMapping("/parts")
 public interface PartsController {

@@ -8,8 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.RegisterUserDTO;
-import project.carservice.model.dto.UserDTO;
-import project.carservice.model.dto.editDTOs.EditUserDTO;
+import project.carservice.model.dto.editDTO.EditUserDTO;
 
 import java.util.UUID;
 

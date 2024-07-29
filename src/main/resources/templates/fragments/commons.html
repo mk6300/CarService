@@ -16,7 +16,7 @@
         <div class="col-lg-7 px-5 text-start">
             <div class="h-100 d-inline-flex align-items-center py-3 me-4">
                 <small class="fa fa-map-marker-alt text-primary me-2"></small>
-                <small>123 Street, Sofia, BULGARIA</small>
+                <small th:text="#{addressService}">BURGAS, BULGARIA</small>
             </div>
             <div class="h-100 d-inline-flex align-items-center py-3">
                 <small class="far fa-clock text-primary me-2"></small>
@@ -89,7 +89,7 @@
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">
                 <h4 class="text-light mb-4" th:text="#{address}">Address</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Sofia, BULGARIA</p>
+                <p class="mb-2" th:text="#{addressService}"><i class="fa fa-map-marker-alt me-3"></i>15 Zdrave Street, BURGAS, BULGARIA</p>
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+359 887 667899</p>
                 <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@carservice.com</p>
                 <div class="d-flex pt-2">
@@ -152,6 +152,7 @@
     <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/unsigned-orders}" th:text="#{unassignedOrders}">Unsigned Orders</a>
     <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/suppliers}" th:text="#{manageSuppliers}">Manage Suppliers</a>
     <a th:href="@{/parts/manage-parts}" th:text="#{manageSpareParts}">Manage Spare Parts</a>
+    <a th:href="@{/services/manage-services}" th:text="#{manageServices}">Manage Services</a>
     <a th:href="@{/mechanic/tasks}" th:text="#{tasksForMe}">Tasks For Me</a>
     <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/manage-users}" th:text="#{manageUsers}">Manage Users</a>
     <a th:href="@{/users/my-profile}" th:text="#{myProfile}">My profile</a>

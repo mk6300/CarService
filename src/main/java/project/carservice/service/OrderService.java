@@ -1,9 +1,9 @@
 package project.carservice.service;
 
 
-import project.carservice.model.dto.EditOrderDTO;
+import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.dto.OrderDTO;
-import project.carservice.model.dto.AddOrderDTO;
+import project.carservice.model.dto.addDTO.AddOrderDTO;
 import project.carservice.model.dto.PartDTO;
 
 
@@ -39,4 +39,6 @@ public interface OrderService {
     void finishTask(UUID id, String mechanicComment);
 
     void updateOrderStatus();
+
+    void addService(UUID id, UUID serviceId);
 }

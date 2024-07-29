@@ -75,7 +75,7 @@
                         </div>
                         <div class="d-inline-flex align-items-center mb-5">
                             <select th:feild="*{supplierId}" th:errorclass="'is-invalid'"
-                                    class="form-control mx-2 text-uppercase" name="supplierId" id="supplierId">
+                                    class="form-control mx-2 text-uppercase" name="supplierId" id="supplierId" required>
                                 <option value="">Select part supplier</option>
                                 <option class="text-uppercase" th:each="s: ${suppliers}"
                                         th:value="${s.id}"

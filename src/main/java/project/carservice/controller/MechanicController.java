@@ -28,4 +28,8 @@ public interface MechanicController {
     String finishTask(@PathVariable UUID id,
                       @RequestParam("mechanicComment") String mechanicComment);
 
+    @PostMapping("/add-service/{id}")
+    String addService(@PathVariable UUID id,
+                      @RequestParam("selectedServiceId") UUID serviceId);
+
 }

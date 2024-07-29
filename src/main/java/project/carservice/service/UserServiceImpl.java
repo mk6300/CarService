@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
-import project.carservice.model.dto.editDTOs.EditUserDTO;
+import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.model.entity.User;
 import project.carservice.model.entity.UserRole;
 import project.carservice.model.entity.enums.UserRoleEnum;

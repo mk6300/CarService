@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
-import project.carservice.model.dto.AddPartDTO;
+import project.carservice.model.dto.addDTO.AddPartDTO;
 import project.carservice.model.dto.PartDTO;
 
 import java.util.List;

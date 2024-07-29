@@ -3,13 +3,10 @@ package project.carservice.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.carservice.model.dto.AddCarDTO;
+import project.carservice.model.dto.addDTO.AddCarDTO;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.entity.Car;
-import project.carservice.model.entity.Order;
 import project.carservice.repository.CarRepository;
-import project.carservice.repository.OrderRepository;
-import project.carservice.repository.UserRepository;
 
 import java.util.List;
 import java.util.UUID;

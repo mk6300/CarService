@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
-import project.carservice.model.dto.editDTOs.EditUserDTO;
+import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.model.user.AppUserDetails;
 import project.carservice.service.CarService;
 import project.carservice.service.UserService;

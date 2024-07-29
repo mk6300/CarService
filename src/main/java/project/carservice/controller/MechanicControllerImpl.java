@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.PartToOrderDTO;
 import project.carservice.service.OrderService;
 import project.carservice.service.PartService;
+import project.carservice.service.ServiceService;
 import project.carservice.service.UserService;
 
 import java.util.UUID;
@@ -18,10 +19,13 @@ public class MechanicControllerImpl implements MechanicController {
     private final UserService userService;
     private final PartService partService;
 
-    public MechanicControllerImpl(OrderService orderService, UserService userService, PartService partService) {
+    private final ServiceService serviceService;
+
+    public MechanicControllerImpl(OrderService orderService, UserService userService, PartService partService, ServiceService serviceService) {
         this.orderService = orderService;
         this.userService = userService;
         this.partService = partService;
+        this.serviceService = serviceService;
     }
 
     @Override
@@ -39,6 +43,7 @@ public class MechanicControllerImpl implements MechanicController {
         }
         model.addAttribute("usedSpares", orderService.getPartsForOrder(id));
         model.addAttribute("orderPrice", orderService.calculateOrderPrice(id));
+        model.addAttribute("services", serviceService.getAllServices());
         return "task";
     }
 
@@ -64,5 +69,11 @@ public class MechanicControllerImpl implements MechanicController {
 
         orderService.finishTask(id, mechanicComment);
         return "redirect:/mechanic/tasks";
+    }
+
+    @Override
+    public String addService(UUID id, UUID serviceId) {
+        orderService.addService(id, serviceId);
+        return "redirect:/mechanic/tasks/" + id;
     }
 }

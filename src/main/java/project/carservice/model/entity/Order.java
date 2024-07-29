@@ -5,6 +5,7 @@ import project.carservice.model.entity.enums.EngineTypeEnum;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,6 +37,15 @@ public class Order extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Car car;
 
+    @ManyToMany(
+            fetch = FetchType.EAGER
+    )
+    @JoinTable(
+            name = "orders_services",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private List<ServiceEntity> services = new ArrayList<>();
 
     public LocalDate getDate() {
         return date;
@@ -99,5 +109,13 @@ public class Order extends BaseEntity {
 
     public void setPartId(List<Long> partId) {
         this.partId = partId;
+    }
+
+    public List<ServiceEntity> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ServiceEntity> services) {
+        this.services = services;
     }
 }

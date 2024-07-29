@@ -3,7 +3,7 @@ package project.carservice.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
-import project.carservice.model.dto.editDTOs.EditUserDTO;
+import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.model.entity.User;
 
 import java.util.List;

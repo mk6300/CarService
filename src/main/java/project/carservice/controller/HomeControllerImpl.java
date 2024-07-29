@@ -4,15 +4,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import project.carservice.model.dto.CarDTO;
-import project.carservice.model.dto.editDTOs.EditUserDTO;
 import project.carservice.model.user.AppUserDetails;
-import project.carservice.service.UserHelperService;
-import project.carservice.service.UserService;
-import project.carservice.service.session.AppUserDetailsService;
-import project.carservice.service.CarService;
-
-import java.util.List;
 
 @Controller
 public class HomeControllerImpl implements HomeController {

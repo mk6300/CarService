@@ -67,7 +67,7 @@
                         </div>
                         <div class="d-inline-flex align-items-center mt-5">
                             <select th:feild="*{id}" th:errorclass="'is-invalid'"
-                                    class="form-control mx-2 text-uppercase" name="id" id="id">
+                                    class="form-control mx-2 text-uppercase" name="id" id="id" required>
                                 <option value="">Select your car</option>
                                 <option class="text-uppercase" th:each="car: ${cars}"
                                         th:value="${car.getId}"

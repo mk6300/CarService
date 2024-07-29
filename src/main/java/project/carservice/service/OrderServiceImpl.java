@@ -5,6 +5,8 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import project.carservice.model.dto.*;
+import project.carservice.model.dto.addDTO.AddOrderDTO;
+import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.entity.Order;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
@@ -25,8 +27,9 @@ public class OrderServiceImpl implements OrderService {
     private final CarService carService;
     private final MailSender mailSender;
     private final PartService partService;
+    private final ServiceService serviceService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender, PartService partService) {
+    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender, PartService partService, ServiceService serviceService) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
@@ -34,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
         this.carService = carService;
         this.mailSender = mailSender;
         this.partService = partService;
+        this.serviceService = serviceService;
     }
 
     @Override
@@ -165,6 +169,15 @@ public class OrderServiceImpl implements OrderService {
                     order.setStatus(OrdersStatusEnum.PENDING);
                     this.orderRepository.save(order);
                 });
+    }
+
+    @Override
+    public void addService(UUID id, UUID serviceId) {
+        Order order = this.orderRepository.findById(id).orElse(null);
+        order.getServices().add(this.serviceService.getServiceEntity(serviceId));
+
+        this.orderRepository.save(order);
+
     }
 
     private void sendConfirmationOrderEmail(String email) {

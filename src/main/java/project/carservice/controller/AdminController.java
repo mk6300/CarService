@@ -5,9 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.model.dto.EditOrderDTO;
-import project.carservice.model.dto.UserDTO;
-import project.carservice.model.dto.editDTOs.EditUserDTO;
+import project.carservice.model.dto.editDTO.EditOrderDTO;
+import project.carservice.model.dto.editDTO.EditUserDTO;
 
 
 import java.util.UUID;

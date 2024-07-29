@@ -1,4 +1,4 @@
-package project.carservice.model.dto;
+package project.carservice.model.dto.editDTO;
 
 import java.util.List;
 import java.util.UUID;
