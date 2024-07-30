@@ -1,4 +1,4 @@
-package project.carservice.service;
+package project.carservice.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -17,6 +17,7 @@ import project.carservice.model.entity.UserRole;
 import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.repository.UserRepository;
 import project.carservice.repository.UserRoleRepository;
+import project.carservice.service.UserService;
 import project.carservice.service.exceptions.RoleNotFoundException;
 import project.carservice.service.exceptions.UserNotFoundException;
 import project.carservice.service.session.AppUserDetailsService;
@@ -191,6 +192,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Secured("ROLE_ADMIN")
+    @Transactional
     public void removeAdmin(UUID id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));

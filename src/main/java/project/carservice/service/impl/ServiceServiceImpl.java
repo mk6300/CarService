@@ -1,4 +1,4 @@
-package project.carservice.service;
+package project.carservice.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -7,6 +7,7 @@ import project.carservice.model.dto.addDTO.AddServiceDTO;
 import project.carservice.model.dto.editDTO.EditServiceDTO;
 import project.carservice.model.entity.ServiceEntity;
 import project.carservice.repository.ServiceRepository;
+import project.carservice.service.ServiceService;
 
 import java.util.List;
 import java.util.UUID;

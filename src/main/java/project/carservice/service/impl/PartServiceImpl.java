@@ -1,4 +1,4 @@
-package project.carservice.service;
+package project.carservice.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 import project.carservice.model.dto.addDTO.AddPartDTO;
 import project.carservice.model.dto.PartDTO;
+import project.carservice.service.PartService;
 
 import java.util.List;
 

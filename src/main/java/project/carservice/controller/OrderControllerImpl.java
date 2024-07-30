@@ -9,7 +9,7 @@ import project.carservice.model.dto.CarDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.service.CarService;
 import project.carservice.service.OrderService;
-import project.carservice.service.UserHelperService;
+import project.carservice.service.impl.UserHelperService;
 
 import java.util.List;
 import java.util.UUID;

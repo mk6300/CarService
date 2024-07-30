@@ -1,4 +1,4 @@
-package project.carservice.service;
+package project.carservice.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.mail.MailSender;
@@ -12,6 +12,7 @@ import project.carservice.model.entity.ServiceEntity;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
 import project.carservice.repository.UserRepository;
+import project.carservice.service.*;
 
 import java.time.LocalDate;
 import java.util.List;
