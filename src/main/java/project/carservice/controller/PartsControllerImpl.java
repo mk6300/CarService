@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.addDTO.AddPartDTO;
 import project.carservice.model.dto.PartDTO;
+import project.carservice.model.dto.editDTO.EditPartDTO;
 import project.carservice.service.PartService;
 import project.carservice.service.SupplierService;
 
@@ -66,9 +67,29 @@ public class PartsControllerImpl implements PartsController{
     }
 
     @Override
-    public String editPart(Long id, Model model) {
-        model.addAttribute("editOffer", partService.getPartDetails(id));
+    public String edit(Long id, Model model) {
+
+        if (!model.containsAttribute("partDTO")) {
+            model.addAttribute("partDTO", partService.getPartDetails(id));
+        }
+
+        model.addAttribute("suppliers", supplierService.getAllSuppliers());
+        model.addAttribute("supplierName", supplierService.getSupplierById(partService.getPartDetails(id).getSupplierId()).getName());
         return "edit-part";
+    }
+
+    @Override
+    public String editPart(PartDTO partDTO, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("partDTO", partDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.partDTO", result);
+            return "redirect:/parts/edit/" + partDTO.getId();
+        }
+
+        this.partService.editPart(partDTO.getId(), partDTO);
+        return "redirect:/parts/manage-parts";
+
     }
 
     @Override

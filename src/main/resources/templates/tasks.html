@@ -53,7 +53,7 @@
         <div th:each="o: ${orders}" class="rounded m-auto">
             <div class="border p-3">
                 <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
-                    th:text="'Service order for Car: '+${o.getCar().getMake()}+' '+${o.getCar().getModel()}"></h4>
+                    th:text="'Service order for Car: '+${order.car.make}+' '+${order.car.model}+' - '+${order.car.registration}"></h4>
                 <div class="d-flex mt-3 rounded align-items-center ">
                     <label th:text="#{date}"> Date</label>
                     <span th:text="${o.getDate()}" class="text-uppercase form-control mx-2 w-25"></span>

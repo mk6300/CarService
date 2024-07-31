@@ -48,4 +48,6 @@ public interface OrderService {
     void updateOrderStatus();
 
     void addService(UUID id, UUID serviceId);
+
+    List<OrderDTO> allOrders();
 }

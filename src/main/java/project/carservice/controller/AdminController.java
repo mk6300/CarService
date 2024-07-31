@@ -20,8 +20,6 @@ public interface AdminController {
     @PutMapping ("/assign-mechanic")
     String assignOrder(EditOrderDTO editOrderDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
-    @GetMapping ("/suppliers")
-    String suppliers(Model model);
 
     @GetMapping("/manage-users")
     String manageUsers(Model model);

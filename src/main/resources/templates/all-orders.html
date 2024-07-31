@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service - Order History</title>
+    <title>Car Service - All Orders</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -50,7 +50,7 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
         <div>
-            <h1 class="d-flex justify-content-center text-danger">MY FINISHED ORDERS</h1>
+            <h1 class="d-flex justify-content-center text-danger">ALL ORDERS</h1>
             <div th:each="o: ${orders}" class="rounded m-auto">
                 <div class="border p-3">
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"

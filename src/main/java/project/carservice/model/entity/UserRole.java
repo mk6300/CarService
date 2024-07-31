@@ -30,7 +30,5 @@ public class UserRole {
     public UserRole setRole(UserRoleEnum role) {
         this.role = role;
         return this;
-
     }
-
 }

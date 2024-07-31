@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.carservice.model.dto.PartDTO;
 import project.carservice.model.dto.addDTO.AddPartDTO;
 
 @RequestMapping("/parts")
@@ -22,7 +23,10 @@ public interface PartsController {
     String addPart(@Valid AddPartDTO addPartDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
     @GetMapping("/edit/{id}")
-    String editPart(@PathVariable("id") Long id, Model model);
+    String edit(@PathVariable("id") Long id, Model model);
+
+    @PostMapping("/edit")
+    String editPart(@Valid PartDTO partDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
     @DeleteMapping("/remove/{id}")
     String removePart(@PathVariable("id") Long id);

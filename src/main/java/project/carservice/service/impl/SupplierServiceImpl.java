@@ -6,7 +6,9 @@ import project.carservice.model.dto.addDTO.AddSupplierDTO;
 import project.carservice.model.dto.SupplierDTO;
 import project.carservice.model.entity.Supplier;
 import project.carservice.repository.SupplierRepository;
+import project.carservice.service.PartService;
 import project.carservice.service.SupplierService;
+import project.carservice.service.exceptions.SupplierNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,10 +18,13 @@ import java.util.stream.Collectors;
 public class SupplierServiceImpl implements SupplierService {
 
     private final SupplierRepository supplierRepository;
+
+    private final PartService partService;
     private final ModelMapper modelMapper;
 
-    public SupplierServiceImpl(SupplierRepository supplierRepository, ModelMapper modelMapper) {
+    public SupplierServiceImpl(SupplierRepository supplierRepository, PartService partService, ModelMapper modelMapper) {
         this.supplierRepository = supplierRepository;
+        this.partService = partService;
         this.modelMapper = modelMapper;
     }
 
@@ -36,8 +41,23 @@ public class SupplierServiceImpl implements SupplierService {
                 .map(supplier -> modelMapper.map(supplier, SupplierDTO.class))
                 .collect(Collectors.toList());
     }
-@Override
-    public Supplier getSupplierById(UUID id) {
-        return supplierRepository.findById(id).orElse(null);
+
+    @Override
+    public SupplierDTO getSupplierById(UUID id) {
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new SupplierNotFoundException("supplier not found"));
+        return modelMapper.map(supplier, SupplierDTO.class);
+    }
+
+    @Override
+    public void editSupplier(SupplierDTO supplierDTO) {
+        Supplier supplier = supplierRepository.findById(supplierDTO.getId()).orElseThrow(() -> new SupplierNotFoundException("supplier not found"));
+        modelMapper.map(supplierDTO, supplier);
+        supplierRepository.save(supplier);
+    }
+
+    @Override
+    public void removeSupplier(UUID supplierId) {
+        partService.deleteAllPartsFromSupplier(supplierId);
+        supplierRepository.deleteById(supplierId);
     }
 }

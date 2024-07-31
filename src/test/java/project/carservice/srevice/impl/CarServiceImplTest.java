@@ -79,7 +79,7 @@ public class CarServiceImplTest {
         List<CarDTO> cars = carService.allOwnedBy("testuser");
 
         Assertions.assertEquals(1, cars.size());
-        Assertions.assertEquals("Toyota", cars.get(0).getMake());
+        Assertions.assertEquals("Volkswagen", cars.get(0).getMake());
     }
 
     @Test
@@ -89,7 +89,7 @@ public class CarServiceImplTest {
         Car foundCar = carService.getById(car.getId());
 
         Assertions.assertNotNull(foundCar);
-        Assertions.assertEquals("Toyota", foundCar.getMake());
+        Assertions.assertEquals("Volkswagen", foundCar.getMake());
     }
 
     @Test

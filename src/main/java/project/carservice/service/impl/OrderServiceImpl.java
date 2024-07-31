@@ -11,8 +11,9 @@ import project.carservice.model.entity.Order;
 import project.carservice.model.entity.ServiceEntity;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
-import project.carservice.repository.UserRepository;
 import project.carservice.service.*;
+import project.carservice.service.exceptions.OrderNotFoundException;
+import project.carservice.service.exceptions.RoleNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +24,6 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final CarService carService;
@@ -31,9 +31,8 @@ public class OrderServiceImpl implements OrderService {
     private final PartService partService;
     private final ServiceService serviceService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, UserRepository userRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender, PartService partService, ServiceService serviceService) {
+    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender, PartService partService, ServiceService serviceService) {
         this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.carService = carService;
@@ -99,14 +98,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void assignOrder(EditOrderDTO editOrderDTO) {
-        Order order = this.orderRepository.findById(editOrderDTO.getId()).orElse(null);
-        order.setResponsibleMechanic(userRepository.findById(editOrderDTO.getMechanicId()).orElseThrow(null));
+        Order order = this.findOrderById(editOrderDTO.getId());
+        order.setResponsibleMechanic(userService.findById(editOrderDTO.getMechanicId()).orElseThrow(null));
         this.orderRepository.save(order);
     }
 
     @Override
     public void removeOrder(UUID id) {
-        Order order = this.orderRepository.findById(id).orElse(null);
+        Order order = this.findOrderById(id);
         if (!order.getStatus().equals(OrdersStatusEnum.IN_PROGRESS)) {
             this.orderRepository.delete(order);
         }
@@ -114,12 +113,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO getOrderById(UUID id) {
-        return this.mapOrderDTO(this.orderRepository.findById(id).orElse(null));
+        return this.mapOrderDTO(this.findOrderById(id));
     }
 
     @Override
     public void updateOrderStatusProgress(UUID id) {
-        Order order = this.orderRepository.findById(id).orElse(null);
+        Order order = this.findOrderById(id);
         if (order.getStatus().equals(OrdersStatusEnum.PENDING) || order.getStatus().equals(OrdersStatusEnum.SCHEDULED)) {
             order.setStatus(OrdersStatusEnum.IN_PROGRESS);
         }
@@ -128,7 +127,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void addPartToOrder(UUID id, Long partId, int quantity) {
-        Order order = this.orderRepository.findById(id).orElse(null);
+        Order order = this.findOrderById(id);
         for (int i = 0; i < quantity; i++) {
             order.getPartId().add(partId);
         }
@@ -137,7 +136,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<PartDTO> getPartsForOrder(UUID id) {
-        List<Long> partIds = this.orderRepository.findById(id).orElse(null).getPartId();
+        List<Long> partIds = this.findOrderById(id).getPartId();
         return partIds.stream()
                 .map(this.partService::getPartDetails)
                 .collect(Collectors.toList());
@@ -152,7 +151,7 @@ public class OrderServiceImpl implements OrderService {
     }
     @Override
     public double calculatePartsSumForOrder(UUID id) {
-        Order order = this.orderRepository.findById(id).orElse(null);
+        Order order = this.findOrderById(id);
         List<Long> partIds = order.getPartId();
         return partIds.stream()
                 .map(this.partService::getPartDetails)
@@ -162,7 +161,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public double calculateServicesSumForOrder(UUID id) {
-        Order order = this.orderRepository.findById(id).orElse(null);
+        Order order = this.findOrderById(id);
         return order.getServices()
                 .stream()
                 .mapToDouble(ServiceEntity::getPrice)
@@ -176,7 +175,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void finishTask(UUID id, String mechanicComment) {
-        Order order = this.orderRepository.findById(id).orElse(null);
+        Order order=this.findOrderById(id);
         if (mechanicComment == null || mechanicComment.isEmpty()) {
             mechanicComment = "Job Done!";
         }
@@ -196,11 +195,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void addService(UUID id, UUID serviceId) {
-        Order order = this.orderRepository.findById(id).orElse(null);
+        Order order = this.orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found"));
         order.getServices().add(this.serviceService.getServiceEntity(serviceId));
 
         this.orderRepository.save(order);
 
+    }
+
+    @Override
+    public List<OrderDTO> allOrders() {
+        return this.orderRepository.findAllByOrderByDateAsc()
+                .stream()
+                .map(this::mapOrderDTO)
+                .collect(Collectors.toList());
     }
 
     private void sendConfirmationOrderEmail(String email) {
@@ -209,5 +216,9 @@ public class OrderServiceImpl implements OrderService {
         message.setSubject("Service Order Confirmation");
         message.setText("Thank you for making new Service Order in Car Service!");
         mailSender.send(message);
+    }
+
+    private Order findOrderById(UUID id) {
+        return this.orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found"));
     }
 }

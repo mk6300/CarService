@@ -1,6 +1,7 @@
 package project.carservice.service.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
-    public UserNotFoundException(String userNotFound) {
+    public UserNotFoundException(String message) {
+        super(message);
     }
 }

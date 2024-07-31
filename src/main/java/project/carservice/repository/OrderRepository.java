@@ -20,9 +20,13 @@ public interface OrderRepository extends JpaRepository <Order, UUID> {
     List<Order> findAllByAddedBy_IdAndStatusIsOrderByDateAsc(UUID id, OrdersStatusEnum status);
 
     List<Order> findAllByAddedBy_IdAndStatusIsNotOrderByDateAsc(UUID id, OrdersStatusEnum status);
+
     List<Order> findAllByResponsibleMechanic_IdAndStatusNotOrderByDateAsc(UUID id, OrdersStatusEnum status);
 
-   List<Order> findAllByResponsibleMechanicIsNullOrderByDateAsc ();
+    List<Order> findAllByResponsibleMechanicIsNullOrderByDateAsc();
 
-   List<Order> findAllByDateAndStatus(LocalDate date, OrdersStatusEnum status);
+    List<Order> findAllByDateAndStatus(LocalDate date, OrdersStatusEnum status);
+
+    List<Order> findAllByOrderByDateAsc();
+
 }

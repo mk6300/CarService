@@ -55,7 +55,7 @@
         <div class="border p-3">
             <div>
                 <h4 class="bg-gray text-dark rounded text-uppercase justify-content-center"
-                    th:text="'Service order for Car: '+${order.car.make}+' '+${order.car.model}"></h4>
+                    th:text="'Service order for Car: '+${order.car.make}+' '+${order.car.model}+' - '+${order.car.registration}"></h4>
                 <div class="d-flex mt-3 rounded align-items-center ">
                     <label> Date</label>
                     <span th:text="${order.date}" class="text-uppercase form-control lh-base w-25"></span>

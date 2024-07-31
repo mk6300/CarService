@@ -45,7 +45,7 @@ public class Order extends BaseEntity {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id")
     )
-    private List<ServiceEntity> services = new ArrayList<>();
+    private List<ServiceEntity> services;
 
     public LocalDate getDate() {
         return date;

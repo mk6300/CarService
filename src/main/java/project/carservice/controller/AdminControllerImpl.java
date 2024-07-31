@@ -50,12 +50,6 @@ public class AdminControllerImpl implements AdminController {
     }
 
     @Override
-    public String suppliers(Model model) {
-        model.addAttribute("suppliers", supplierService.getAllSuppliers());
-        return "suppliers";
-    }
-
-    @Override
     public String manageUsers(Model model) {
         model.addAttribute("users", userService.AllUsers());
         model.addAttribute("mechanics", userService.AllMechanics());

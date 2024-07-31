@@ -24,6 +24,7 @@ import project.carservice.service.session.AppUserDetailsService;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -164,8 +165,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     @Secured("ROLE_ADMIN")
+    @Transactional
     public void removeMechanic(UUID id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -174,13 +175,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RoleNotFoundException("Role not found"));
         LOGGER.debug("Mechanic role found: {}", mechanicRole);
         user.getRoles().remove(mechanicRole);
-        if (user.getRoles().contains(mechanicRole)) {
-            user.getRoles().remove(mechanicRole);
             userRepository.save(user);
-            LOGGER.debug("Mechanic role removed and user updated: {}", user);
-        } else {
-            LOGGER.debug("User does not have mechanic role");
-        }
     }
 
     @Override
@@ -213,5 +208,10 @@ public class UserServiceImpl implements UserService {
         user.getRoles().add(adminRole);
         userRepository.save(user);
 
+    }
+
+    @Override
+    public Optional<User> findById(UUID id) {
+        return userRepository.findById(id);
     }
 }

@@ -12,5 +12,9 @@ public interface SupplierService {
 
     List<SupplierDTO> getAllSuppliers();
 
-    Supplier getSupplierById(UUID id);
+    SupplierDTO getSupplierById(UUID id);
+
+    void editSupplier(SupplierDTO supplierDTO);
+
+    void removeSupplier(UUID supplierId);
 }

@@ -80,4 +80,15 @@ public class OrderControllerImpl implements OrderController {
         model.addAttribute("totalPrice", orderService.calculateTotalSumForOrder(id));
         return "order-details";
     }
+
+    @Override
+    public String allOrders(Model model) {
+        model.addAttribute("orders", orderService.allOrders());
+        return "all-orders";
+    }
+
+    @Override
+    public String allOrdersInfo(Model model, UUID id) {
+        return "order-details";
+    }
 }

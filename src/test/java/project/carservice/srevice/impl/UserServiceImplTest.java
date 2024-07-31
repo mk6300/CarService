@@ -18,7 +18,6 @@ import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.repository.UserRepository;
 import project.carservice.repository.UserRoleRepository;
 import project.carservice.service.impl.UserServiceImpl;
-import project.carservice.service.session.AppUserDetailsService;
 
 import java.util.Optional;
 import java.util.UUID;

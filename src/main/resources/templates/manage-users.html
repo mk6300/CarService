@@ -30,6 +30,29 @@
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var userSelect = document.getElementById('userSelect');
+            var editButton = document.getElementById('editButton');
+            var makeMecahincButton = document.getElementById('makeMechanicButton');
+            var makeAdminButton = document.getElementById('makeAdminButton');
+            var removeButton = document.getElementById('removeButton');
+
+            userSelect.addEventListener('change', function () {
+                if (userSelect.value) {
+                    editButton.removeAttribute('disabled');
+                    makeMecahincButton.removeAttribute('disabled');
+                    removeButton.removeAttribute('disabled');
+                    makeAdminButton.removeAttribute('disabled');
+                } else {
+                    editButton.setAttribute('disabled', 'disabled');
+                    makeMecahincButton.setAttribute('disabled', 'disabled');
+                    removeButton.setAttribute('disabled', 'disabled');
+                    makeAdminButton.setAttribute('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
 
 </head>
 <body>
@@ -90,29 +113,6 @@
                         </div>
                     </div>
                 </form>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var userSelect = document.getElementById('userSelect');
-                        var editButton = document.getElementById('editButton');
-                        var makeMecahincButton = document.getElementById('makeMechanicButton');
-                        var makeAdminButton = document.getElementById('makeAdminButton');
-                        var removeButton = document.getElementById('removeButton');
-
-                        userSelect.addEventListener('change', function () {
-                            if (userSelect.value) {
-                                editButton.removeAttribute('disabled');
-                                makeMecahincButton.removeAttribute('disabled');
-                                removeButton.removeAttribute('disabled');
-                                makeAdminButton.removeAttribute('disabled');
-                            } else {
-                                editButton.setAttribute('disabled', 'disabled');
-                                makeMecahincButton.setAttribute('disabled', 'disabled');
-                                removeButton.setAttribute('disabled', 'disabled');
-                                makeAdminButton.setAttribute('disabled', 'disabled');
-                            }
-                        });
-                    });
-                </script>
             </div>
         </div>
         <div id="mechanics-container">

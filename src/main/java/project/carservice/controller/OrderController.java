@@ -29,4 +29,10 @@ public interface OrderController {
 
     @GetMapping("/history/{id}")
     String orderInfo(Model model, @PathVariable UUID id);
+
+    @GetMapping("/all-orders")
+    String allOrders(Model model);
+
+    @GetMapping("/all-orders/{id}")
+    String allOrdersInfo(Model model, @PathVariable UUID id);
 }

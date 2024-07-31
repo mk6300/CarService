@@ -1,26 +1,29 @@
 package project.carservice.service.impl;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 import project.carservice.model.dto.addDTO.AddPartDTO;
 import project.carservice.model.dto.PartDTO;
 import project.carservice.service.PartService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PartServiceImpl implements PartService {
 
     private Logger LOGGER = LoggerFactory.getLogger(PartServiceImpl.class);
     private final RestClient restClient;
+    private final ModelMapper modelMapper;
 
-    public PartServiceImpl(RestClient restClient) {
+    public PartServiceImpl(RestClient restClient, ModelMapper modelMapper) {
         this.restClient = restClient;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -61,7 +64,6 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
-    @Transactional
     public void deletePart(Long id) {
         LOGGER.info("Deleting part...");
 
@@ -70,4 +72,28 @@ public class PartServiceImpl implements PartService {
                 .uri("http://localhost:8081/parts/{id}", id)
                 .retrieve();
     }
+
+    @Override
+    public void deleteAllPartsFromSupplier(UUID id) {
+        LOGGER.info("Deleting a;; parts form Suppler...");
+
+        restClient
+                .delete()
+                .uri("http://localhost:8081/parts/remove-all/{id}", id)
+                .retrieve();
+    }
+
+    @Override
+    public void editPart(Long id, PartDTO partDTO) {
+        LOGGER.info("Editing part...");
+
+        restClient
+                .put()
+                .uri("http://localhost:8081/parts/edit-part", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(partDTO)
+                .retrieve();
+    }
+
 }
+

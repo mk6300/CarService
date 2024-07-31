@@ -71,7 +71,7 @@
                                 <option value="">Select your car</option>
                                 <option class="text-uppercase" th:each="car: ${cars}"
                                         th:value="${car.getId}"
-                                        th:text="${car.getMake} + ' ' + ${car.getModel} + ' ' + ${car.getRegistration}"></option>
+                                        th:text="${car.getMake} + ' ' + ${car.getModel} + ' - ' + ${car.getRegistration}"></option>
                             </select>
                             <small th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="danger"></small>
                         </div>
