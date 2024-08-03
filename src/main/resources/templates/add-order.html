@@ -66,14 +66,14 @@
                             <small th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="danger"></small>
                         </div>
                         <div class="d-inline-flex align-items-center mt-5">
-                            <select th:feild="*{id}" th:errorclass="'is-invalid'"
-                                    class="form-control mx-2 text-uppercase" name="id" id="id" required>
+                            <select th:feild="*{carId}" th:errorclass="'is-invalid'"
+                                    class="form-control mx-2 text-uppercase" name="carId" id="carId" required>
                                 <option value="">Select your car</option>
                                 <option class="text-uppercase" th:each="car: ${cars}"
                                         th:value="${car.getId}"
                                         th:text="${car.getMake} + ' ' + ${car.getModel} + ' - ' + ${car.getRegistration}"></option>
                             </select>
-                            <small th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="danger"></small>
+                            <small th:if="${#fields.hasErrors('carId')}" th:errors="*{carId}" class="danger"></small>
                         </div>
                         <div class="d-inline-flex align-items-center">
                             <textarea th:feild="*{description}" th:errorclass="'is-invalid'" type="text"

@@ -1,14 +1,14 @@
-package project.carservice.controller;
+package project.carservice.controller.impl;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.carservice.controller.AdminController;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.service.OrderService;
-import project.carservice.service.SupplierService;
 import project.carservice.service.UserService;
 
 import java.util.UUID;
@@ -19,12 +19,10 @@ public class AdminControllerImpl implements AdminController {
     private final OrderService orderService;
     private final UserService userService;
 
-    private final SupplierService supplierService;
 
-    public AdminControllerImpl(OrderService orderService, UserService userService, SupplierService supplierService) {
+    public AdminControllerImpl(OrderService orderService, UserService userService) {
         this.orderService = orderService;
         this.userService = userService;
-        this.supplierService = supplierService;
     }
 
     @Override
@@ -37,14 +35,7 @@ public class AdminControllerImpl implements AdminController {
     }
 
     @Override
-    public String assignOrder(EditOrderDTO editOrderDTO, BindingResult result, RedirectAttributes redirectAttributes) {
-
-        if (result.hasErrors()) {
-            redirectAttributes
-                    .addFlashAttribute("editOrderDTO", editOrderDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.editOrderDTO", result);
-            return "redirect:/admin/unsigned-orders";
-        }
+    public String assignOrder(EditOrderDTO editOrderDTO) {
         orderService.assignOrder(editOrderDTO);
         return "redirect:/admin/unsigned-orders";
     }

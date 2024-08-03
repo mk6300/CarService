@@ -22,15 +22,13 @@ public class AddOrderDTO {
     private String description;
 
     @NotNull(message = "Select car from garage or add a new car")
-    private UUID id;
+    private UUID carId;
 
-
-    public AddOrderDTO(LocalDate date, String description, UUID id) {
+public AddOrderDTO(LocalDate date, String description, UUID carId) {
         this.date = date;
         this.description = description;
-        this.id = id;
+        this.carId = carId;
     }
-
     public AddOrderDTO() {
     }
 
@@ -52,12 +50,12 @@ public class AddOrderDTO {
         this.date = date;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getCarId() {
+        return carId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setCarId(UUID carId) {
+        this.carId = carId;
     }
 
     public static Object empty() {

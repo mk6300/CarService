@@ -2,6 +2,7 @@ package project.carservice.model.dto;
 
 import project.carservice.model.entity.ServiceEntity;
 
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +17,7 @@ public class OrderDTO {
     private String mechanicComment;
     private List<Long> partId;
     private List<ServiceEntity> services;
+
     public OrderDTO() {
     }
 
@@ -90,4 +92,5 @@ public class OrderDTO {
     public void setServices(List<ServiceEntity> services) {
         this.services = services;
     }
+
 }

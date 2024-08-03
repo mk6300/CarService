@@ -11,7 +11,7 @@ public enum OrdersStatusEnum {
     }
 
     public String getDisplayName() {
-        return this.displayName;
+        return displayName;
     }
 
 

@@ -8,6 +8,9 @@ public class ServiceDTO {
     private Double price;
     private String description;
 
+    public ServiceDTO() {
+    }
+
     public UUID getId() {
         return id;
     }

@@ -1,15 +1,16 @@
-package project.carservice.controller;
+package project.carservice.controller.impl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.carservice.controller.OrderController;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
 import project.carservice.model.dto.CarDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.service.CarService;
 import project.carservice.service.OrderService;
-import project.carservice.service.impl.UserHelperService;
+import project.carservice.service.UserService;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,17 +20,17 @@ public class OrderControllerImpl implements OrderController {
 
     private final OrderService orderService;
     private final CarService carService;
-    private final UserHelperService userHelperService;
+    private final UserService userService;
 
-    public OrderControllerImpl(OrderService orderService, CarService carService, UserHelperService userHelperService) {
+    public OrderControllerImpl(OrderService orderService, CarService carService, UserService userService) {
         this.orderService = orderService;
         this.carService = carService;
-        this.userHelperService = userHelperService;
+        this.userService = userService;
     }
 
     @Override
     public String orders(Model model) {
-        List<OrderDTO> myOrders = orderService.allOrdersByUser(userHelperService.getUser().getId());
+        List<OrderDTO> myOrders = orderService.allOrdersByUser(userService.getCurrentUser().getId());
         model.addAttribute("myOrders", myOrders);
         return "orders";
     }
@@ -40,7 +41,7 @@ public class OrderControllerImpl implements OrderController {
         if (!model.containsAttribute("addOrderDTO")) {
             model.addAttribute("addOrderDTO", AddOrderDTO.empty());
         }
-        List<CarDTO> cars = carService.allOwnedBy(userHelperService.getUser().getUsername());
+        List<CarDTO> cars = carService.allOwnedBy(userService.getCurrentUser().getUsername());
         model.addAttribute("cars", cars);
         return "add-order";
     }
@@ -66,7 +67,7 @@ public class OrderControllerImpl implements OrderController {
 
     @Override
     public String history(Model model) {
-        List<OrderDTO> orders = orderService.allOrdersByUserFinished(userHelperService.getUser().getId());
+        List<OrderDTO> orders = orderService.allOrdersByUserFinished(userService.getCurrentUser().getId());
         model.addAttribute("orders", orders);
         return "history";
     }

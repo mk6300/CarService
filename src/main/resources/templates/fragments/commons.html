@@ -56,8 +56,8 @@
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" sec:authorize="isAnonymous()"
                    th:text="#{login}">Login/Register</a>
                 <div class="dropdown-menu fade-up m-0">
-                    <a th:href="@{/users/login}" class="dropdown-item" th:text="#{login}">Login</a>
-                    <a th:href="@{/users/register}" class="dropdown-item" th:text="#{register}">Register</a>
+                    <a th:href="@{/login}" class="dropdown-item" th:text="#{login}">Login</a>
+                    <a th:href="@{/register}" class="dropdown-item" th:text="#{register}">Register</a>
                 </div>
             </div>
             <a th:href="@{/service}" class="nav-item nav-link" th:text="#{services}">Services</a>
@@ -146,17 +146,17 @@
 </footer>
 <!-- Footer End -->
 <sidebar class="sidebar">
-    <a th:href="@{/users/garage}" th:text="#{garage}">My Garage</a>
-    <a th:href="@{/orders/add-order}" th:text="#{newOrder}">New Service Order</a>
-    <a th:href="@{/orders/my-orders}" th:text="#{myOrders}">My Service Orders</a>
-    <a sec:authorize="hasRole('ADMIN')" th:href="@{/mechanic/tasks}" th:text="#{tasksForMe}">Tasks For Me</a>
+    <a sec:authorize="hasRole('USER')" th:href="@{/users/garage}" th:text="#{garage}">My Garage</a>
+    <a sec:authorize="hasRole('USER')" th:href="@{/orders/add-order}" th:text="#{newOrder}">New Service Order</a>
+    <a sec:authorize="hasRole('USER')" th:href="@{/orders/my-orders}" th:text="#{myOrders}">My Service Orders</a>
+    <a sec:authorize="hasAnyRole ('ADMIN','MECHANIC')" th:href="@{/mechanic/tasks}" th:text="#{tasksForMe}">Tasks For Me</a>
     <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/unsigned-orders}" th:text="#{unassignedOrders}">Unsigned Orders</a>
     <a sec:authorize="hasRole('ADMIN')" th:href="@{/orders/all-orders}" th:text="#{allOrders}">All Orders</a>
-    <a sec:authorize="hasRole('ADMIN')" th:href="@{/supplier/suppliers}" th:text="#{manageSuppliers}">Manage Suppliers</a>
-    <a sec:authorize="hasRole('ADMIN')" th:href="@{/parts/manage-parts}" th:text="#{manageSpareParts}">Manage Spare Parts</a>
+    <a sec:authorize="hasAnyRole ('ADMIN','MECHANIC')" th:href="@{/supplier/suppliers}" th:text="#{manageSuppliers}">Manage Suppliers</a>
+    <a sec:authorize="hasAnyRole ('ADMIN','MECHANIC')" th:href="@{/parts/manage-parts}" th:text="#{manageSpareParts}">Manage Spare Parts</a>
     <a sec:authorize="hasRole('ADMIN')" th:href="@{/services/manage-services}" th:text="#{manageServices}">Manage Services</a>
     <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/manage-users}" th:text="#{manageUsers}">Manage Users</a>
-    <a th:href="@{/users/my-profile}" th:text="#{myProfile}">My profile</a>
+    <a sec:authorize="hasRole('USER')"th:href="@{/users/my-profile}" th:text="#{myProfile}">My profile</a>
 
 </sidebar>
 <!--Side Bar-->

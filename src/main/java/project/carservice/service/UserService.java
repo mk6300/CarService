@@ -1,10 +1,10 @@
 package project.carservice.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import project.carservice.model.dto.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.model.entity.User;
+import project.carservice.model.user.AppUserDetails;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +16,6 @@ public interface UserService {
 
     UserDTO findUserByEmail(String email) ;
 
-    boolean checkCredentials(String username, String password);
-
     User getUserByUsername(String username);
 
     UserDTO getUserById(UUID id);
@@ -27,7 +25,7 @@ public interface UserService {
     void register(RegisterUserDTO registerDTO);
 
 
-    UserDetails getCurrentUserDetails();
+    Optional<AppUserDetails> getCurrentUserDetails();
 
     User getCurrentUser();
 

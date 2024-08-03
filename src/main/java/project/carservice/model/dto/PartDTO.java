@@ -20,6 +20,9 @@ public class PartDTO {
     @Size(min = 3, max = 255, message = "Description must be between 3 and 255 characters")
     private String description;
 
+    public PartDTO() {
+    }
+
     public Long getId() {
         return id;
     }

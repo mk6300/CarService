@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Car Service</title>
@@ -50,6 +50,7 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
         <div class="content" id="content">
                <h1 class="d-flex justify-content-center" th:text="#{garage}">MY GARAGE</h1>
+                    <h4 class="d-flex justify-content-center mt-5" th:if="${#lists.isEmpty(myCars)}" th:text="#{noCars}"> You do not have any cars in your garage </h4>
                     <div th:each="car: ${myCars}" class="rounded m-auto">
                         <div class="border p-3">
                         <h4 class="mySticky bg-gray text-dark rounded text-uppercase" th:text="${car.make}+' '+${car.model}+' - '+${car.registration}"></h4>

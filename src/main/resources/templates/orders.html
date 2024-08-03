@@ -51,6 +51,7 @@
     <div class="content" id="content">
         <div>
             <h1 class="d-flex justify-content-center text-danger text-uppercase" th:text="#{myOrders}">MY ORDERS</h1>
+            <h4 class="d-flex justify-content-center mt-5" th:if="${#lists.isEmpty(myOrders)}" th:text="#{noOrders}"> You do not have unfinished orders </h4>
             <div th:each="o: ${myOrders}" class="rounded m-auto">
                 <div class="border p-3">
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"

@@ -1,9 +1,10 @@
-package project.carservice.controller;
+package project.carservice.controller.impl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.carservice.controller.ServiceController;
 import project.carservice.model.dto.ServiceDTO;
 import project.carservice.model.dto.addDTO.AddServiceDTO;
 import project.carservice.model.dto.editDTO.EditServiceDTO;

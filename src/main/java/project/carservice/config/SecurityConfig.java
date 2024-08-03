@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import project.carservice.repository.UserRepository;
+
 
 
 @Configuration
@@ -23,7 +23,14 @@ public class SecurityConfig {
                                     // all static resources to "common locations" (css, images, js) are available to anyone
                                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                     // some more resources for all users
-                                    .requestMatchers("/", "/users/login", "/users/register", "/service", "/about", "/contact", "/subscribe").permitAll()
+                                    .requestMatchers("/","/login", "/register", "/service", "/about", "/contact", "/subscribe").permitAll()
+
+                                    .requestMatchers("/home").authenticated()
+                                    .requestMatchers("/users/**").authenticated()
+                                    .requestMatchers("/cars/**").authenticated()
+
+
+
                                     // all other URL-s should be authenticated.
                                     .anyRequest()
                                     .authenticated();
@@ -32,7 +39,7 @@ public class SecurityConfig {
                 .formLogin(formLogin -> {
                             formLogin
                                     // Where is our custom login form?
-                                    .loginPage("/users/login")
+                                    .loginPage("/login")
                                     // what is the name of the username parameter in the Login POST request?
                                     .usernameParameter("username")
                                     // what is the name of the password parameter in the Login POST request?
@@ -40,7 +47,7 @@ public class SecurityConfig {
                                     // What will happen if the login is successful
                                     .defaultSuccessUrl("/home", true)
                                     // What will happen if the login fails
-                                    .failureForwardUrl("/users/login-error");
+                                    .failureForwardUrl("/login-error");
                         }
                 )
                 .logout(

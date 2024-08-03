@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,14 +16,13 @@ import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.model.entity.User;
 import project.carservice.model.entity.UserRole;
 import project.carservice.model.entity.enums.UserRoleEnum;
+import project.carservice.model.user.AppUserDetails;
 import project.carservice.repository.UserRepository;
 import project.carservice.repository.UserRoleRepository;
 import project.carservice.service.UserService;
 import project.carservice.service.exceptions.RoleNotFoundException;
 import project.carservice.service.exceptions.UserNotFoundException;
-import project.carservice.service.session.AppUserDetailsService;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,16 +33,14 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
-    private final AppUserDetailsService appUserDetailsService;
     private final UserRoleRepository userRoleRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
 
-    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, AppUserDetailsService appUserDetailsService, UserRoleRepository userRoleRepository) {
+    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, UserRoleRepository userRoleRepository) {
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.encoder = encoder;
-        this.appUserDetailsService = appUserDetailsService;
         this.userRoleRepository = userRoleRepository;
     }
 
@@ -64,17 +62,6 @@ public class UserServiceImpl implements UserService {
         }
 
         return this.mapUserDTO(user);
-    }
-
-    @Override
-    public boolean checkCredentials(String username, String password) {
-        User user = this.getUserByUsername(username);
-
-        if (user == null) {
-            return false;
-        }
-
-        return encoder.matches(password, user.getPassword());
     }
 
     @Override
@@ -106,20 +93,23 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDTO mapUserDTO(User user) {
-        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        UserDTO mappeUserDTO = modelMapper.map(user, UserDTO.class);
 
-        return userDTO;
+        return mappeUserDTO;
     }
 
     @Override
-    public UserDetails getCurrentUserDetails() {
-        Principal principal = SecurityContextHolder.getContext().getAuthentication();
-        return this.appUserDetailsService.loadUserByUsername(principal.getName());
+    public Optional<AppUserDetails> getCurrentUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() != null && authentication.getPrincipal() instanceof UserDetails) {
+            return Optional.of((AppUserDetails) authentication.getPrincipal());
+        }
+        return Optional.empty();
     }
 
     @Override
     public User getCurrentUser() {
-        return this.getUserByUsername(this.getCurrentUserDetails().getUsername());
+        return userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
     }
 
     @Override

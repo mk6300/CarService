@@ -34,7 +34,7 @@ public class CarServiceImplTest {
     @Mock
     private UserService userService;
 
-    @InjectMocks
+
     private CarServiceImpl carService;
 
     private Car car;
@@ -44,10 +44,16 @@ public class CarServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        carService = new CarServiceImpl(carRepository, modelMapper, userService);
+
         car = new Car();
         car.setId(UUID.randomUUID());
         car.setMake("Volkswagen");
         car.setModel("Golf");
+        car.setYear(2010);
+        car.setEngine(EngineTypeEnum.PETROL);
+        car.setVinNumber("WVWZZZ1JZ1D442653");
+        car.setRegistration("A1234AB");
 
         user = new User();
         user.setUsername("testuser");
@@ -80,6 +86,7 @@ public class CarServiceImplTest {
 
         Assertions.assertEquals(1, cars.size());
         Assertions.assertEquals("Volkswagen", cars.get(0).getMake());
+        Assertions.assertEquals("Golf", cars.get(0).getModel());
     }
 
     @Test
@@ -106,5 +113,6 @@ public class CarServiceImplTest {
         carService.removeCar(car.getId());
 
         verify(carRepository, times(1)).delete(car);
+        Assertions.assertEquals(0, carRepository.count());
     }
 }

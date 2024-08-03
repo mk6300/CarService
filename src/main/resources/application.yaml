@@ -49,3 +49,6 @@ parts:
   api:
     baseUrl: "http://localhost:8081"
 
+jwt:
+  secret: ${JWT_KEY:maJGWSnZJTJ3Uo3CMo6FMUR7Kif56oX39cc0NMpPvrPFwvfLcAG}
+  expiration: ${JWT_EXPIRATION:86400000}

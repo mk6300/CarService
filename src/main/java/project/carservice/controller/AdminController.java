@@ -18,7 +18,7 @@ public interface AdminController {
     String getUnsignedOrders(Model model);
 
     @PutMapping ("/assign-mechanic")
-    String assignOrder(EditOrderDTO editOrderDTO, BindingResult result, RedirectAttributes redirectAttributes);
+    String assignOrder(EditOrderDTO editOrderDTO);
 
 
     @GetMapping("/manage-users")

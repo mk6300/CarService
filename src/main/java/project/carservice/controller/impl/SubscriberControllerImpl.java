@@ -1,9 +1,10 @@
-package project.carservice.controller;
+package project.carservice.controller.impl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.carservice.controller.SubscriberController;
 import project.carservice.model.dto.SubscriberDTO;
 import project.carservice.service.SubscriberService;
 
@@ -25,13 +26,12 @@ public class SubscriberControllerImpl implements SubscriberController {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("subscriberDTO", subscriberDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.subscriberDTO", result);
-            return "redirect:/home";
 
         } else {
             subscriberService.subscribe(subscriberDTO);
 
             redirectAttributes.addFlashAttribute("message OK", "Subscription successful!");
-            return "redirect:/home";
         }
+        return "redirect:/home";
     }
 }

@@ -1,6 +1,8 @@
-package project.carservice.controller;
+package project.carservice.controller.impl;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import project.carservice.controller.IndexController;
 
 @Controller
 public class IndexControllerImpl implements IndexController {
@@ -22,5 +24,10 @@ public class IndexControllerImpl implements IndexController {
     @Override
     public String service() {
         return "service";
+    }
+
+    @Override
+    public String login(Model model) {
+        return "login";
     }
 }

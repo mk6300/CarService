@@ -118,4 +118,6 @@ public class Order extends BaseEntity {
     public void setServices(List<ServiceEntity> services) {
         this.services = services;
     }
+
+
 }

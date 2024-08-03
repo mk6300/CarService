@@ -13,7 +13,6 @@ import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
 import project.carservice.service.*;
 import project.carservice.service.exceptions.OrderNotFoundException;
-import project.carservice.service.exceptions.RoleNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -52,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
 
     private Order mapOrder(AddOrderDTO addOrderDTO) {
         Order order = modelMapper.map(addOrderDTO, Order.class);
-        order.setCar(carService.getById(addOrderDTO.getId()));
+        order.setCar(carService.getById(addOrderDTO.getCarId()));
         order.setAddedBy(userService.getCurrentUser());
         return order;
     }
@@ -144,7 +143,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<ServiceDTO> getServicesForOrder(UUID id) {
-        return this.orderRepository.findById(id).orElse(null).getServices()
+        return this.orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found")).getServices()
                 .stream()
                 .map(this.serviceService::map)
                 .collect(Collectors.toList());
@@ -199,7 +198,6 @@ public class OrderServiceImpl implements OrderService {
         order.getServices().add(this.serviceService.getServiceEntity(serviceId));
 
         this.orderRepository.save(order);
-
     }
 
     @Override

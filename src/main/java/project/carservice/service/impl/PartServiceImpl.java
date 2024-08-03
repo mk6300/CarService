@@ -1,6 +1,5 @@
 package project.carservice.service.impl;
 
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,13 +16,11 @@ import java.util.UUID;
 @Service
 public class PartServiceImpl implements PartService {
 
-    private Logger LOGGER = LoggerFactory.getLogger(PartServiceImpl.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(PartServiceImpl.class);
     private final RestClient restClient;
-    private final ModelMapper modelMapper;
 
-    public PartServiceImpl(RestClient restClient, ModelMapper modelMapper) {
+    public PartServiceImpl(RestClient restClient) {
         this.restClient = restClient;
-        this.modelMapper = modelMapper;
     }
 
 

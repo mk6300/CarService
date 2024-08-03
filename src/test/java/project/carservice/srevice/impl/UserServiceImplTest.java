@@ -100,26 +100,6 @@ public class UserServiceImplTest {
     }
 
     @Test
-    void checkCredentials_ShouldReturnTrueWhenCredentialsMatch() {
-        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(user));
-        when(encoder.matches("password", user.getPassword())).thenReturn(true);
-
-        boolean result = userService.checkCredentials("testuser", "password");
-
-        Assertions.assertTrue(result);
-    }
-
-    @Test
-    void checkCredentials_ShouldReturnFalseWhenCredentialsDoNotMatch() {
-        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(user));
-        when(encoder.matches("wrongpassword", user.getPassword())).thenReturn(false);
-
-        boolean result = userService.checkCredentials("testuser", "wrongpassword");
-
-        Assertions.assertFalse(result);
-    }
-
-    @Test
     void getUserById_ShouldReturnUserDTO() {
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(modelMapper.map(user, UserDTO.class)).thenReturn(userDTO);

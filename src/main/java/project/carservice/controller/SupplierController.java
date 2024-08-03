@@ -22,12 +22,12 @@ public interface SupplierController {
     String addSupplier(@Valid AddSupplierDTO addSupplierDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
     @PostMapping("/supplier-action")
-    public String handleSupplierAction(@RequestParam("id") UUID supplierId, @RequestParam("action") String action);
+    String handleSupplierAction(@RequestParam("id") UUID supplierId, @RequestParam("action") String action);
 
     @GetMapping("/edit-supplier/{id}")
-    public String editSupplier(@PathVariable("id") UUID id, Model model);
+    String editSupplier(@PathVariable("id") UUID id, Model model);
 
     @PostMapping("/edit-supplier")
-    public String edit(@Valid SupplierDTO supplierDTO, BindingResult result, RedirectAttributes redirectAttributes);
+    String edit(@Valid SupplierDTO supplierDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
 }
