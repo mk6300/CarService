@@ -34,17 +34,21 @@ logging:
 server:
   port: 8080
 
-  mail:
-    host: smtp.freesmtpservers.com
-    port: 25
-    Authentication: none
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
+mail:
+  host: smtp.abv.bg
+  port: 465
+  username: ${MAIL_NAME:syncro6363@abv.bg}
+  password: ${MAIL_PASS:@Mitko7279}
+  properties:
+    mail:
+      smtp:
+        auth: true
+        starttls:
+          enable: true
+        ssl:
+          enable: true
+          trust: smtp.abv.bg
+  default-encoding: UTF-8
 parts:
   api:
     baseUrl: "http://localhost:8081"

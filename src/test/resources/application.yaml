@@ -22,3 +22,15 @@ parts:
 jwt:
   secret: test
   expiration: 3600000
+
+mail:
+  host: test
+  port: 25
+  username: invalid
+  password: invalid
+  properties:
+    mail:
+      smtp:
+        auth: false
+        starttls:
+          enable: false

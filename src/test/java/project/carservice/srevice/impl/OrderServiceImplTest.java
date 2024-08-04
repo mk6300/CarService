@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.mail.MailSender;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.model.dto.PartDTO;
 import project.carservice.model.dto.ServiceDTO;
@@ -17,10 +16,7 @@ import project.carservice.model.entity.*;
 import project.carservice.model.entity.enums.EngineTypeEnum;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 import project.carservice.repository.OrderRepository;
-import project.carservice.service.CarService;
-import project.carservice.service.PartService;
-import project.carservice.service.ServiceService;
-import project.carservice.service.UserService;
+import project.carservice.service.*;
 import project.carservice.service.impl.OrderServiceImpl;
 
 import java.time.LocalDate;
@@ -48,13 +44,13 @@ public class OrderServiceImplTest {
     private CarService carService;
 
     @Mock
-    private MailSender mailSender;
-
-    @Mock
     private PartService partService;
 
     @Mock
     private ServiceService serviceService;
+
+    @Mock
+    private MailService mailService;
 
 
     private OrderServiceImpl orderService;
@@ -71,8 +67,7 @@ public class OrderServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        orderService = new OrderServiceImpl(orderRepository, modelMapper, userService, carService, mailSender, partService, serviceService);
-
+        orderService = new OrderServiceImpl(orderRepository, modelMapper, userService, carService, partService, serviceService, mailService);
         order.setId(UUID.randomUUID());
         order.setDescription("Test Order");
         order.setStatus(OrdersStatusEnum.SCHEDULED);
@@ -95,9 +90,7 @@ public class OrderServiceImplTest {
         orderDTO.setId(UUID.randomUUID());
         orderDTO.setDescription("Test Order");
         orderDTO.setDate(LocalDate.now());
-
     }
-
 
     @Test
     public void testAddOrder() {

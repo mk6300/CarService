@@ -1,8 +1,6 @@
 package project.carservice.service.impl;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import project.carservice.model.dto.*;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
@@ -26,25 +24,26 @@ public class OrderServiceImpl implements OrderService {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final CarService carService;
-    private final MailSender mailSender;
     private final PartService partService;
     private final ServiceService serviceService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, UserService userService, CarService carService, MailSender mailSender, PartService partService, ServiceService serviceService) {
+    private final MailService mailService;
+
+    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, UserService userService, CarService carService, PartService partService, ServiceService serviceService, MailService mailService) {
         this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.carService = carService;
-        this.mailSender = mailSender;
         this.partService = partService;
         this.serviceService = serviceService;
+        this.mailService = mailService;
     }
 
     @Override
     public void addOrder(AddOrderDTO addOrderDTO) {
         Order order = this.mapOrder(addOrderDTO);
         order.setStatus(OrdersStatusEnum.SCHEDULED);
-        this.sendConfirmationOrderEmail(userService.getCurrentUser().getEmail());
+        this.sendConfirmationOrderSubmit(order.getAddedBy().getEmail(), order.getCar().getModel(), order.getCar().getMake(), order.getCar().getRegistration());
         this.orderRepository.save(order);
 
     }
@@ -180,6 +179,7 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setMechanicComment(mechanicComment);
         order.setStatus(OrdersStatusEnum.FINISHED);
+        sendConfirmationOrderDone(order.getAddedBy().getEmail(), order.getMechanicComment());
         this.orderRepository.save(order);
 
     }
@@ -208,12 +208,14 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
-    private void sendConfirmationOrderEmail(String email) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Service Order Confirmation");
-        message.setText("Thank you for making new Service Order in Car Service!");
-        mailSender.send(message);
+    private void sendConfirmationOrderSubmit(String email, String carModel, String carMake, String carRegNumber) {
+        mailService.sendMail(email, "Order Confirmation",
+                "Thank you for made an order for your " + carMake + " " + carModel + " with registration number " + carRegNumber + ". We will contact you soon!");
+    }
+
+    private void sendConfirmationOrderDone(String email, String comment) {
+        mailService.sendMail(email, "Order Finished",
+                "Your order is now finished. Thank you for choosing Car Service! Our mechanic comments about all services done: " + comment);
     }
 
     private Order findOrderById(UUID id) {

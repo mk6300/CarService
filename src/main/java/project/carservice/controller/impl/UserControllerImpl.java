@@ -21,21 +21,21 @@ import java.util.UUID;
 @Controller
 public class UserControllerImpl implements UserController {
 
-private final UserService userService;
-public final CarService carService;
+    private final UserService userService;
+    private final CarService carService;
 
     public UserControllerImpl(UserService userService, CarService carService) {
         this.userService = userService;
         this.carService = carService;
     }
 
-
     @Override
     public String garage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails instanceof AppUserDetails appUserDetails) {
 
             List<CarDTO> myCars = carService.allOwnedBy(appUserDetails.getUsername());
-            model.addAttribute("myCars", myCars);}
+            model.addAttribute("myCars", myCars);
+        }
 
         return "garage";
     }
@@ -65,8 +65,8 @@ public final CarService carService;
 
 
     @Override
-    public String profile (Model model){
-        model.addAttribute("user",userService.getUserById(userService.getCurrentUser().getId()));
+    public String profile(Model model) {
+        model.addAttribute("user", userService.getUserById(userService.getCurrentUser().getId()));
         model.addAttribute("userDTO", new UserDTO());
 
         return "my-profile";

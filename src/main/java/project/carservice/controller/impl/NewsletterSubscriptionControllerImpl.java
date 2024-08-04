@@ -4,34 +4,38 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.carservice.controller.SubscriberController;
+import project.carservice.controller.NewsletterSubscriptionController;
 import project.carservice.model.dto.SubscriberDTO;
-import project.carservice.service.SubscriberService;
-
+import project.carservice.service.NewsletterService;
 
 
 @Controller
-public class SubscriberControllerImpl implements SubscriberController {
-    private final SubscriberService subscriberService;
+public class NewsletterSubscriptionControllerImpl implements NewsletterSubscriptionController {
+    private final NewsletterService newsletterService;
 
-    public SubscriberControllerImpl(SubscriberService subscriberService) {
-        this.subscriberService = subscriberService;
+    public NewsletterSubscriptionControllerImpl(NewsletterService subscriberService) {
+        this.newsletterService = subscriberService;
 
     }
+
     @Override
     public String subscribe(SubscriberDTO subscriberDTO, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
-
-
 
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("subscriberDTO", subscriberDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.subscriberDTO", result);
 
         } else {
-            subscriberService.subscribe(subscriberDTO);
+            newsletterService.subscribe(subscriberDTO);
 
-            redirectAttributes.addFlashAttribute("message OK", "Subscription successful!");
+            redirectAttributes.addFlashAttribute("message", "Thank you for subscribing!");
         }
-        return "redirect:/home";
+        return "redirect:/";
+    }
+
+    @Override
+    public String unsubscribe(String email) {
+        newsletterService.unsubscribe(email);
+        return null;
     }
 }

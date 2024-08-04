@@ -114,20 +114,26 @@
                 <a class="btn btn-link" href="" th:text="#{oilChange}">Oil Changing</a>
                 <a class="btn btn-link" href="" th:text="#{vacuamCleaning}">Vacuam Cleaning</a>
             </div>
-            <div sec:authorize="isAuthenticated()" class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6">
                 <h4 class="text-light mb-4">Newsletter</h4>
-                <p>Subscribe for our newsletter. Always stay informed for news about our services!</p>
+                <p>Subscribe for our newsletter. Always stay informed about news and our services!</p>
                 <form th:method="post"
                       th:action="@{/subscribe}"
                       th:object="${subscriberDTO}" class="position-relative mx-auto" style="max-width: 400px;">
-                    <input th:field="*{subsEmail}" th:errorclass="'is-invalid'"
-                           class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" id="subsEmail"
+                    <input th:type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input th:field="*{subsEmail}" th:errorclass="is-invalid"
+                           class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email" id="subsEmail"
                            name="subsEmail" placeholder="Your email">
                     <button type="submit" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
                         Subscribe
                     </button>
-                    <small class="text-danger">Username error message</small>
+                    <div th:if="${#fields.hasErrors('subsEmail')}" class="invalid-feedback">
+                        <span th:errors="*{subsEmail}">Invalid email</span>
+                    </div>
                 </form>
+                <div th:if="${message}" class="alert alert-success" role="alert">
+                    <span th:text="${message}"></span>
+                </div>
             </div>
         </div>
     </div>

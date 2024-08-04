@@ -19,6 +19,7 @@ import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.model.user.AppUserDetails;
 import project.carservice.repository.UserRepository;
 import project.carservice.repository.UserRoleRepository;
+import project.carservice.service.MailService;
 import project.carservice.service.UserService;
 import project.carservice.service.exceptions.RoleNotFoundException;
 import project.carservice.service.exceptions.UserNotFoundException;
@@ -33,14 +34,17 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
+
+    private final MailService mailService;
     private final UserRoleRepository userRoleRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
 
-    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, UserRoleRepository userRoleRepository) {
+    public UserServiceImpl(ModelMapper modelMapper, UserRepository userRepository, PasswordEncoder encoder, MailService mailService, UserRoleRepository userRoleRepository) {
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.mailService = mailService;
         this.userRoleRepository = userRoleRepository;
     }
 
@@ -85,6 +89,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encoder.encode(registerUserDTO.getPassword()));
         user.getRoles().add(userRoleRepository.findByRole(UserRoleEnum.USER).orElse(null));
         this.userRepository.save(user);
+        this.sendRegistrationConfirmationEmail(user.getEmail(), user.getFirstName(), user.getLastName());
 
     }
 
@@ -204,5 +209,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(UUID id) {
         return userRepository.findById(id);
+    }
+
+
+    private void sendRegistrationConfirmationEmail(String email, String firstName, String lastName) {
+        mailService.sendMail(email, "Car Service - Registration Confirmation",
+                "Hello, " + firstName + " " + lastName + "!\n" +
+                        "You have successfully registered in Car Service! \n" +
+                        "You can now log in and use our services!");
+        LOGGER.info("Email sent to: " + email);
     }
 }

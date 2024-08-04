@@ -17,6 +17,7 @@ import project.carservice.model.entity.UserRole;
 import project.carservice.model.entity.enums.UserRoleEnum;
 import project.carservice.repository.UserRepository;
 import project.carservice.repository.UserRoleRepository;
+import project.carservice.service.MailService;
 import project.carservice.service.impl.UserServiceImpl;
 
 import java.util.Optional;
@@ -37,6 +38,9 @@ public class UserServiceImplTest {
 
     @Mock
     private PasswordEncoder encoder;
+
+    @Mock
+    private MailService mailService;
 
     @InjectMocks
     private UserServiceImpl userService;
