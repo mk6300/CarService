@@ -1,7 +1,10 @@
 package project.carservice.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.carservice.model.dto.addDTO.AddSupplierDTO;
 import project.carservice.model.dto.SupplierDTO;
 import project.carservice.model.entity.Supplier;
@@ -56,6 +59,8 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
+    @Transactional
+    @Secured("ROLE_ADMIN")
     public void removeSupplier(UUID supplierId) {
         partService.deleteAllPartsFromSupplier(supplierId);
         supplierRepository.deleteById(supplierId);

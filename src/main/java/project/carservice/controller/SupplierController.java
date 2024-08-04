@@ -27,7 +27,7 @@ public interface SupplierController {
     @GetMapping("/edit-supplier/{id}")
     String editSupplier(@PathVariable("id") UUID id, Model model);
 
-    @PostMapping("/edit-supplier")
+    @PutMapping("/edit-supplier")
     String edit(@Valid SupplierDTO supplierDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
 }

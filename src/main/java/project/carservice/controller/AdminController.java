@@ -30,7 +30,7 @@ public interface AdminController {
     @GetMapping("/edit-user/{id}")
     String edit(@PathVariable UUID id, Model model);
 
-    @PostMapping("/edit-user")
+    @PutMapping("/edit-user")
     String editUser(@Valid EditUserDTO editUserDTO, BindingResult result, RedirectAttributes redirectAttributes);
 
     @PostMapping ("/remove-mechanic")

@@ -93,9 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserDTO mapUserDTO(User user) {
-        UserDTO mappeUserDTO = modelMapper.map(user, UserDTO.class);
-
-        return mappeUserDTO;
+        return modelMapper.map(user, UserDTO.class);
     }
 
     @Override
@@ -109,7 +107,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrentUser() {
-        return userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElse(null);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+
+        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override

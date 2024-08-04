@@ -40,6 +40,10 @@ public class AddCarDTO {
         this.vinNumber = vinNumber;
     }
 
+    public AddCarDTO() {
+
+    }
+
     public String getRegistration() {
         return registration;
     }

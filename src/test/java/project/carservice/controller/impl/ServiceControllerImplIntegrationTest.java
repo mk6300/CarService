@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.BindingResult;
 import project.carservice.model.dto.addDTO.AddServiceDTO;
 import project.carservice.model.dto.editDTO.EditServiceDTO;
 import project.carservice.model.entity.ServiceEntity;
@@ -43,8 +44,8 @@ public class ServiceControllerImplIntegrationTest {
 
         mockMvc.perform(post("/services/add-service")
                         .param("name", "New Service")
-                        .param("price", String.valueOf(addServiceDTO.getPrice()))
-                        .param("description", addServiceDTO.getDescription())
+                        .param("price", "150.0")
+                        .param("description", "New Service Description")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/services/manage-services"));
@@ -58,6 +59,25 @@ public class ServiceControllerImplIntegrationTest {
     }
 
     @Test
+    public void testAddServiceWithInvalidData() throws Exception {
+        BindingResult bindingResult = (BindingResult) mockMvc.perform(post("/services/add-service")
+                        .param("name", "")
+                        .param("price", "0")
+                        .param("description", "")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/services/add-service"))
+                .andExpect(flash().attributeExists("addServiceDTO"))
+                .andExpect(flash().attributeExists("org.springframework.validation.BindingResult.addServiceDTO"))
+                .andReturn().getFlashMap().get("org.springframework.validation.BindingResult.addServiceDTO");
+        Assertions.assertTrue(bindingResult.hasErrors());
+        Assertions.assertTrue(bindingResult.hasFieldErrors("name"));
+        Assertions.assertTrue(bindingResult.hasFieldErrors("price"));
+        Assertions.assertTrue(bindingResult.hasFieldErrors("description"));
+        Assertions.assertEquals(0, serviceRepository.count());
+
+    }
+        @Test
     public void testEditService() throws Exception {
         var service = serviceRepository.save(new ServiceEntity("Old Service", 200.00, "Old Description"));
 

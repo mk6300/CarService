@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: CarService
+  jpa:
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: never
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled=true
+parts:
+   api:
+     url: http://localhost:8081
+
+jwt:
+  secret: test
+  expiration: 3600000

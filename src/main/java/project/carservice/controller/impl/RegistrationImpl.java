@@ -44,7 +44,7 @@ public class RegistrationImpl implements RegistrationController {
                     .addFlashAttribute("registerUserDTO", registerUserDTO)
                     .addFlashAttribute("org.springframework.validation.BindingResult.registerUserDTO", result);
 
-            return "register";
+            return "redirect:/register";
         }
 
         this.userService.register(registerUserDTO);

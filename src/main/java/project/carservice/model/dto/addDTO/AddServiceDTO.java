@@ -4,13 +4,13 @@ import jakarta.validation.constraints.*;
 
 public class AddServiceDTO {
 
-    @NotNull
+    @NotNull (message = "Name cannot be empty")
     @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
     private String name;
-    @NotNull(message = "Price must be positive number")
-    @PositiveOrZero(message = "Price must be positive number")
+    @NotNull(message = "Price cannot be empty")
+    @Positive(message = "Price must be positive number")
     private Double price;
-    @NotNull
+    @NotNull (message = "Description cannot be empty")
     @Size(min = 3, max = 255, message = "Description must be between 3 and 255 characters")
     private String description;
 

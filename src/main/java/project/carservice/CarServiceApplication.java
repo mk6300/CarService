@@ -10,8 +10,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableScheduling
 public class CarServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CarServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CarServiceApplication.class, args);
+    }
 
 }

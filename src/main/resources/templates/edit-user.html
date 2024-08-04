@@ -49,7 +49,7 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="container">
         <h2>Edit User Details</h2>
-        <form class="mt-4" th:action="@{/admin/edit-user}" th:object="${editUserDTO}" method="post">
+        <form class="mt-4" th:action="@{/admin/edit-user}" th:object="${editUserDTO}" th:method="put">
             <input type="hidden" th:field="*{id}"/>
             <div class="form-group">
                 <label for="username">Username:</label>

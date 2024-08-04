@@ -67,7 +67,7 @@
                               class="text-uppercase form-control mx-2 w-25 bg">
                         </span>
                     </div>
-                    <div class="justify-content-center mt-4">
+                    <div th:if="${o.mechanic!=null}" class="justify-content-center mt-4">
                         <div class="center">
                             <span th:text="#{setResponsibleMechanic}+': '+${o.mechanic.firstName}+' '+${o.mechanic.lastName}"class="text-uppercase form-control w-50"> </span>
                         </div>

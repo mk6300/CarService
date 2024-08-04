@@ -15,13 +15,14 @@ import java.util.Map;
 @Service
 public class JwtServiceImpl implements JwtService {
 
-    private final String secretKey;
+    private final String jwtSecret;
 
-    private final long validityInMilliseconds;
+    private final long expiration;
 
-    public JwtServiceImpl(@Value("${jwt.secret}") String secretKey, @Value("${jwt.expiration}") long validityInMilliseconds) {
-        this.secretKey = secretKey;
-        this.validityInMilliseconds = validityInMilliseconds;
+    public JwtServiceImpl(@Value("${jwt.secret}") String jwtSecret,
+                          @Value("${jwt.expiration}") long expiration) {
+        this.jwtSecret = jwtSecret;
+        this.expiration = expiration;
     }
 
 
@@ -34,13 +35,13 @@ public class JwtServiceImpl implements JwtService {
                 .setSubject(userId)
                 .setIssuedAt(now)
                 .setNotBefore(now)
-                .setExpiration(new Date(now.getTime() + validityInMilliseconds))
+                .setExpiration(new Date(now.getTime() + expiration))
                 .signWith(GetSecretKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     private Key GetSecretKey() {
-        byte[] decodedKey = secretKey.getBytes(StandardCharsets.UTF_8);
+        byte[] decodedKey = jwtSecret.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(decodedKey);
     }
 }
