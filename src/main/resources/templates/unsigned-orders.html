@@ -71,7 +71,7 @@
                     <div class="d-flex justify-content-sm-start">
                         <div class="d-inline-flex align-items-center mt-5 w-50">
                             <select th:field="*{mechanicId}"
-                                    class="form-control mx-2 text-uppercase" name="mechanicId" id="mechanicId">
+                                    class="form-control mx-2 text-uppercase" name="mechanicId" id="mechanicId" required>
                                 <option value="">Select Mechanic</option>
                                 <option class="text-uppercase" th:each="m:${mechanics}"
                                         th:value="${m.id}"

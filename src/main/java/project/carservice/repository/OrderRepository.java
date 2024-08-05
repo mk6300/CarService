@@ -29,4 +29,5 @@ public interface OrderRepository extends JpaRepository <Order, UUID> {
 
     List<Order> findAllByOrderByDateAsc();
 
+    void deleteByOrderDateBefore(LocalDate threeYearsAgo);
 }

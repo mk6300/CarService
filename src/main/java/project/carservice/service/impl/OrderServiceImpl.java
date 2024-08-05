@@ -2,6 +2,7 @@ package project.carservice.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.carservice.model.dto.*;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
@@ -13,6 +14,7 @@ import project.carservice.service.*;
 import project.carservice.service.exceptions.OrderNotFoundException;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -206,6 +208,14 @@ public class OrderServiceImpl implements OrderService {
                 .stream()
                 .map(this::mapOrderDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void deleteOldFinishedOrders() {
+        LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
+        orderRepository.deleteByOrderDateBefore(threeYearsAgo);
+
     }
 
     private void sendConfirmationOrderSubmit(String email, String carModel, String carMake, String carRegNumber) {

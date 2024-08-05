@@ -50,4 +50,6 @@ public interface OrderService {
     void addService(UUID id, UUID serviceId);
 
     List<OrderDTO> allOrders();
+
+    void deleteOldFinishedOrders();
 }

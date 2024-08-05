@@ -49,7 +49,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
+        <div class="navbar-nav ms-auto p-4 p-lg-0 mx-5">
             <a th:href="@{/home}" class="nav-item nav-link active" sec:authorize="isAuthenticated()"
                th:text="#{home}">Home</a>
             <div class="nav-item dropdown">
@@ -72,7 +72,7 @@
             </div>
             <div class="nav-item" sec:authorize="isAuthenticated()">
                 <div class="my-2 my-lg-0 pt-3">
-                    <form th:method="post" th:action="@{/users/logout}">
+                    <form th:method="post" th:action="@{/logout}">
                         <input class="nav-item button" type="submit" value="Logout" th:value="#{logout}"/>
                     </form>
                 </div>
