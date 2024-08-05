@@ -14,9 +14,6 @@ import java.util.UUID;
 @Repository
 public interface OrderRepository extends JpaRepository <Order, UUID> {
 
-
-    List<Order> findAllByAddedBy_Id(UUID id);
-
     List<Order> findAllByAddedBy_IdAndStatusIsOrderByDateAsc(UUID id, OrdersStatusEnum status);
 
     List<Order> findAllByAddedBy_IdAndStatusIsNotOrderByDateAsc(UUID id, OrdersStatusEnum status);
@@ -29,5 +26,5 @@ public interface OrderRepository extends JpaRepository <Order, UUID> {
 
     List<Order> findAllByOrderByDateAsc();
 
-    void deleteByOrderDateBefore(LocalDate threeYearsAgo);
+    void deleteByDateBefore(LocalDate threeYearsAgo);
 }

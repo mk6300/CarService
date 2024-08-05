@@ -21,4 +21,5 @@ public class MailServiceImpl implements MailService {
         message.setText(text);
         javaMailSender.send(message);
     }
+
 }

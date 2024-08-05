@@ -19,7 +19,6 @@ public class MechanicControllerImpl implements MechanicController {
     private final OrderService orderService;
     private final UserService userService;
     private final PartService partService;
-
     private final ServiceService serviceService;
 
     public MechanicControllerImpl(OrderService orderService, UserService userService, PartService partService, ServiceService serviceService) {

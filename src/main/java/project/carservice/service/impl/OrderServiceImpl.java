@@ -14,7 +14,6 @@ import project.carservice.service.*;
 import project.carservice.service.exceptions.OrderNotFoundException;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -160,7 +159,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public double calculateServicesSumForOrder(UUID id) {
+    public double calculateServicesSumForOrder(UUID id) throws OrderNotFoundException {
         Order order = this.findOrderById(id);
         return order.getServices()
                 .stream()
@@ -196,7 +195,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void addService(UUID id, UUID serviceId) {
-        Order order = this.orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found"));
+        Order order = this.findOrderById(id);
         order.getServices().add(this.serviceService.getServiceEntity(serviceId));
 
         this.orderRepository.save(order);
@@ -214,10 +213,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void deleteOldFinishedOrders() {
         LocalDate threeYearsAgo = LocalDate.now().minusYears(3);
-        orderRepository.deleteByOrderDateBefore(threeYearsAgo);
+        orderRepository.deleteByDateBefore(threeYearsAgo);
 
     }
-
     private void sendConfirmationOrderSubmit(String email, String carModel, String carMake, String carRegNumber) {
         mailService.sendMail(email, "Order Confirmation",
                 "Thank you for made an order for your " + carMake + " " + carModel + " with registration number " + carRegNumber + ". We will contact you soon!");

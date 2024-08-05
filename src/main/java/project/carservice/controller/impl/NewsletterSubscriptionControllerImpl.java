@@ -9,6 +9,7 @@ import project.carservice.model.dto.SubscriberDTO;
 import project.carservice.service.NewsletterService;
 
 
+
 @Controller
 public class NewsletterSubscriptionControllerImpl implements NewsletterSubscriptionController {
     private final NewsletterService newsletterService;
@@ -17,7 +18,6 @@ public class NewsletterSubscriptionControllerImpl implements NewsletterSubscript
         this.newsletterService = subscriberService;
 
     }
-
     @Override
     public String subscribe(SubscriberDTO subscriberDTO, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
 
@@ -25,10 +25,12 @@ public class NewsletterSubscriptionControllerImpl implements NewsletterSubscript
             redirectAttributes.addFlashAttribute("subscriberDTO", subscriberDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.subscriberDTO", result);
 
-        } else {
-            newsletterService.subscribe(subscriberDTO);
+        }
+        else
 
-            redirectAttributes.addFlashAttribute("message", "Thank you for subscribing!");
+        {newsletterService.subscribe(subscriberDTO);
+
+            redirectAttributes.addFlashAttribute("message2", "Thank you for subscribing!");
         }
         return "redirect:/";
     }

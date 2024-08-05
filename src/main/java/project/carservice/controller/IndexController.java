@@ -11,7 +11,7 @@ public interface IndexController {
     String index();
 
     @GetMapping("/contact")
-    String contact ();
+    String contact();
 
     @GetMapping("/about")
     String about();
@@ -22,5 +22,6 @@ public interface IndexController {
     @GetMapping("/login")
     String login(Model model);
 
-
+    @GetMapping("/login-error")
+    String loginError();
 }

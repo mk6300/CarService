@@ -30,4 +30,8 @@ public class IndexControllerImpl implements IndexController {
     public String login(Model model) {
         return "login";
     }
+
+    @Override
+    public String loginError() {return "login-error";
+    }
 }

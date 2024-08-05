@@ -69,27 +69,37 @@
                     </div>
                     <div th:if="${o.mechanic!=null}" class="justify-content-center mt-4">
                         <div class="center">
-                            <span th:text="#{setResponsibleMechanic}+': '+${o.mechanic.firstName}+' '+${o.mechanic.lastName}"class="text-uppercase form-control w-50"> </span>
-                        </div>
-                        <div class="d-flex justify-content-center mt-4">
-                            <form th:method="delete" th:action="@{/orders/remove/{id}(id=*{o.id})}">
-                                <input type="submit"
-                                       class="btn btn-link text-danger text-uppercase border-primary mx-2" th:value="#{removeOrder}">
-                            </form>
-                            <form th:method="get" th:action="@{/orders/history/{id}(id=*{o.id})}">
-                                <button type="submit" class="btn btn-link text-danger text-uppercase border-primary mx-2">Details</button>
-                            </form>
+                            <span th:text="#{setResponsibleMechanic}+': '+${o.mechanic.firstName}+' '+${o.mechanic.lastName}"
+                                  class="text-uppercase form-control w-50"> </span>
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-center mt-4">
+                        <form th:if="${o.getStatus == 'Scheduled' or o.getStatus=='Pending' or o.getStatus=='Finished'}"  th:method="delete" th:action="@{/orders/remove/{id}(id=*{o.id})}">
+                            <input type="submit"
+                                   class="btn btn-link text-danger text-uppercase border-primary mx-2"
+                                   th:value="#{removeOrder}">
+                        </form>
+                        <form th:method="get" th:action="@{/orders/history/{id}(id=*{o.id})}">
+                            <button type="submit"
+                                    class="btn btn-link text-danger text-uppercase border-primary mx-2">Details
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <form th:method="get" th:action="@{/home}">
-                    <button type="submit" class="btn-link float-right text-uppercase align-content-center border-primary mt-5" th:text="#{back}">Back</button>
-                </form>
+
             </div>
         </div>
+        <div class="d-flex justify-content-center">
+            <form th:method="get" th:action="@{/home}">
+                <button type="submit"
+                        class="btn-link float-right text-uppercase align-content-center border-primary mt-5"
+                        th:text="#{back}">Back
+                </button>
+            </form>
+        </div>
     </div>
+</div>
 </div>
 
 <footer th:replace="~{fragments/commons::footer}"></footer>

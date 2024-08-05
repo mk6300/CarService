@@ -57,7 +57,7 @@
             <h2 class="text-center text-black mt-5 text-danger" th:text="#{editSupplier}">EDIT SUPPLIER DETAILS</h2>
             <div class="main-form mx-auto col-md-8 flex flex-column justify-content-center">
                 <form th:action="@{/supplier/edit-supplier}"
-                      th:object="${supplierDTO}" th:method="put"">
+                      th:object="${supplierDTO}" th:method="put">
                     <div class="container">
                         <div class="row justify-content-center align-items-center mt-5">
                             <input type="hidden" th:field="*{id}"/>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Car Service</title>
@@ -91,7 +92,7 @@
                             </button>
                         </div>
                         <div>
-                            <button id="removeSupplierButton" name="action" value="remove" type="submit" class="btn border-dark text-danger float-right text-uppercase align-content-center">
+                            <button sec:authorize="hasRole('ADMIN')" id="removeSupplierButton" name="action" value="remove" type="submit" class="btn border-dark text-danger float-right text-uppercase align-content-center">
                                 Remove Supplier
                             </button>
                         </div>

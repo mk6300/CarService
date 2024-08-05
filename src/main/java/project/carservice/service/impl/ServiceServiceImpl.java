@@ -8,6 +8,8 @@ import project.carservice.model.dto.editDTO.EditServiceDTO;
 import project.carservice.model.entity.ServiceEntity;
 import project.carservice.repository.ServiceRepository;
 import project.carservice.service.ServiceService;
+import project.carservice.service.exceptions.OrderNotFoundException;
+import project.carservice.service.exceptions.ServiceNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +41,7 @@ public class ServiceServiceImpl implements ServiceService {
     public ServiceDTO getServiceDetails(UUID id) {
         return serviceRepository.findById(id)
                 .map(this::map)
-                .orElseThrow(null);
+                .orElseThrow(() -> new OrderNotFoundException("Service not found"));
     }
 
     @Override
@@ -54,20 +56,19 @@ public class ServiceServiceImpl implements ServiceService {
     public EditServiceDTO editServiceDTO(UUID id) {
         return serviceRepository.findById(id)
                 .map(this::mapEditDTO)
-                .orElseThrow(null);
+                .orElseThrow(() -> new ServiceNotFoundException("Service not found"));
     }
 
     @Override
     public void editService(EditServiceDTO editServiceDTO) {
-        ServiceEntity service = serviceRepository.findById(editServiceDTO.getId())
-                .orElseThrow(null);
+        ServiceEntity service = this.findById(editServiceDTO.getId());
         modelMapper.map(editServiceDTO, service);
         serviceRepository.save(service);
     }
 
     @Override
     public ServiceEntity getServiceEntity(UUID id) {
-        return serviceRepository.findById(id).orElseThrow();
+        return serviceRepository.findById(id).orElseThrow(() -> new ServiceNotFoundException("Service not found"));
     }
 
     @Override
@@ -77,5 +78,9 @@ public class ServiceServiceImpl implements ServiceService {
 
     private EditServiceDTO mapEditDTO(ServiceEntity service) {
         return modelMapper.map(service, EditServiceDTO.class);
+    }
+
+    private ServiceEntity findById(UUID id) {
+        return serviceRepository.findById(id).orElseThrow(() -> new ServiceNotFoundException("Service not found"));
     }
 }

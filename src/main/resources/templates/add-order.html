@@ -67,7 +67,9 @@
                         </div>
                         <div class="d-inline-flex align-items-center mt-5">
                             <select th:feild="*{carId}" th:errorclass="'is-invalid'"
-                                    class="form-control mx-2 text-uppercase" name="carId" id="carId" required>
+                                    class="form-control mx-2 text-uppercase" name="carId" id="carId" required
+                                    oninvalid="this.setCustomValidity('Please select car from garage or add new car')"
+                                    oninput="setCustomValidity('')" >
                                 <option value="">Select your car</option>
                                 <option class="text-uppercase" th:each="car: ${cars}"
                                         th:value="${car.getId}"

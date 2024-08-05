@@ -31,6 +31,20 @@
 
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .background-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+            background-image: url('/images/service.jpg');
+            background-size: cover; /* Make sure the image covers the entire container */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat;
+            overflow: hidden;
+            }
+
+    </style>
 </head>
 <body>
 <!-- Topbar Start -->
@@ -40,36 +54,38 @@
 <header th:replace="~{fragments/commons::nav(activeLink=${'login'})}"></header>
 <!-- Navbar End -->
 <main>
-    <div th:style="'background-image: url('+@{/images/service.jpg}+'); height: 80vh; background-position: center'">
-        <h1 class="text-center text-white" th:text="#{login}">Login</h1>
-        <form class="mx-auto w-25 bg-blur mt-5" th:method="post"
-              th:action="@{/login}">
+    <div class="background-container">
 
-            <!--            <div class="text-danger">Error messages</div>-->
-            <!--            <div class="errors alert alert-danger" >Incorrect username or password!</div>-->
+            <h1 class="text-center text-danger" style="margin-top: 3em; font-size: 4em; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" th:text="#{login}">Login</h1>
+            <form class="mx-auto w-25 bg-blur mt-5" th:method="post"
+                  th:action="@{/login}">
 
-            <div class="form-group">
-                <div class="label-holder text-white d-flex justify-content-center">
-                    <label for="username" class="h3 mb-2" th:text="#{username}">Username</label>
+                <!--            <div class="text-danger">Error messages</div>-->
+                <!--            <div class="errors alert alert-danger" >Incorrect username or password!</div>-->
+
+                <div class="form-group">
+                    <div class="label-holder text-white d-flex justify-content-center">
+                        <label for="username" class="h3 mb-2" style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white" th:text="#{username}">Username</label>
+                    </div>
+                    <input type="text" class="form-control" id="username" name="username"/>
                 </div>
-                <input type="text" class="form-control" id="username" name="username"/>
-            </div>
 
-            <div class="form-group">
-                <div class="label-holder text-white d-flex justify-content-center">
-                    <label for="password" class="h3 mb-2" th:text="#{password}">Password</label>
+                <div class="form-group">
+                    <div class="label-holder text-white d-flex justify-content-center">
+                        <label for="password" class="h3 mb-2" style="text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white" th:text="#{password}">Password</label>
+                    </div>
+                    <input type="password" class="form-control" id="password" name="password"/>
                 </div>
-                <input type="password" class="form-control" id="password" name="password"/>
-            </div>
-<!--            <p class="errors alert alert-danger">-->
-<!--                Invalid username or password.-->
-<!--            </p>-->
+                <!--            <p class="errors alert alert-danger">-->
+                <!--                Invalid username or password.-->
+                <!--            </p>-->
 
-            <div class="button-holder d-flex justify-content-center">
-                <button type="submit" class="btn btn-warning mt-5" value="Login" th:text="#{login}">Login</button>
-            </div>
+                <div class="button-xl-holder d-flex justify-content-center ">
+                    <button type="submit" class="btn btn-warning mt-5" value="Login" th:text="#{login}">Login</button>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
 </main>
 <footer th:replace="~{fragments/commons::footer}"></footer>

@@ -22,11 +22,15 @@ public class SecurityConfig {
                                 // all static resources to "common locations" (css, images, js) are available to anyone
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 // some more resources for all users
-                                .requestMatchers("/","/login", "/register", "/service", "/about", "/contact", "/subscribe", "/unsubscribe").permitAll()
+                                .requestMatchers("/","/login","/login-error", "/register", "/service", "/about", "/contact", "/subscribe", "/unsubscribe").permitAll()
 
-                                .requestMatchers("/home").authenticated()
-                                .requestMatchers("/users/**").authenticated()
-                                .requestMatchers("/cars/**").authenticated()
+                                .requestMatchers("/home", "/users/**","/cars/**").authenticated()
+                                .requestMatchers("/orders/my-orders").authenticated()
+                                .requestMatchers("/orders/add-order").authenticated()
+                                .requestMatchers("/orders/history").authenticated()
+                                .requestMatchers("/parts/**","/mechanic/**","/orders/**","/suppliers/**").hasAnyRole("ADMIN", "MECHANIC")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/services/**").hasRole("ADMIN")
 
 
 
@@ -44,14 +48,14 @@ public class SecurityConfig {
                         // What will happen if the login is successful
                         .defaultSuccessUrl("/home", true)
                         // What will happen if the login fails
-                        .failureForwardUrl("/login-error")
+                        .failureUrl("/login-error")
                 )
                 .logout(
                         logout -> logout
                                 // what is the logout URL?
                                 .logoutUrl("/logout")
                                 // Where to go after successful logout?
-                                .logoutSuccessUrl("/")
+                                .logoutSuccessUrl("/").permitAll()
                                 // invalidate the session after logout.
                                 .invalidateHttpSession(true)
                 )

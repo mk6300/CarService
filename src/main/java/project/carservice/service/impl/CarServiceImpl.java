@@ -9,6 +9,7 @@ import project.carservice.model.entity.Car;
 import project.carservice.repository.CarRepository;
 import project.carservice.service.CarService;
 import project.carservice.service.UserService;
+import project.carservice.service.exceptions.CarNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,14 +44,14 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car getById(UUID id) {
-        return carRepository.findById(id).orElseThrow();
+    public Car getById(UUID id)  {
+        return carRepository.findById(id).orElseThrow(() -> new CarNotFoundException("Order not found"));
     }
 
-    @Transactional
     @Override
-    public void removeCar(UUID id) {
-        Car car = carRepository.findById(id).orElseThrow();
+    @Transactional
+    public void removeCar(UUID id) throws CarNotFoundException {
+        Car car = carRepository.findById(id).orElseThrow(() -> new CarNotFoundException("Car not found"));
         carRepository.delete(car);
     }
 
