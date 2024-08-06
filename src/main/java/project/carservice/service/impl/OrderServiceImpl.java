@@ -26,17 +26,21 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final CarService carService;
     private final PartService partService;
+
     private final ServiceService serviceService;
+
+    private final UsedPartService usedPartService;
 
     private final MailService mailService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, UserService userService, CarService carService, PartService partService, ServiceService serviceService, MailService mailService) {
+    public OrderServiceImpl(OrderRepository orderRepository, ModelMapper modelMapper, UserService userService, CarService carService, PartService partService, ServiceService serviceService, UsedPartService usedPartService, MailService mailService) {
         this.orderRepository = orderRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.carService = carService;
         this.partService = partService;
         this.serviceService = serviceService;
+        this.usedPartService = usedPartService;
         this.mailService = mailService;
     }
 
@@ -128,17 +132,14 @@ public class OrderServiceImpl implements OrderService {
     public void addPartToOrder(UUID id, Long partId, int quantity) {
         Order order = this.findOrderById(id);
         for (int i = 0; i < quantity; i++) {
-            order.getPartId().add(partId);
+            order.getUsedParts().add(usedPartService.mapPartToUsedPart(partId, order));
         }
         this.orderRepository.save(order);
     }
 
     @Override
-    public List<PartDTO> getPartsForOrder(UUID id) {
-        List<Long> partIds = this.findOrderById(id).getPartId();
-        return partIds.stream()
-                .map(this.partService::getPartDetails)
-                .collect(Collectors.toList());
+    public List<UsedPartDTO> getPartsForOrder(UUID id) {
+        return usedPartService.getUsedPartsForOrder(id);
     }
 
     @Override
@@ -148,13 +149,11 @@ public class OrderServiceImpl implements OrderService {
                 .map(this.serviceService::map)
                 .collect(Collectors.toList());
     }
+
     @Override
     public double calculatePartsSumForOrder(UUID id) {
-        Order order = this.findOrderById(id);
-        List<Long> partIds = order.getPartId();
-        return partIds.stream()
-                .map(this.partService::getPartDetails)
-                .mapToDouble(PartDTO::getPrice)
+        return usedPartService.getUsedPartsForOrder(id).stream()
+                .mapToDouble(UsedPartDTO::getPrice)
                 .sum();
     }
 
@@ -169,12 +168,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public double calculateTotalSumForOrder(UUID id) {
-        return this.calculatePartsSumForOrder(id) + this.calculateServicesSumForOrder(id);
+        double totalSum = this.calculatePartsSumForOrder(id) + this.calculateServicesSumForOrder(id);
+        Order order = this.findOrderById(id);
+        order.setTotalCost(totalSum);
+        this.orderRepository.save(order);
+        return totalSum;
     }
 
     @Override
     public void finishTask(UUID id, String mechanicComment) {
-        Order order=this.findOrderById(id);
+        Order order = this.findOrderById(id);
         if (mechanicComment == null || mechanicComment.isEmpty()) {
             mechanicComment = "Job Done!";
         }
@@ -216,6 +219,7 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteByDateBefore(threeYearsAgo);
 
     }
+
     private void sendConfirmationOrderSubmit(String email, String carModel, String carMake, String carRegNumber) {
         mailService.sendMail(email, "Order Confirmation",
                 "Thank you for made an order for your " + carMake + " " + carModel + " with registration number " + carRegNumber + ". We will contact you soon!");
@@ -226,7 +230,8 @@ public class OrderServiceImpl implements OrderService {
                 "Your order is now finished. Thank you for choosing Car Service! Our mechanic comments about all services done: " + comment);
     }
 
+
     private Order findOrderById(UUID id) {
-        return this.orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found"));
+       return this.orderRepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found"));
     }
 }

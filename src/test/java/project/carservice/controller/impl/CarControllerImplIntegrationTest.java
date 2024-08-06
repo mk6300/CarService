@@ -9,19 +9,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.validation.BindingResult;
-import project.carservice.model.dto.addDTO.AddCarDTO;
+
 import project.carservice.model.entity.Car;
 import project.carservice.model.entity.User;
 import project.carservice.model.entity.enums.EngineTypeEnum;
 import project.carservice.repository.CarRepository;
 import project.carservice.repository.UserRepository;
 
-import java.util.UUID;
-
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

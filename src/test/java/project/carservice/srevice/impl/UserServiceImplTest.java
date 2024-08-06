@@ -58,7 +58,7 @@ public class UserServiceImplTest {
 
         user = new User();
         user.setId(userId);
-        user.setUsername("testuser");
+        user.setUsername("testUser");
         user.setEmail("testuser@example.com");
         user.setPassword("password");
         user.setFirstName("John");
@@ -68,11 +68,11 @@ public class UserServiceImplTest {
         userRole.setRole(UserRoleEnum.USER);
 
         userDTO = new UserDTO();
-        userDTO.setUsername("testuser");
+        userDTO.setUsername("testUser");
 
         registerUserDTO = new RegisterUserDTO();
-        registerUserDTO.setUsername("newuser");
-        registerUserDTO.setPassword("newpassword");
+        registerUserDTO.setUsername("newUser");
+        registerUserDTO.setPassword("newPassword");
 
         editUserDTO = new EditUserDTO();
         editUserDTO.setId(userId);
@@ -83,13 +83,13 @@ public class UserServiceImplTest {
 
     @Test
     void findUserByUserName_ShouldReturnUserDTO() {
-        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(user));
+        when(userRepository.findByUsername("testUser")).thenReturn(Optional.of(user));
         when(modelMapper.map(user, UserDTO.class)).thenReturn(userDTO);
 
-        UserDTO foundUser = userService.findUserByUsername("testuser");
+        UserDTO foundUser = userService.findUserByUsername("testUser");
 
         Assertions.assertNotNull(foundUser);
-        Assertions.assertEquals("testuser", foundUser.getUsername());
+        Assertions.assertEquals("testUser", foundUser.getUsername());
     }
 
     @Test
@@ -100,7 +100,7 @@ public class UserServiceImplTest {
         UserDTO foundUser = userService.findUserByEmail("testuser@example.com");
 
         Assertions.assertNotNull(foundUser);
-        Assertions.assertEquals("testuser", foundUser.getUsername());
+        Assertions.assertEquals("testUser", foundUser.getUsername());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class UserServiceImplTest {
         UserDTO foundUser = userService.getUserById(userId);
 
         Assertions.assertNotNull(foundUser);
-        Assertions.assertEquals("testuser", foundUser.getUsername());
+        Assertions.assertEquals("testUser", foundUser.getUsername());
     }
 
     @Test
@@ -129,11 +129,12 @@ public class UserServiceImplTest {
     void register_ShouldSaveUser() {
         when(modelMapper.map(registerUserDTO, User.class)).thenReturn(user);
         when(userRoleRepository.findByRole(UserRoleEnum.USER)).thenReturn(Optional.of(userRole));
-        when(encoder.encode("newpassword")).thenReturn("encodedpassword");
+        when(encoder.encode("newPassword")).thenReturn("encodedPassword");
 
         userService.register(registerUserDTO);
 
         verify(userRepository, times(1)).save(user);
+        Assertions.assertEquals("encodedPassword", user.getPassword());
     }
 
     @Test

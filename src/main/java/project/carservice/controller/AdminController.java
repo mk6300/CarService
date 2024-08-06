@@ -1,12 +1,15 @@
 package project.carservice.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.dto.editDTO.EditUserDTO;
+import project.carservice.service.exceptions.UserNotFoundException;
 
 
 import java.util.UUID;
@@ -44,5 +47,10 @@ public interface AdminController {
 
     @DeleteMapping ("/remove-order/{id}")
     String removeOrder(@PathVariable UUID id);
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus (HttpStatus.NOT_FOUND)
+    ModelAndView handleUserNotFoundException(UserNotFoundException exception);
+
 
 }

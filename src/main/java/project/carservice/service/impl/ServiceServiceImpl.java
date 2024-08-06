@@ -41,7 +41,7 @@ public class ServiceServiceImpl implements ServiceService {
     public ServiceDTO getServiceDetails(UUID id) {
         return serviceRepository.findById(id)
                 .map(this::map)
-                .orElseThrow(() -> new OrderNotFoundException("Service not found"));
+                .orElseThrow(() -> new ServiceNotFoundException("Service not found"));
     }
 
     @Override

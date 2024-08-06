@@ -74,7 +74,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center">Used Spare Parts</h5>
+                        <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center">Used Spare
+                            Parts</h5>
                         <div class="mt-2 rounded">
                             <div th:each="part : ${parts}" class="d-flex mx-2">
                                 <label>Part Name</label>
@@ -100,13 +101,15 @@
                     <div class="col-md-6">
                         <div class="text-uppercase font-weight-bold">
                             <label>Total Spare Parts Price</label>
-                            <span th:text="${#numbers.formatDecimal(orderPartsPrice, 2, 2)}" class="text-uppercase form-control lh-base"></span>
+                            <span th:text="${#numbers.formatDecimal(orderPartsPrice, 2, 2)}"
+                                  class="text-uppercase form-control lh-base"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="text-uppercase">
                             <label>Total Services Price</label>
-                            <span th:text="${#numbers.formatDecimal(orderServicePrice, 2, 2)}" class="text-uppercase form-control lh-base"></span>
+                            <span th:text="${#numbers.formatDecimal(orderServicePrice, 2, 2)}"
+                                  class="text-uppercase form-control lh-base"></span>
                         </div>
                     </div>
                 </div>
@@ -115,22 +118,26 @@
         <div class="d-flex mt-3 rounded justify-content-center">
             <div class="text-uppercase fs-5 fw-bold text-danger center">
                 <label> Services and Parts Total Price</label>
-                <span th:text="${#numbers.formatDecimal(totalPrice, 2, 2)}" class="text-uppercase form-control lh-base fs-5 fw-bold text-center"></span>
+                <span th:text="${#numbers.formatDecimal(totalPrice, 2, 2)}"
+                      class="text-uppercase form-control lh-base fs-5 fw-bold text-center"></span>
             </div>
         </div>
         <div class="d-inline justify-content-center align-items-center mx-auto">
             <h4 class="bg-gray text-dark rounded text-uppercase justify-content-center">Mechanic Comments</h4>
             <span th:text="*{order.mechanicComment}" type="text"
-                      class="form-control col-xs-12" rows="5" cols="90"
-                      name="mechanicComment" id="mechanicComment">
+                  class="form-control col-xs-12" rows="5" cols="90"
+                  name="mechanicComment" id="mechanicComment">
             </span>
         </div>
         <div class="d-flex justify-content-lg-center mt-4">
-            <form th:method="get" th:action="@{/orders/history}" class="mx-5">
-                <input type="submit"
-                       class="btn btn-link text-danger text-uppercase border-primary"
-                       value="BACK">
-            </form>
+            <button class="btn-link float-right text-uppercase align-content-center border-primary mt-5"
+                    th:text="#{back}" onclick="goBack()">Go Back
+            </button>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
         </div>
     </div>
 </div>

@@ -3,12 +3,16 @@ package project.carservice.controller.impl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.controller.CarController;
 import project.carservice.model.dto.addDTO.AddCarDTO;
 import project.carservice.model.entity.enums.EngineTypeEnum;
 import project.carservice.service.CarService;
+import project.carservice.service.exceptions.CarNotFoundException;
+import project.carservice.service.exceptions.OrderNotFoundException;
+
 
 import java.util.UUID;
 
@@ -23,6 +27,9 @@ public class CarControllerImpl implements CarController {
 
     @Override
     public String add(Model model) {
+
+        model.addAttribute("allEngineTypes", EngineTypeEnum.values());
+
         if (!model.containsAttribute("addCarDTO")) {
             model.addAttribute("addCarDTO", AddCarDTO.empty());
         }
@@ -47,9 +54,11 @@ public class CarControllerImpl implements CarController {
         return "redirect:/users/garage";
     }
 
-
-    @ModelAttribute("allEngineTypes")
-    public EngineTypeEnum[] allEngineTypes() {
-        return EngineTypeEnum.values();
+    @Override
+    public ModelAndView handleCarNotFoundException(CarNotFoundException exception) {
+        ModelAndView modelAndView = new ModelAndView("car-not-found");
+        modelAndView.addObject("message", exception.getMessage());
+        return modelAndView;
     }
+
 }

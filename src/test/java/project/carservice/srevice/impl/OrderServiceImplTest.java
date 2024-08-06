@@ -8,8 +8,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import project.carservice.model.dto.OrderDTO;
-import project.carservice.model.dto.PartDTO;
 import project.carservice.model.dto.ServiceDTO;
+import project.carservice.model.dto.UsedPartDTO;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.entity.*;
@@ -52,7 +52,8 @@ public class OrderServiceImplTest {
     @Mock
     private MailService mailService;
 
-
+    @Mock
+    private UsedPartService usedPartService;
     private OrderServiceImpl orderService;
 
     Order order = new Order();
@@ -67,12 +68,12 @@ public class OrderServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        orderService = new OrderServiceImpl(orderRepository, modelMapper, userService, carService, partService, serviceService, mailService);
+        orderService = new OrderServiceImpl(orderRepository, modelMapper, userService, carService, partService, serviceService, usedPartService, mailService);
         order.setId(UUID.randomUUID());
         order.setDescription("Test Order");
         order.setStatus(OrdersStatusEnum.SCHEDULED);
         order.setDate(LocalDate.now());
-        order.setPartId(new ArrayList<>());
+        order.setUsedParts(new ArrayList<>());
 
         addOrderDTO.setCarId(UUID.randomUUID());
         addOrderDTO.setDescription("Test Order");
@@ -235,14 +236,18 @@ public class OrderServiceImplTest {
     public void testAddPartToOrder() {
         Long partId = 1L;
         int quantity = 2;
+        UsedPart usedPart = new UsedPart();
+        usedPart.setId(UUID.randomUUID());
+
 
 
         when(orderRepository.findById(order.getId())).thenReturn(Optional.ofNullable(order));
+        when(usedPartService.mapPartToUsedPart(partId, order)).thenReturn(usedPart);
 
         orderService.addPartToOrder(order.getId(), partId, quantity);
 
-        Assertions.assertEquals(2, order.getPartId().size());
-        Assertions.assertEquals(partId, order.getPartId().get(0));
+        Assertions.assertEquals(2, order.getUsedParts().size());
+        Assertions.assertEquals(usedPart, order.getUsedParts().get(0));
         verify(orderRepository, times(1)).save(order);
     }
 
@@ -265,24 +270,21 @@ public class OrderServiceImplTest {
 
     @Test
     public void testGetPartsForOrder() {
-        Long partId = 1L;
-        PartDTO partDTO = new PartDTO();
-        partDTO.setId(partId);
-        order.getPartId().add(partId);
-        when(orderRepository.findById(order.getId())).thenReturn(Optional.ofNullable(order));
-        when(partService.getPartDetails(partId)).thenReturn(partDTO);
+       UUID usedPartId = UUID.randomUUID();
+        UsedPartDTO usedPartDTO = new UsedPartDTO();
+        usedPartDTO.setId(usedPartId);
+        usedPartDTO.setPrice(10.0);
+        UsedPart usedPart = new UsedPart();
+        usedPart.setId(usedPartId);
+        usedPart.setPrice(10.0);
+        order.getUsedParts().add(usedPart);
+        when(usedPartService.getUsedPartsForOrder(order.getId())).thenReturn(List.of(usedPartDTO));
 
-        List<PartDTO> parts = orderService.getPartsForOrder(order.getId());
+        List<UsedPartDTO> parts = orderService.getPartsForOrder(order.getId());
 
         Assertions.assertEquals(1, parts.size());
-        Assertions.assertEquals(partId, parts.get(0).getId());
-        Assertions.assertEquals(partDTO, parts.get(0));
-    }
-
-    @Test
-    public void testGetPartsForOrderWhenOrderNotFound() {
-        when(orderRepository.findById(order.getId())).thenReturn(Optional.empty());
-        Assertions.assertThrows(RuntimeException.class, () -> orderService.getPartsForOrder(order.getId()));
+        Assertions.assertEquals(usedPartDTO.getPrice(), parts.get(0).getPrice());
+        Assertions.assertEquals(usedPartDTO, parts.get(0));
     }
 
     @Test
@@ -311,25 +313,19 @@ public class OrderServiceImplTest {
 
     @Test
     public void testCalculatePartsSumForOrder() {
-        Long partId = 1L;
-        PartDTO partDTO = new PartDTO();
-        partDTO.setId(partId);
-        partDTO.setPrice(10.0);
-        order.getPartId().add(partId);
-        when(orderRepository.findById(order.getId())).thenReturn(Optional.ofNullable(order));
-        when(partService.getPartDetails(partId)).thenReturn(partDTO);
+       UUID usedPartId = UUID.randomUUID();
+        UsedPartDTO usedPartDTO = new UsedPartDTO();
+        usedPartDTO.setId(usedPartId);
+        usedPartDTO.setPrice(10.0);
+
+        when(usedPartService.getUsedPartsForOrder(order.getId())).thenReturn(List.of(usedPartDTO));
 
         double sum = orderService.calculatePartsSumForOrder(order.getId());
 
         Assertions.assertEquals(10.0, sum);
     }
 
-    @Test
-    public void testCalculatePartsSumForOrderWhenOrderNotFound() {
-        when(orderRepository.findById(order.getId())).thenReturn(Optional.empty());
-        Assertions.assertThrows(RuntimeException.class, () -> orderService.calculatePartsSumForOrder(order.getId()));
-    }
-    @Test
+     @Test
     public void testCalculateServicesSumForOrder() {
         ServiceEntity serviceEntity = new ServiceEntity();
         serviceEntity.setPrice(10.0);
@@ -343,17 +339,23 @@ public class OrderServiceImplTest {
 
     @Test
     public void testCalculateTotalSumForOrder() {
-        Long partId = 1L;
-        PartDTO partDTO = new PartDTO();
-        partDTO.setId(partId);
-        partDTO.setPrice(10.0);
-        order.getPartId().add(partId);
+        UsedPartDTO usedPartDTO = new UsedPartDTO();
+        usedPartDTO.setPrice(10.0);
+        usedPartDTO.setName("Test Part");
+        usedPartDTO.setPrice(10.0);
+        UsedPart usedPart = new UsedPart();
+        usedPart.setId(UUID.randomUUID());
+        usedPart.setName("Test Part");
+        usedPart.setPrice(10.0);
+        usedPart.setOrder(order);
+        order.setUsedParts(List.of(usedPart));
         ServiceEntity serviceEntity = new ServiceEntity();
+        serviceEntity.setName("Test Service");
+        serviceEntity.setId(UUID.randomUUID());
         serviceEntity.setPrice(10.0);
         order.setServices(List.of(serviceEntity));
         when(orderRepository.findById(order.getId())).thenReturn(Optional.ofNullable(order));
-        when(partService.getPartDetails(partId)).thenReturn(partDTO);
-
+        when(usedPartService.getUsedPartsForOrder(order.getId())).thenReturn(List.of(usedPartDTO));
         double sum = orderService.calculateTotalSumForOrder(order.getId());
 
         Assertions.assertEquals(20.0, sum);

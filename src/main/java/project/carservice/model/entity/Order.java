@@ -1,11 +1,9 @@
 package project.carservice.model.entity;
 
 import jakarta.persistence.*;
-import project.carservice.model.entity.enums.EngineTypeEnum;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity
@@ -24,9 +22,6 @@ public class Order extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private OrdersStatusEnum status;
-    @Column
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Long> partId;
 
     @ManyToOne
     private User addedBy;
@@ -46,6 +41,11 @@ public class Order extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "service_id")
     )
     private List<ServiceEntity> services;
+
+    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UsedPart> usedParts;
+
+    private double totalCost;
 
     public LocalDate getDate() {
         return date;
@@ -103,14 +103,6 @@ public class Order extends BaseEntity {
         this.mechanicComment = mechanicComment;
     }
 
-    public List<Long> getPartId() {
-        return partId;
-    }
-
-    public void setPartId(List<Long> partId) {
-        this.partId = partId;
-    }
-
     public List<ServiceEntity> getServices() {
         return services;
     }
@@ -119,5 +111,19 @@ public class Order extends BaseEntity {
         this.services = services;
     }
 
+    public List<UsedPart> getUsedParts() {
+        return usedParts;
+    }
 
+    public void setUsedParts(List<UsedPart> usedParts) {
+        this.usedParts = usedParts;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
 }

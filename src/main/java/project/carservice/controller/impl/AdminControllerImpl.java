@@ -4,12 +4,14 @@ package project.carservice.controller.impl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.controller.AdminController;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.service.OrderService;
 import project.carservice.service.UserService;
+import project.carservice.service.exceptions.UserNotFoundException;
 
 import java.util.UUID;
 
@@ -108,7 +110,7 @@ public class AdminControllerImpl implements AdminController {
         return "redirect:/admin/unsigned-orders";
     }
 
-    @Override
+      @Override
     public String removeMechanic(UUID id) {
         userService.removeMechanic(id);
         return "redirect:/admin/manage-users";
@@ -118,5 +120,13 @@ public class AdminControllerImpl implements AdminController {
     public String removeAdmin(UUID id) {
         userService.removeAdmin(id);
         return "redirect:/admin/manage-users";
+    }
+
+    @Override
+    public ModelAndView handleUserNotFoundException(UserNotFoundException exception) {
+
+        ModelAndView modelAndView = new ModelAndView("user-not-found");
+        modelAndView.addObject("message", exception.getMessage());
+        return modelAndView;
     }
 }

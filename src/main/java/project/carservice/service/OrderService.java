@@ -2,10 +2,12 @@ package project.carservice.service;
 
 
 import project.carservice.model.dto.ServiceDTO;
+import project.carservice.model.dto.UsedPartDTO;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.dto.OrderDTO;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
 import project.carservice.model.dto.PartDTO;
+import project.carservice.model.entity.Order;
 
 
 import java.util.List;
@@ -33,7 +35,7 @@ public interface OrderService {
 
     void addPartToOrder(UUID id, Long partId, int quantity);
 
-    List<PartDTO> getPartsForOrder(UUID id);
+    List<UsedPartDTO> getPartsForOrder(UUID id);
 
     List<ServiceDTO> getServicesForOrder(UUID id);
 

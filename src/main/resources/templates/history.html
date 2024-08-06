@@ -84,9 +84,17 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <form th:method="get" th:action="@{/home}">
-                    <button type="submit" class="btn-link float-right text-uppercase align-content-center border-primary mt-5" th:text="#{back}">Back</button>
-                </form>
+                <button class="btn-link float-right text-uppercase align-content-center border-primary mt-5" th:text="#{back}" onclick="goBack()">Go Back</button>
+
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+<!--                -->
+<!--                <form th:method="get" th:action="@{/home}">-->
+<!--                    <button type="submit" class="btn-link float-right text-uppercase align-content-center border-primary mt-5" th:text="#{back}">Back</button>-->
+<!--                </form>-->
             </div>
         </div>
     </div>

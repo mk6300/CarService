@@ -3,6 +3,7 @@ package project.carservice.controller.impl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.controller.OrderController;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
@@ -11,6 +12,7 @@ import project.carservice.model.dto.OrderDTO;
 import project.carservice.service.CarService;
 import project.carservice.service.OrderService;
 import project.carservice.service.UserService;
+import project.carservice.service.exceptions.OrderNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -91,5 +93,13 @@ public class OrderControllerImpl implements OrderController {
     @Override
     public String allOrdersInfo(Model model, UUID id) {
         return "order-details";
+    }
+
+    @Override
+    public ModelAndView handleOrderNotFoundException(OrderNotFoundException exception)
+        {
+            ModelAndView modelAndView = new ModelAndView("order-not-found");
+            modelAndView.addObject("message", exception.getMessage());
+            return modelAndView;
     }
 }
