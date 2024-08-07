@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service</title>
+    <title>Car Service - Admin Panel</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -57,11 +57,11 @@
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
                         th:text="'Service order for Car: '+${o.car.getMake}+' '+${o.car.getModel}"></h4>
                     <div class="d-flex mt-3 rounded align-items-center ">
-                        <label> Date</label>
+                        <label th:text="#{date}"> Date</label>
                         <span th:text="${o.date}" class="text-uppercase form-control mx-2 w-25"></span>
-                        <label> Description </label>
+                        <label th:text="#{description}"> Description </label>
                         <span th:text="${o.description}" class="text-uppercase form-control mx-2"></span>
-                        <label>Status</label>
+                        <label th:text="#{status}">Status</label>
                         <span th:text="${o.status}" th:style="${o.getStatus == 'Scheduled'}
                              ? 'background-color: green; color: white;' : (${o.getStatus == 'Pending'} ? 'background-color: yellow; color: black;' : (${o.getStatus == 'In Progress'} ? 'background-color: red; color: white;' :
                             (${o.getStatus == 'Finished'} ? 'background-color: blue; color:white' : '')))"
@@ -72,13 +72,13 @@
                         <div class="d-inline-flex align-items-center mt-5 w-50">
                             <select th:field="*{mechanicId}"
                                     class="form-control mx-2 text-uppercase" name="mechanicId" id="mechanicId" required>
-                                <option value="">Select Mechanic</option>
+                                <option value="" th:text="#{manageUsers.selectMechanic}">Select Mechanic</option>
                                 <option class="text-uppercase" th:each="m:${mechanics}"
                                         th:value="${m.id}"
                                         th:text="${m.firstName} + ' ' + ${m.lastName}"></option>
                             </select>
                             <div class="d-flex justify-content-sm-start">
-                                <button class="btn  text-uppercase align-content-center" type="submit"> Set Responsible
+                                <button class="btn  text-uppercase align-content-center" type="submit" th:text="#{setResponsibleMechanic}"> Set Responsible
                                     Mechanic
                                 </button>
                             </div>

@@ -50,8 +50,8 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
         <div>
-            <h1 class="d-flex justify-content-center text-danger">MY FINISHED ORDERS</h1>
-            <div th:each="o: ${orders}" class="rounded m-auto">
+            <h1 class="d-flex justify-content-center text-danger" th:text="#{history.finishedOrders}">MY FINISHED ORDERS</h1>
+            <div th:each="o: ${orders}" class="rounded m-auto mb-3">
                 <div class="border p-3">
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
                         th:text="'Service order for Car: '+${o.car.make}+' '+${o.car.model}+' - '+${o.car.registration}"></h4>
@@ -77,7 +77,7 @@
                                        class="btn btn-link text-danger text-uppercase border-primary mx-2" th:value="#{removeOrder}">
                             </form>
                             <form th:method="get" th:action="@{/orders/history/{id}(id=*{o.id})}">
-                                <button type="submit" class="btn btn-link text-danger text-uppercase border-primary mx-2">Details</button>
+                                <button type="submit" class="btn btn-link text-danger text-uppercase border-primary mx-2" th:text="#{information}">Details</button>
                             </form>
                         </div>
                     </div>

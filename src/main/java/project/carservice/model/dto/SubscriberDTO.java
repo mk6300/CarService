@@ -6,9 +6,9 @@ import project.carservice.validation.annotations.UniqueEmail;
 import project.carservice.validation.annotations.UniqueEmailSubscriber;
 
 public class SubscriberDTO {
-    @NotNull(message = "Email cannot be empty")
-    @UniqueEmailSubscriber
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Please enter valid email")
+    @NotNull(message = "{subscriber.email.not.empty}")
+    @UniqueEmailSubscriber (message = "{subscriber.email.unique}")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{subscriber.email.valid}")
     private String subsEmail;
 
     public String getSubsEmail() {

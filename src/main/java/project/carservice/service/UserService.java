@@ -1,6 +1,6 @@
 package project.carservice.service;
 
-import project.carservice.model.dto.RegisterUserDTO;
+import project.carservice.model.dto.addDTO.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.model.entity.User;

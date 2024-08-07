@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.carservice.model.dto.RegisterUserDTO;
+import project.carservice.model.dto.addDTO.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.model.entity.User;
@@ -146,6 +146,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     @Secured("ROLE_ADMIN")
+    @Transactional
     public void makeMechanic(UUID userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -156,6 +157,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     @Secured("ROLE_ADMIN")
+    @Transactional
     public void removeUser(UUID userId) {
         userRepository.deleteById(userId);
     }
@@ -196,6 +198,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Secured("ROLE_ADMIN")
+    @Transactional
     public void makeAdmin(UUID id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));

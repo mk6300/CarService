@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public class PartToOrderDTO {
-    @NotNull (message = "You must choose spare part")
+    @NotNull (message = "{add.partToOrder.selected.not.empty}")
     private Long selectedPartId;
-    @Positive (message = "You must choose quantity")
-    @NotNull (message = "You must choose quantity")
+    @Positive (message = "{add.partToOrder.quantity.positive}")
+    @NotNull (message = "{add.partToOrder.quantity.notnull}")
     private Integer quantity;
 
     public PartToOrderDTO() {

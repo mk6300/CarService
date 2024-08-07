@@ -13,16 +13,17 @@ public class EditUserDTO {
     private UUID id;
 
     private String username;
-    @NotEmpty
-    @Size(min = 2, max = 15, message = "Name length must be between 2 and 15 characters!")
+    @NotEmpty (message = "{register.firstName.not.empty}")
+    @Size(min = 2, max = 15, message = "{register.firstName.length}")
     private String firstName;
-    @NotEmpty
-    @Size(min = 2, max = 15, message = "Name length must be between 2 and 15 characters!")
+    @NotEmpty (message = "{register.lastName.not.empty}")
+    @Size(min = 2, max = 15, message = "{register.lastName.length}")
     private String lastName;
-
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Enter valid email!")
+    @NotEmpty (message = "{register.email.not.empty}")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "{register.email.valid}")
     private String email;
-    @Pattern(regexp = "^([+]?359)|0?(|-| )8[789]\\d{1}(|-| )\\d{3}(|-| )\\d{3}$", message = "Need add valid phone number")
+    @NotEmpty (message = "{register.phone.not.empty}")
+    @Pattern(regexp = "^([+]?359)|0?(|-| )8[789]\\d{1}(|-| )\\d{3}(|-| )\\d{3}$", message = "{register.phone.valid}")
     private String phone;
 
     public EditUserDTO() {

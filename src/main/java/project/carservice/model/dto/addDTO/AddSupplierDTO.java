@@ -7,17 +7,17 @@ import project.carservice.validation.annotations.ValidPhoneNumber;
 
 public class AddSupplierDTO {
 
-    @NotNull
-    @Size (min=3, message = "Name must be at least 3 characters")
+    @NotNull (message = "{add.supplier.name.not.empty}")
+    @Size (min=3, message = "{add.supplier.name.length}")
     private String name;
-    @NotNull
-    @Size (min=5, message = "Address must be at least 10 characters")
+    @NotNull (message = "{add.supplier.address.not.empty}")
+    @Size (min=5, message = "{add.supplier.address.length}")
     private String address;
-    @NotNull
-    @ValidPhoneNumber (message = "Please enter valid phone number")
+    @NotNull (message = "{add.supplier.phone.not.empty}")
+    @ValidPhoneNumber (message = "{add.supplier.phone.valid}")
     private String phoneNumber;
-    @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$", message = "Please enter valid email")
+    @NotNull (message = "{add.supplier.email.not.empty}")
+    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$", message = "{add.supplier.email.valid}")
     private String email;
 
     private String information;

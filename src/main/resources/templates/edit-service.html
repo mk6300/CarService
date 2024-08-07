@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service - Edit Profile</title>
+    <title>Car Service - Edit Service</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -48,7 +48,7 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="container">
-        <h2>Edit Service Details</h2>
+        <h2 th:text="#{services.editService}">Edit Service Details</h2>
         <form class="mt-4" th:action="@{/services/edit}" th:object="${editServiceDTO}" method="post">
             <input type="hidden" th:field="*{id}"/>
             <div class="form-group">
@@ -66,7 +66,7 @@
                 <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></small>
             </div>
             <div>
-                <button type="submit" class="btn btn-primary mt-5">Update Service Details</button>
+                <button type="submit" class="btn btn-primary mt-5" th:text="#{services.updateService}">Update Service Details</button>
                 <a class="btn btn-primary danger mt-5" th:href="@{/services/manage-services}" th:text="#{cancel}">Cancel</a>
             </div>
         </form>

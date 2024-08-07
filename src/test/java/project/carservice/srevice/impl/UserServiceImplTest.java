@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import project.carservice.model.dto.RegisterUserDTO;
+import project.carservice.model.dto.addDTO.RegisterUserDTO;
 import project.carservice.model.dto.UserDTO;
 import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.model.entity.User;

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service</title>
+    <title>Car Service - My Garage</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,6 +30,29 @@
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
 
+    <style>
+        .content{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-image: url('/images/garage1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        document.getElementById('deleteButton').addEventListener('click', function(event) {
+            var confirmation = confirm("Are you sure you want to delete this car? All Connected offers will be deleted as well.");
+            if (confirmation) {
+                document.getElementById('deleteForm').submit();
+            } else {
+                event.preventDefault();
+            }
+        });
+    </script>
+
 <body>
 <!-- Spinner Start-->
 <div id="spinner"
@@ -49,9 +72,9 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
         <div class="content" id="content">
-               <h1 class="d-flex justify-content-center" th:text="#{garage}">MY GARAGE</h1>
+               <h1 class="d-flex justify-content-center text-white" th:text="#{garage}">MY GARAGE</h1>
                     <h4 class="d-flex justify-content-center mt-5" th:if="${#lists.isEmpty(myCars)}" th:text="#{noCars}"> You do not have any cars in your garage </h4>
-                    <div th:each="car: ${myCars}" class="rounded m-auto">
+                    <div th:each="car: ${myCars}" class="rounded m-auto bg-white mb-3">
                         <div class="border p-3">
                         <h4 class="mySticky bg-gray text-dark rounded text-uppercase" th:text="${car.make}+' '+${car.model}+' - '+${car.registration}"></h4>
                               <div class="d-flex mt-3 rounded align-items-center ">
@@ -66,14 +89,6 @@
                                 <form id="deleteForm" th:method="delete" th:action="@{/cars/remove/{id}(id=*{car.id})}">
                                     <input id="deleteButton" type="submit" class="btn btn-link text-danger text-uppercase border-primary" th:value="#{removeCar}">
                                 </form>
-<!--                                <script>-->
-<!--                                    document.getElementById('deleteButton').addEventListener('click', function(event) {-->
-<!--                                        var confirmation = confirm("Are you sure you want to delete this car? All Connected offers will be deleted as well.");-->
-<!--                                        if (confirmation) {-->
-<!--                                            document.getElementById('deleteForm').submit();-->
-<!--                                        }-->
-<!--                                    });-->
-<!--                                </script>-->
                             </div>
                         </div>
                     </div>

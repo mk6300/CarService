@@ -51,17 +51,17 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="container mx-2 mt-3">
-        <h2>Finished Order Task Details</h2>
+        <h2 th:text="#{task.finishedTask.title}">Finished Order Task Details</h2>
         <div class="border p-3">
             <div>
                 <h4 class="bg-gray text-dark rounded text-uppercase justify-content-center"
                     th:text="'Service order for Car: '+${order.car.make}+' '+${order.car.model}+' - '+${order.car.registration}"></h4>
                 <div class="d-flex mt-3 rounded align-items-center ">
-                    <label> Date</label>
+                    <label th:text="#{date}"> Date</label>
                     <span th:text="${order.date}" class="text-uppercase form-control lh-base w-25"></span>
-                    <label> Description </label>
+                    <label th:text="#{description}"> Description </label>
                     <span th:text="${order.description}" class="text-uppercase form-control"></span>
-                    <label>Status</label>
+                    <label th:text="#{status}">Status</label>
                     <span th:text="${order.status}" th:style="${order.status == 'Scheduled'}
                            ? 'background-color: green; color: white;' : (${order.status == 'In Progress'} ? 'background-color: red; color: white;' :
                             (${order.status == 'Finished'} ? 'background-color: blue; color:white' : (${order.status == 'Pending'} ? 'background-color: yellow; color: black;' : '')))"
@@ -74,25 +74,25 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center">Used Spare
+                        <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center" th:text="#{task.usedParts}">Used Spare
                             Parts</h5>
                         <div class="mt-2 rounded">
                             <div th:each="part : ${parts}" class="d-flex mx-2">
                                 <label>Part Name</label>
                                 <div th:text="${part.name}" class="text-uppercase form-control lh-base w-50"></div>
                                 <label>Part Price</label>
-                                <span th:text="${part.price}" class="text-uppercase form-control lh-base w-25"></span>
+                                <span th:text="${#numbers.formatDecimal(part.price, 2, 2)}" class="text-uppercase form-control lh-base w-25"></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center">Made Services</h5>
+                        <h5 class="bg-gray text-dark rounded text-uppercase justify-content-center" th:text="#{task.usedServices}">Made Services</h5>
                         <div class="mt-2 rounded">
                             <div th:each="s : ${services}" class="d-flex mx-2">
                                 <label>Service Name</label>
                                 <div th:text="${s.name}" class="text-uppercase form-control lh-base w-50"></div>
                                 <label>Service Price</label>
-                                <span th:text="${s.price}" class="text-uppercase form-control lh-base w-25"></span>
+                                <span th:text="${#numbers.formatDecimal(s.price, 2, 2)}" class="text-uppercase form-control lh-base w-25"></span>
                             </div>
                         </div>
                     </div>
@@ -100,14 +100,14 @@
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <div class="text-uppercase font-weight-bold">
-                            <label>Total Spare Parts Price</label>
+                            <label th:text="#{task.totalPartsPrice}">Total Spare Parts Price</label>
                             <span th:text="${#numbers.formatDecimal(orderPartsPrice, 2, 2)}"
                                   class="text-uppercase form-control lh-base"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="text-uppercase">
-                            <label>Total Services Price</label>
+                            <label th:text="#{task.totalServicesPrice}">Total Services Price</label>
                             <span th:text="${#numbers.formatDecimal(orderServicePrice, 2, 2)}"
                                   class="text-uppercase form-control lh-base"></span>
                         </div>
@@ -117,13 +117,13 @@
         </div>
         <div class="d-flex mt-3 rounded justify-content-center">
             <div class="text-uppercase fs-5 fw-bold text-danger center">
-                <label> Services and Parts Total Price</label>
+                <label th:text="#{task.totalPrice}"> Services and Parts Total Price</label>
                 <span th:text="${#numbers.formatDecimal(totalPrice, 2, 2)}"
                       class="text-uppercase form-control lh-base fs-5 fw-bold text-center"></span>
             </div>
         </div>
         <div class="d-inline justify-content-center align-items-center mx-auto">
-            <h4 class="bg-gray text-dark rounded text-uppercase justify-content-center">Mechanic Comments</h4>
+            <h4 class="bg-gray text-dark rounded text-uppercase justify-content-center" th:text="#{task.mechaincComment}">Mechanic Comments</h4>
             <span th:text="*{order.mechanicComment}" type="text"
                   class="form-control col-xs-12" rows="5" cols="90"
                   name="mechanicComment" id="mechanicComment">

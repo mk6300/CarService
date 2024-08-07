@@ -10,17 +10,17 @@ import java.util.UUID;
 public class SupplierDTO {
 
     private UUID id;
-    @NotNull (message = "Name must be at least 3 characters")
-    @Size(min=3, message = "Name must be at least 3 characters")
+    @NotNull (message = "{add.supplier.name.not.empty}")
+    @Size(min=3, message = "{add.supplier.name.length}")
     private String name;
-    @NotNull (message = "Address must be at least 10 characters")
-    @Size (min=5, message = "Address must be at least 10 characters")
+    @NotNull (message = "{add.supplier.address.not.empty}")
+    @Size (min=5, message = "{add.supplier.address.length}")
     private String address;
-    @NotNull (message = "Please enter valid phone number")
-    @ValidPhoneNumber(message = "Please enter valid phone number")
+    @NotNull (message = "{add.supplier.phoneNumber.not.empty}")
+    @ValidPhoneNumber(message = "{add.supplier.phoneNumber.valid}")
     private String phoneNumber;
-    @NotNull (message = "Please enter valid email")
-    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$", message = "Please enter valid email")
+    @NotNull (message = "{add.supplier.email.not.empty}")
+    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$", message = "{add.supplier.email.valid}")
     private String email;
     private String information;
 

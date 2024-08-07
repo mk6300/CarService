@@ -10,7 +10,7 @@ public class EditServiceDTO {
 
     UUID id;
 
-    @NotNull
+    @NotNull (message = "Name must not be empty")
     @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters")
     private String name;
     @NotNull(message = "Price must be positive number")

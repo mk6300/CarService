@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service</title>
+    <title>Car Service - Admin Panel</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -53,6 +53,21 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var mechanicSelect = document.getElementById('mechanicSelect');
+            var removeMechanicButton = document.getElementById('removeMechanicButton');
+
+
+            mechanicSelect.addEventListener('change', function () {
+                if (mechanicSelect.value) {
+                    removeMechanicButton.removeAttribute('disabled');
+                } else {
+                    removeMechanicButton.setAttribute('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
 
 </head>
 <body>
@@ -74,12 +89,12 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
         <div id="users-container">
-            <h1 class="d-flex justify-content-center" >Users List</h1>
+            <h1 class="d-flex justify-content-center" th:text="#{manageUsers.userlist}">Users List</h1>
             <div class="rounded m-auto">
                 <form class="border p-3 justify-content-center" th:method="post" th:action="@{/admin/manage}">
                     <div class="d-flex justify-content-center mb-5">
                         <select id="userSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id" required>
-                            <option value="">Select User</option>
+                            <option value="" th:text="#{manageUsers.selectUser}">Select User</option>
                             <option th:each="u : ${users}" class="text-uppercase"
                                     th:value="${u.id}"
                                     th:text="${u.username} + ' - ' + ${u.firstName} + ' ' + ${u.lastName}"></option>
@@ -90,25 +105,25 @@
                         <div>
                             <button id="editButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                align-content-center" name="action" value="edit">Edit User
+                align-content-center" name="action" value="edit" th:text="#{manageUsers.editUser}">Edit User
                             </button>
                         </div>
                         <div>
                             <button id="makeMechanicButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                align-content-center mx-3" name="action" value="makeMechanic">Make Mechanic
+                align-content-center mx-3" name="action" value="makeMechanic" th:text="#{manageUsers.makeMechanic}">Make Mechanic
                             </button>
                         </div>
                         <div>
                             <button id="makeAdminButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                align-content-center mx-3" name="action" value="makeAdmin">Make Admin
+                align-content-center mx-3" name="action" value="makeAdmin" th:text="#{manageUsers.makeAdmin}">Make Admin
                             </button>
                         </div>
                         <div>
                             <button id="removeButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                align-content-center" name="action" value="remove">Remove User
+                align-content-center" name="action" value="remove" th:text="#{manageUsers.removeUser}">Remove User
                             </button>
                         </div>
                     </div>
@@ -116,12 +131,12 @@
             </div>
         </div>
         <div id="mechanics-container">
-            <h1 class="d-flex justify-content-center">Mechanics List</h1>
+            <h1 class="d-flex justify-content-center" th:text="#{manageUsers.mechanicList}">Mechanics List</h1>
             <div class="rounded m-auto">
                 <form class="border p-3 justify-content-center" th:method="post" th:action="@{/admin/remove-mechanic}">
                     <div class="d-flex justify-content-center mb-5">
                         <select id="mechanicSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id" required>
-                            <option value="">Select Mechanic</option>
+                            <option value=""th:text="#{manageUsers.selectMechanic}">Select Mechanic</option>
                             <option th:each="m : ${mechanics}" class="text-uppercase"
                                     th:value="${m.id}"
                                     th:text="${m.username} + ' - ' + ${m.firstName} + ' ' + ${m.lastName}"></option>
@@ -132,35 +147,21 @@
                         <div>
                             <button id="removeMechanicButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                                 align-content-center">Remove from Mechanics
+                                 align-content-center" th:text="#{manageUsers.removeMechanic}">Remove from Mechanics
                             </button>
                         </div>
                     </div>
                 </form>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var mechanicSelect = document.getElementById('mechanicSelect');
-                        var removeMechanicButton = document.getElementById('removeMechanicButton');
 
-
-                        mechanicSelect.addEventListener('change', function () {
-                            if (mechanicSelect.value) {
-                                removeMechanicButton.removeAttribute('disabled');
-                            } else {
-                                removeMechanicButton.setAttribute('disabled', 'disabled');
-                            }
-                        });
-                    });
-                </script>
             </div>
         </div>
         <div id="admin-container">
-            <h1 class="d-flex justify-content-center">Admins List</h1>
+            <h1 class="d-flex justify-content-center" th:text="#{manageUsers.adminList}">Admins List</h1>
             <div class="rounded m-auto">
                 <form class="border p-3 justify-content-center" th:method="post" th:action="@{/admin/remove-admin}">
                     <div class="d-flex justify-content-center mb-5">
                         <select id="adminSelect" class="form-control mx-2 mt-3 text-uppercase w-75" name="id" required>
-                            <option value="">Select Admin</option>
+                            <option value="" th:text="#{manageUsers.selectAdmin}">Select Admin</option>
                             <option th:each="a : ${admins}" class="text-uppercase"
                                     th:value="${a.id}"
                                     th:text="${a.username} + ' - ' + ${a.firstName} + ' ' + ${a.lastName}"></option>
@@ -171,7 +172,7 @@
                         <div>
                             <button id="removeAdminButton" type="submit" disabled
                                     class="btn border-dark text-danger float-right text-uppercase
-                                 align-content-center">Remove from Admins
+                                 align-content-center" th:text="#{manageUsers.removeAdmin}">Remove from Admins
                             </button>
                         </div>
                     </div>

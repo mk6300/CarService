@@ -9,16 +9,16 @@ import java.util.UUID;
 public class EditPartDTO {
     private Long id;
 
-    @NotNull (message = "Name must be between 3 and 255 characters")
-    @Size(min = 3, max = 30, message = "Name must be between 3 and 255 characters")
+    @NotNull (message = "{add.part.name.not.empty}")
+    @Size(min = 3, max = 30, message = "{add.part.name.length}")
     private String name;
-    @NotNull (message = "Price must be positive number")
-    @PositiveOrZero(message = "Price must be positive number")
+    @NotNull (message = "{add.part.price.not.null}")
+    @PositiveOrZero(message = "{add.part.price.positive}")
     private Double price;
-    @NotNull(message = "You must choose supplier")
+    @NotNull(message = "{add.part.supplier.not.empty}")
     private UUID supplierId;
-    @NotNull (message = "Description must be between 3 and 255 characters")
-    @Size(min = 3, max = 255, message = "Description must be between 3 and 255 characters")
+    @NotNull (message = "{add.part.description.not.empty}")
+    @Size(min = 3, max = 255, message = "{add.part.description.length}")
     private String description;
 
     public EditPartDTO() {

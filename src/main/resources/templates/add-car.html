@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service</title>
+    <title>Car Service - Add Car</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -105,7 +105,7 @@
         }
 
         .large-font {
-            font-size: 1.2rem; /* Adjust the font size as needed */
+            font-size: 1.2rem;
         }
     </style>
 </head>
@@ -127,7 +127,7 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
-        <h2 class="text-center text-black mt-5 text-danger">ADD CAR TO YOUR GARAGE</h2>
+        <h2 class="text-center text-black mt-5 text-danger uppercase" th:text="#{addCar.title}" >ADD CAR TO YOUR GARAGE</h2>
         <div class="main-form mx-auto col-md-8 flex flex-column justify-content-center">
             <form th:action="@{/cars/add}"
                   th:object="${addCarDTO}" method="post">
@@ -136,19 +136,19 @@
                         <div class="d-inline-flex align-items-center">
                             <select th:value="*{year}" th:errorclass="'is-invalid'" class="form-control mx-2 uppercase"
                                     name="year" id="year">
-                                <option value="">Select Year</option>
+                                <option value="" th:text="#{addCar.year}">Select Year</option>
                             </select>
                             <small th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="danger">Select
                                 Year</small>
                             <select th:field="*{make}" th:errorclass="'is-invalid'" class="form-control mx-2 uppercase"
                                     name="make" id="make">
-                                <option value="">Select Make</option>
+                                <option value="" th:text="#{addCar.make}" >Select Make</option>
                             </select>
                             <small th:if="${#fields.hasErrors('make')}" th:errors="*{make}" class="danger">Select
                                 Manufacturer</small>
                             <select th:field="*{model}" th:errorclass="'is-invalid'" class="form-control mx-2 uppercase"
                                     name="model" id="model">
-                                <option value="">Select Model</option>
+                                <option value=""th:text="#{addCar.model}">Select Model</option>
                             </select>
                             <small th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="danger">Select
                                 Model</small>
@@ -159,17 +159,17 @@
                         <div class="d-inline-flex align-items-center mt-5">
                             <input th:field="*{registration}" th:errorclass="'is-invalid'" type="text"
                                    class="form-control mx-2 uppercase" name="registration" id="registration"
-                                   placeholder="Registration Number">
+                                   th:placeholder="#{addCar.registrationNumber}">
                             <small th:if="${#fields.hasErrors('registration')}" th:errors="*{registration}"
                                    class="danger">Add Registration Number</small>
                             <input th:field="*{vinNumber}" th:errorclass="'is-invalid'" type="text"
                                    class="form-control mx-2 uppercase" name="vinNumber" id="vinNumber"
-                                   placeholder="VIN Number">
+                                   th:placeholder="#{addCar.vin}">
                             <small th:if="${#fields.hasErrors('vinNumber')}" th:errors="*{vinNumber}" class="danger">Add
                                 Valid VIN Number</small>
                             <select th:field="*{engine}" th:errorclass="'is-invalid'"
                                     class="form-control mx-2 uppercase" name="engine" id="engine">
-                                <option value="">Select Engine Type</option>
+                                <option value="" th:text="#{addCar.engine}">Select Engine Type</option>
                                 <option th:each="engine: ${allEngineTypes}"
                                         th:value="${engine}"
                                         th:text="${engine}"></option>
@@ -177,9 +177,9 @@
                             <small th:if="${#fields.hasErrors('engine')}" th:errors="*{engine}" class="danger">Add
                                 Engine Type</small>
                         </div>
-                        <button class="btn-lg blue mt-5 w-25 text-danger" type="submit">Add Car</button>
+                        <button class="btn-lg blue mt-5 w-25 text-danger" type="submit" th:text="#{addCar.button}">Add Car</button>
                         <input class="mt-5 text-uppercase" id="cq-show-data" type="button"
-                               value="Show Available Car Data For The Selected Car Model"/>
+                               th:value="#{addCar.showData}"/>
                         <div id="car-model-data" class="d-inline-flex align-items-center mt-5"></div>
                     </div>
                 </div>

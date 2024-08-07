@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.addDTO.AddServiceDTO;
 import project.carservice.model.dto.editDTO.EditServiceDTO;
 import project.carservice.service.exceptions.ServiceNotFoundException;
-import project.carservice.service.exceptions.UserNotFoundException;
 
 import java.util.UUID;
 

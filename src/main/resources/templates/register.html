@@ -50,7 +50,10 @@
                 </div>
 
                 <input th:field="*{username}" th:errorclass="'is-invalid'"
-                       type="text" class="form-control justify-content-center" id="username" name="username" placeholder="Choose Your Username"/>
+                       type="text" class="form-control justify-content-center" id="username" name="username"
+                       placeholder="Choose Your Username" required th:minlength="3" th:maxlength="20"
+                       oninvalid="this.setCustomValidity('Please enter a valid username between 3 and 20 characters')"
+                       oninput="setCustomValidity('')">
                 <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger">Username error message</small>
             </div>
 
@@ -61,7 +64,10 @@
                 <input th:field="*{password}"
                        th:errorclass="'is-invalid'"
                        type="password" class="form-control" id="password" name="password"
-                       placeholder="Password"/>
+                       placeholder="Password"
+                required minlength="5" maxlength="20"
+                       oninvalid="this.setCustomValidity('Please enter a password between 3 and 20 characters')"
+                       oninput="setCustomValidity('')" >
                 <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Password error message</small>
             </div>
 

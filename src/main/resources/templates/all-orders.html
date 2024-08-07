@@ -50,7 +50,7 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
         <div>
-            <h1 class="d-flex justify-content-center text-danger">ALL ORDERS</h1>
+            <h1 class="d-flex justify-content-center text-danger" th:text="#{allOrders}">ALL ORDERS</h1>
             <div th:each="o: ${orders}" class="rounded m-auto">
                 <div class="border p-3">
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
@@ -69,7 +69,7 @@
                     </div>
                     <div th:if="${o.mechanic!=null}" class="justify-content-center mt-4">
                         <div class="center">
-                            <span th:text="#{setResponsibleMechanic}+': '+${o.mechanic.firstName}+' '+${o.mechanic.lastName}"
+                            <span th:text="#{responsibleMechanic}+': '+${o.mechanic.firstName}+' '+${o.mechanic.lastName}"
                                   class="text-uppercase form-control w-50"> </span>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                         </form>
                         <form th:method="get" th:action="@{/orders/history/{id}(id=*{o.id})}">
                             <button type="submit"
-                                    class="btn btn-link text-danger text-uppercase border-primary mx-2">Details
+                                    class="btn btn-link text-danger text-uppercase border-primary mx-2" th:text="#{details}">Details
                             </button>
                         </form>
                     </div>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service</title>
+    <title>Car Service - Manage Parts</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -50,7 +50,19 @@
             });
         });
     </script>
+    <style>
+        .content {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-image: url('/images/parts.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
 
+    </style>
 </head>
 <body>
 <!-- Spinner Start-->
@@ -70,51 +82,58 @@
 <header th:replace="~{fragments/commons::nav (activeLink=${'home'})}"></header>
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
-    <div class="container mt-5">
-        <h2 th:text="#{manageSpareParts}">Manage Parts</h2>
-        <form th:action="@{/parts/manage-parts}" method="post">
-            <div class="form-group">
-                <label for="partSelect">Select Part:</label>
-                <select id="partSelect" name="partId" class="form-control" required>
-                    <option value="">Select part</option>
-                    <option th:each="p : ${parts}"
-                            th:value="${p.id}"
-                            th:selected="${p.id} == ${selectedPartId}"
-                            th:text="${p.name}"></option>
-                </select>
-            </div>
-            <button type="submit" id="selectButton" disabled class="btn btn-primary mt-3">Select Part</button>
-        </form>
-        <div class="mt-5 border p-3" th:if="${selectedPart != null}">
-            <h3>Selected Part Details</h3>
-                <p><strong>Name:</strong> <span th:text="${selectedPart.name}"></span></p>
-                 <p><strong>Description:</strong> <span th:text="${selectedPart.description}"></span></p>
-                <p><strong>Price:</strong> <span th:text="${selectedPart.price}"></span></p>
-                <p><strong>Supplier:</strong> <span th:text="${supplierName}"></span></p>
+    <div class="content" id="content">
+        <div class="container mt-5">
+            <h2 th:text="#{manageSpareParts}" class="text-white">Manage Parts</h2>
+            <form th:action="@{/parts/manage-parts}" method="post" class="bg-gradient">
+                <div class="form-group">
+                    <label for="partSelect" th:text="#{parts.selectPart}" class="text-white">Select Part:</label>
+                    <select id="partSelect" name="partId" class="form-control" required>
+                        <option value="" th:text="#{parts.selectPart}">Select part</option>
+                        <option th:each="p : ${parts}"
+                                th:value="${p.id}"
+                                th:selected="${p.id} == ${selectedPartId}"
+                                th:text="${p.name}"></option>
+                    </select>
+                </div>
+                <button type="submit" id="selectButton" disabled class="btn btn-primary mt-3"
+                        th:text="#{parts.selectPart}">Select Part
+                </button>
+            </form>
+            <div class="mt-5 border p-3 bg-white" th:if="${selectedPart != null}">
+                <h3 th:text="#{parts.selectedPart.details}">Selected Part Details</h3>
+                <p><strong th:text="#{name}">Name:</strong> <span th:text="${selectedPart.name}"></span></p>
+                <p><strong th:text="#{description}">Description:</strong> <span
+                        th:text="${selectedPart.description}"></span></p>
+                <p><strong th:text="#{price}">Price:</strong> <span th:text="${selectedPart.price}"></span></p>
+                <p><strong th:text="#{supplier}">Supplier:</strong> <span th:text="${supplierName}"></span></p>
 
 
-            <div class="d-flex justify-content-center mt-3">
-                <form th:action="@{/parts/edit/{id}(id=${selectedPart.id})}" th:method="get">
-                    <button class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center mx-3"
-                            type="submit">Edit Part
-                    </button>
-                </form>
-                <form th:action="@{/parts/remove/{id}(id=${selectedPart.id})}" th:method="delete" id="deleteForm">
-                    <button id="deleteButton" class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center ml-3"
-                            type="submit" onclick="confirmDelete()">Remove Part
-                    </button>
-                </form>
-                <script>
-                    document.getElementById('deleteButton').addEventListener('click', function(event) {
-                        var confirmation = confirm("Are you sure you want to delete this part?");
-                        if (confirmation) {
-                            document.getElementById('deleteForm').submit();
-                        }
-                    });
-                </script>
+                <div class="d-flex justify-content-center mt-3">
+                    <form th:action="@{/parts/edit/{id}(id=${selectedPart.id})}" th:method="get">
+                        <button class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center mx-3"
+                                type="submit" th:text="#{parts.editPart}">Edit Part
+                        </button>
+                    </form>
+                    <form th:action="@{/parts/remove/{id}(id=${selectedPart.id})}" th:method="delete" id="deleteForm">
+                        <button id="deleteButton"
+                                class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center ml-3"
+                                type="submit" onclick="confirmDelete()" th:text="#{parts.deletePart}">Remove Part
+                        </button>
+                    </form>
+                    <script>
+                        document.getElementById('deleteButton').addEventListener('click', function (event) {
+                            var confirmation = confirm("Are you sure you want to delete this part?");
+                            if (confirmation) {
+                                document.getElementById('deleteForm').submit();
+                            }
+                        });
+                    </script>
+                </div>
             </div>
+            <a th:href="@{/parts/add-part}" class="btn btn-danger mt-5" th:text="#{parts.addPart}"> ADD NEW SPARE
+                PART</a>
         </div>
-        <a th:href="@{/parts/add-part}" class="btn btn-danger mt-5"> ADD NEW SPARE PART</a>
     </div>
 </div>
 <footer th:replace="~{fragments/commons::footer}"></footer>

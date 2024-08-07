@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service - Add Part</title>
+    <title>Car Service - Edit Part</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -32,6 +32,19 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/main.js"></script>
+    <style>
+        .content {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-image: url('/images/parts.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+    </style>
 </head>
 <body>
 <!-- Spinner Start-->
@@ -51,31 +64,32 @@
 <div class="main-container">
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
-        <h2 class="text-center text-black mt-5 text-danger">EDIT SPARE PART</h2>
-        <div class="main-form mx-auto col-md-8 flex flex-column justify-content-center">
+        <h2 class="text-center text-black mt-5 text-danger" th:text="#{editPart.title}">EDIT SPARE PART</h2>
+        <div class="main-form mx-auto col-md-8 flex flex-column justify-content-center bg-gradient">
             <form th:action="@{/parts/edit}"
                   th:object="${partDTO}" method="post">
                 <div class="container">
                     <div class="row justify-content-center align-items-center mt-5">
                         <input type="hidden" th:field="*{id}"/>
                         <div class="d-inline-flex align-items-center mb-5">
-                            <label class="text-uppercase w-25">Name</label>
+                            <label class="text-uppercase w-25 text-white" th:text="#{name}">Name</label>
                             <input th:field="*{name}" th:errorclass="'is-invalid'" type="text"
                                    class="form-control mx-2 uppercase align-content-center w-50"
                                    name="name" id="name">
-                            <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="danger"></small>
+                            <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger danger"></small>
                         </div>
                         <div class="d-inline-flex align-items-center mb-5">
-                            <label class="text-uppercase w-25">Price (BGN) </label>
+                            <label class="text-uppercase w-25 text-white" th:text="#{priceBGN}">Price (BGN) </label>
                             <input th:field="*{price}" type="number" th:errorclass="'is-invalid'"
                                    class="form-control mx-2 uppercase align-content-center w-50 h-25"
                                    name="price" id="price"
                                    step="0.01"
-                                   placeholder="Add price in BGN">
-                            <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="danger"></small>
+                                   th:placeholder="#{services.addPrice}">
+                            <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger danger"></small>
                         </div>
 
                         <div class="d-inline-flex align-items-center mb-5">
+                            <label class="text-uppercase w-25 text-white" th:text="#{supplier}">Supplier </label>
                             <select th:feild="*{supplierId}" th:errorclass="'is-invalid'"
                                     class="form-control mx-2 text-uppercase" name="supplierId" id="supplierId" required>
                                 <option th:text="${supplierName}" th:value="${partDTO.supplierId}">Select part supplier</option>
@@ -83,17 +97,17 @@
                                         th:value="${s.id}"
                                         th:text="${s.name}"></option>
                             </select>
-                            <small th:if="${#fields.hasErrors('supplierId')}" th:errors="*{supplierId}" class="danger"></small>
+                            <small th:if="${#fields.hasErrors('supplierId')}" th:errors="*{supplierId}" class="text-danger danger"></small>
                         </div>
                         <div class="d-inline-flex align-items-center mb-5">
-                            <label class="text-uppercase w-25">Description</label>
+                            <label class="text-uppercase w-25 text-white" th:text="#{description}">Description</label>
                             <input th:field="*{description}" th:errorclass="'is-invalid'" type="text"
                                    class="form-control mx-2 uppercase align-content-center w-50"
                                    name="description" id="description">
-                            <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="danger"></small>
+                            <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger danger"></small>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn-lg blue mt-3 text-danger fw-bold text-uppercase" type="submit">Edit Spare Part
+                            <button class="btn-lg blue mt-3 text-danger fw-bold text-uppercase" type="submit" th:text="#{editPart.button}">Edit Spare Part
                             </button>
                         </div>
                     </div>

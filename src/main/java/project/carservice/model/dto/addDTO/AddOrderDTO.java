@@ -13,15 +13,15 @@ import java.util.UUID;
 public class AddOrderDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "Date must be in future!")
-    @NotNull(message = "Please select date!")
+    @Future(message = "{date.future}")
+    @NotNull(message = "{date.notnull}")
     private LocalDate date;
 
-    @Size(min = 20, message = "Description must be at least 20 characters!")
-    @NotNull (message = "Please enter description!")
+    @Size(min = 20, message = "{description.size}")
+    @NotNull(message = "{description.notnull}")
     private String description;
 
-    @NotNull(message = "Select car from garage or add a new car")
+    @NotNull(message = "{carId.notnull}")
     private UUID carId;
 
 public AddOrderDTO(LocalDate date, String description, UUID carId) {

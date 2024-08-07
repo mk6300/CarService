@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.model.dto.addDTO.AddOrderDTO;
-import project.carservice.service.exceptions.CarNotFoundException;
 import project.carservice.service.exceptions.OrderNotFoundException;
 
 import java.util.UUID;

@@ -10,25 +10,26 @@ import project.carservice.validation.annotations.UniqueVinNumber;
 import project.carservice.validation.annotations.ValidVinNumber;
 
 public class AddCarDTO {
-   @NotNull
-   @UniqueRegistration
-   @Size (min =2, max = 9, message = "Registration number must be between 2 and 9 characters!)")
+   @NotNull (message = "{addCar.registration.notnull}")
+   @UniqueRegistration (message = "{addCar.registration.unique}")
+   @Size (min =2, max = 10, message = "{addCar.registration.size}")
    private String registration;
-   @NotNull
+   @NotNull (message = "{addCar.make.notnull}")
     private String make;
 
-    @NotNull
+    @NotNull (message = "{addCar.model.notnull}")
     private String model;
-    @NotNull
+    @NotNull (message = "{addCar.year.notnull}")
     @Min(1941)
     @Max(2022)
     private int year;
 
-    @NotNull (message = "Please choose engine type")
+    @NotNull (message = "{addCar.engine.notnull}")
     private EngineTypeEnum engine;
 
-    @ValidVinNumber (message = "Need add valid VIN number")
-    @UniqueVinNumber
+    @NotNull (message = "{addCar.vin.notnull}")
+    @ValidVinNumber (message = "{addCar.vin.valid}")
+    @UniqueVinNumber (message = "{addCar.vin.unique}")
     private String vinNumber;
 
     public AddCarDTO(String registration, String make, String model, int year, EngineTypeEnum engine, String vinNumber) {

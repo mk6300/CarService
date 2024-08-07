@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service</title>
+    <title>Car Service - Orders</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -29,6 +29,18 @@
 
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .content{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-image: url('/images/orders.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
 <!-- Spinner Start-->
@@ -50,9 +62,9 @@
     <div th:replace="~{fragments/commons::sidebar}"></div>
     <div class="content" id="content">
         <div>
-            <h1 class="d-flex justify-content-center text-danger text-uppercase" th:text="#{myOrders}">MY ORDERS</h1>
-            <h4 class="d-flex justify-content-center mt-5" th:if="${#lists.isEmpty(myOrders)}" th:text="#{noOrders}"> You do not have unfinished orders </h4>
-            <div th:each="o: ${myOrders}" class="rounded m-auto">
+            <h1 class="d-flex justify-content-center text-white text-uppercase" th:text="#{myOrders}">MY ORDERS</h1>
+            <h4 class="d-flex justify-content-center mt-5 text-white" th:if="${#lists.isEmpty(myOrders)}" th:text="#{noOrders}"> You do not have unfinished orders </h4>
+            <div th:each="o: ${myOrders}" class="rounded m-auto bg-white mb-3">
                 <div class="border p-3">
                     <h4 class="mySticky bg-gray text-dark rounded text-uppercase"
                         th:text="'Service order for Car: ' + ${o.car.make}+ ' ' + ${o.car.model} + ' - ' + ${o.car.registration}"></h4>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Car Service - Services</title>
+    <title>Car Service - Admin Panel</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -74,31 +74,31 @@
         <h2 th:text="#{manageServices}">Manage Services</h2>
         <form th:action="@{/services/manage-services}" method="post">
             <div class="form-group">
-                <label for="serviceSelect">Select Service:</label>
+                <label for="serviceSelect" th:text="#{services.selectService}">Select Service:</label>
                 <select id="serviceSelect" name="serviceId" class="form-control" required>
-                    <option value="">Select service</option>
+                    <option value=""th:text="#{services.selectService}">Select service</option>
                     <option th:each="s : ${services}"
                             th:value="${s.id}"
                             th:selected="${s.id} == ${selectedServiceId}"
                             th:text="${s.name}"></option>
                 </select>
             </div>
-            <button type="submit" id="selectButton" disabled class="btn btn-primary mt-3">Select service</button>
+            <button type="submit" id="selectButton" disabled class="btn btn-primary mt-3" th:text="#{services.selectService}">Select service</button>
         </form>
         <div class="mt-5 border p-3" th:if="${selectedService != null}">
-            <h3>Selected Service Details</h3>
-            <p><strong>Name:</strong> <span th:text="${selectedService.name}"></span></p>
-            <p><strong>Description:</strong> <span th:text="${selectedService.description}"></span></p>
-            <p><strong>Price:</strong> <span th:text="${selectedService.price}"></span></p>
+            <h3 th:text="#{services.selectedService.details}">Selected Service Details</h3>
+            <p><strong th:text="#{name}">Name:</strong> <span th:text="${selectedService.name}"></span></p>
+            <p><strong th:text="#{description}">Description:</strong> <span th:text="${selectedService.description}"></span></p>
+            <p><strong th:text="#{price}">Price:</strong> <span th:text="${selectedService.price}"></span></p>
             <div class="d-flex justify-content-center mt-3">
                 <form th:action="@{/services/edit/{id}(id=${selectedService.id})}" th:method="get">
                     <button class="btn btn-link border-dark text-danger float-right text-uppercase align-content-center mx-3"
-                            type="submit">Edit Service
+                            type="submit" th:text="#{services.editService}">Edit Service
                     </button>
                 </form>
             </div>
         </div>
-        <a th:href="@{/services/add-service}" class="btn btn-danger mt-5"> ADD NEW SERVICE</a>
+        <a th:href="@{/services/add-service}" class="btn btn-danger mt-5" th:text="#{services.addService}"> ADD NEW SERVICE</a>
     </div>
 </div>
 <footer th:replace="~{fragments/commons::footer}"></footer>
