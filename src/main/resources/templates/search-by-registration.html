@@ -107,6 +107,14 @@
         </div>
     </div>
 </div>
+<div class="d-flex justify-content-center">
+    <form th:method="get" th:action="@{/orders/all-orders}">
+        <button type="submit"
+                class="btn-link float-right text-uppercase align-content-center border-primary mb-5"
+                th:text="#{back}">Back
+        </button>
+    </form>
+</div>
 <footer th:replace="~{fragments/commons::footer}"></footer>
 </body>
 </html>
