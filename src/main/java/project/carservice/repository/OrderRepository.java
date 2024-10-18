@@ -7,6 +7,7 @@ import project.carservice.model.entity.Order;
 import project.carservice.model.entity.enums.OrdersStatusEnum;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,4 +28,8 @@ public interface OrderRepository extends JpaRepository <Order, UUID> {
     List<Order> findAllByOrderByDateAsc();
 
     void deleteByDateBefore(LocalDate threeYearsAgo);
+
+    List<Order> findAllByDateOrderByDateAsc(LocalDate date);
+
+    List <Order> findAllByCar_RegistrationOrderByDateAsc(String registration);
 }

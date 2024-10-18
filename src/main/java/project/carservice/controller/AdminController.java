@@ -1,6 +1,7 @@
 package project.carservice.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,8 @@ import project.carservice.model.dto.editDTO.EditUserDTO;
 import project.carservice.service.exceptions.UserNotFoundException;
 
 
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping("/admin")
@@ -47,6 +50,12 @@ public interface AdminController {
 
     @DeleteMapping ("/remove-order/{id}")
     String removeOrder(@PathVariable UUID id);
+
+    @GetMapping("/search-by-date")
+    String searchByDate(@RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Model model);
+
+    @GetMapping("/search-by-registration")
+    String searchByRegistration(@RequestParam(value = "registration", required = false) String registration, Model model);
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus (HttpStatus.NOT_FOUND)

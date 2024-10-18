@@ -10,6 +10,7 @@ import project.carservice.model.dto.PartDTO;
 import project.carservice.model.entity.Order;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,4 +55,8 @@ public interface OrderService {
     List<OrderDTO> allOrders();
 
     void deleteOldFinishedOrders();
+
+    List<OrderDTO> findByDate(LocalDate date);
+
+    List<OrderDTO> findByCarRegistrationNumber(String registration);
 }

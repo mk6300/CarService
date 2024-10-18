@@ -220,6 +220,23 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    @Override
+    public List<OrderDTO> findByDate(LocalDate date) {
+        List<Order> orders = this.orderRepository.findAllByDateOrderByDateAsc(date);
+
+        return orders.stream()
+                .map(this::mapOrderDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderDTO> findByCarRegistrationNumber(String registration) {
+        return this.orderRepository.findAllByCar_RegistrationOrderByDateAsc(registration)
+                .stream()
+                .map(this::mapOrderDTO)
+                .collect(Collectors.toList());
+    }
+
     private void sendConfirmationOrderSubmit(String email, String carModel, String carMake, String carRegNumber) {
         mailService.sendMail(email, "Order Confirmation",
                 "Thank you for made an order for your " + carMake + " " + carModel + " with registration number " + carRegNumber + ". We will contact you soon!");

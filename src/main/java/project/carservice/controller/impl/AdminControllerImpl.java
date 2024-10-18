@@ -7,12 +7,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.carservice.controller.AdminController;
+import project.carservice.model.dto.OrderDTO;
 import project.carservice.model.dto.editDTO.EditOrderDTO;
 import project.carservice.model.dto.editDTO.EditUserDTO;
+import project.carservice.model.entity.Order;
 import project.carservice.service.OrderService;
 import project.carservice.service.UserService;
 import project.carservice.service.exceptions.UserNotFoundException;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -110,7 +114,21 @@ public class AdminControllerImpl implements AdminController {
         return "redirect:/admin/unsigned-orders";
     }
 
-      @Override
+    @Override
+    public String searchByDate(LocalDate date, Model model) {
+        List<OrderDTO> orders = orderService.findByDate(date);
+        model.addAttribute("orders", orders);
+        return "search-by-date";
+    }
+
+    @Override
+    public String searchByRegistration(String registration, Model model) {
+        List<OrderDTO> orders = orderService.findByCarRegistrationNumber(registration);
+        model.addAttribute("orders", orders);
+        return "search-by-registration";
+    }
+
+    @Override
     public String removeMechanic(UUID id) {
         userService.removeMechanic(id);
         return "redirect:/admin/manage-users";
