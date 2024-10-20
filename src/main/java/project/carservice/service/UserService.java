@@ -48,4 +48,8 @@ public interface UserService {
     void makeAdmin(UUID id);
 
     Optional<User> findById(UUID id);
+
+    int AllMechanicsCount();
+
+    int AllUsersCount();
 }

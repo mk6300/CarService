@@ -59,4 +59,6 @@ public interface OrderService {
     List<OrderDTO> findByDate(LocalDate date);
 
     List<OrderDTO> findByCarRegistrationNumber(String registration);
+
+    long allOrdersFinishedCount();
 }

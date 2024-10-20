@@ -32,4 +32,6 @@ public interface OrderRepository extends JpaRepository <Order, UUID> {
     List<Order> findAllByDateOrderByDateAsc(LocalDate date);
 
     List <Order> findAllByCar_RegistrationOrderByDateAsc(String registration);
+
+    List<Order> findAllByStatusIs (OrdersStatusEnum status);
 }

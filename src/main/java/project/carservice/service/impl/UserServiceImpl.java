@@ -214,6 +214,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
+    @Override
+    public int AllMechanicsCount() {
+        return userRepository.findAllByRole(UserRoleEnum.MECHANIC).size();
+    }
+
+    @Override
+    public int AllUsersCount() {
+        return userRepository.findAllByRole(UserRoleEnum.USER).size();
+    }
+
 
     private void sendRegistrationConfirmationEmail(String email, String firstName, String lastName) {
         mailService.sendMail(email, "Car Service - Registration Confirmation",

@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface IndexController {
 
     @GetMapping
-    String index();
+    String index(Model model);
 
     @GetMapping("/contact")
     String contact();
 
     @GetMapping("/about")
-    String about();
+    String about(Model model);
 
     @GetMapping("/service")
     String service();

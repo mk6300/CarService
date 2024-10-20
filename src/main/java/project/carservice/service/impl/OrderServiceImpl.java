@@ -237,6 +237,11 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public long allOrdersFinishedCount() {
+        return this.orderRepository.findAllByStatusIs(OrdersStatusEnum.SCHEDULED).size();
+    }
+
     private void sendConfirmationOrderSubmit(String email, String carModel, String carMake, String carRegNumber) {
         mailService.sendMail(email, "Order Confirmation",
                 "Thank you for made an order for your " + carMake + " " + carModel + " with registration number " + carRegNumber + ". We will contact you soon!");

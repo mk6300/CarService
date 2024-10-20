@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import project.carservice.model.entity.User;
 import project.carservice.model.entity.enums.UserRoleEnum;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,6 +22,5 @@ public interface UserRepository extends JpaRepository <User, UUID> {
 
     @Query("SELECT u FROM User u JOIN u.roles r WHERE r.role = :role")
     List<User> findAllByRole(@Param("role") UserRoleEnum role);
-
 }
 
